@@ -1,0 +1,72 @@
+﻿CREATE SCHEMA `pcgstorage` ;
+
+CREATE TABLE `pcgstorage`.`trait` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`Id`));
+
+CREATE TABLE `pcgstorage`.`pcguser` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `Email` VARCHAR(200) NOT NULL,
+  `Password` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`Id`));
+
+CREATE TABLE `pcgstorage`.`party` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(100) NOT NULL,
+  `PcgUserId` INT NOT NULL,
+  PRIMARY KEY (`Id`));
+
+ALTER TABLE `pcgstorage`.`party` 
+ADD INDEX `fk_pcguser_id_idx` (`PcgUserId` ASC);
+ALTER TABLE `pcgstorage`.`party` 
+ADD CONSTRAINT `fk_pcguser_id`
+  FOREIGN KEY (`PcgUserId`)
+  REFERENCES `pcgstorage`.`pcguser` (`Id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+CREATE TABLE `pcgstorage`.`charactercard` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`Id`));
+
+CREATE TABLE `pcgstorage`.`partycharacter` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `PartyId` INT NOT NULL,
+  `CharacterCardId` INT NOT NULL,
+  PRIMARY KEY (`Id`));
+
+ALTER TABLE `pcgstorage`.`partycharacter` 
+ADD INDEX `fk_party_id_idx` (`PartyId` ASC),
+ADD INDEX `fk_charactercard_id_idx` (`CharacterCardId` ASC);
+ALTER TABLE `pcgstorage`.`partycharacter` 
+ADD CONSTRAINT `fk_party_id`
+  FOREIGN KEY (`PartyId`)
+  REFERENCES `pcgstorage`.`party` (`Id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `fk_charactercard_id`
+  FOREIGN KEY (`CharacterCardId`)
+  REFERENCES `pcgstorage`.`charactercard` (`Id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+CREATE TABLE `pcgstorage`.`skills` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(45) NOT NULL,
+  `Primary` BIT NOT NULL,
+  `Group` INT NOT NULL,
+  `Dice` INT NOT NULL,
+  `Adjustment` INT NOT NULL,
+  `CharacterCardId` INT NOT NULL,
+  PRIMARY KEY (`Id`));
+
+ALTER TABLE `pcgstorage`.`skills` 
+ADD CONSTRAINT `fk_skills_charactercard_id`
+  FOREIGN KEY (`CharacterCardId`)
+  REFERENCES `pcgstorage`.`charactercard` (`Id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+

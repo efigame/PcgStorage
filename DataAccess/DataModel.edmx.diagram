@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5ddb206ea522452c9afbf29c19e79c5d" Name="Diagram1">
+        <EntityTypeShape EntityType="PcgStorageModel.trait" Width="1.5" PointX="5.5" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PcgStorageModel.pcguser" Width="1.5" PointX="0.5" PointY="0.5" />
+        <EntityTypeShape EntityType="PcgStorageModel.charactercard" Width="1.5" PointX="8.5" PointY="0.5" />
+        <EntityTypeShape EntityType="PcgStorageModel.party" Width="1.5" PointX="3.125" PointY="0.5" />
+        <EntityTypeShape EntityType="PcgStorageModel.partycharacter" Width="1.5" PointX="5.875" PointY="0.5" />
+        <AssociationConnector Association="PcgStorageModel.fk_charactercard_id" />
+        <AssociationConnector Association="PcgStorageModel.fk_party_id" />
+        <AssociationConnector Association="PcgStorageModel.fk_pcguser_id" />
+        <EntityTypeShape EntityType="PcgStorageModel.skill" Width="1.5" PointX="11" PointY="0.5" />
+        <AssociationConnector Association="PcgStorageModel.fk_skills_charactercard_id" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

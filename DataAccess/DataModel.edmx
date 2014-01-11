@@ -1,0 +1,349 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PcgStorageModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="charactercard">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="party">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PcgUserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="partycharacter">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PartyId" Type="int" Nullable="false" />
+          <Property Name="CharacterCardId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="pcguser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="skills">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Primary" Type="bit" Nullable="false" />
+          <Property Name="Group" Type="int" Nullable="false" />
+          <Property Name="Dice" Type="int" Nullable="false" />
+          <Property Name="Adjustment" Type="int" Nullable="false" />
+          <Property Name="CharacterCardId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="trait">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_charactercard_id">
+          <End Role="charactercard" Type="Self.charactercard" Multiplicity="1" />
+          <End Role="partycharacter" Type="Self.partycharacter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="charactercard">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="partycharacter">
+              <PropertyRef Name="CharacterCardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_party_id">
+          <End Role="party" Type="Self.party" Multiplicity="1" />
+          <End Role="partycharacter" Type="Self.partycharacter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="party">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="partycharacter">
+              <PropertyRef Name="PartyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_pcguser_id">
+          <End Role="pcguser" Type="Self.pcguser" Multiplicity="1" />
+          <End Role="party" Type="Self.party" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pcguser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="party">
+              <PropertyRef Name="PcgUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_skills_charactercard_id">
+          <End Role="charactercard" Type="Self.charactercard" Multiplicity="1" />
+          <End Role="skills" Type="Self.skills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="charactercard">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="skills">
+              <PropertyRef Name="CharacterCardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PcgStorageModelStoreContainer">
+          <EntitySet Name="charactercard" EntityType="Self.charactercard" Schema="pcgstorage" store:Type="Tables" />
+          <EntitySet Name="party" EntityType="Self.party" Schema="pcgstorage" store:Type="Tables" />
+          <EntitySet Name="partycharacter" EntityType="Self.partycharacter" Schema="pcgstorage" store:Type="Tables" />
+          <EntitySet Name="pcguser" EntityType="Self.pcguser" Schema="pcgstorage" store:Type="Tables" />
+          <EntitySet Name="skills" EntityType="Self.skills" Schema="pcgstorage" store:Type="Tables" />
+          <EntitySet Name="trait" EntityType="Self.trait" Schema="pcgstorage" store:Type="Tables" />
+          <AssociationSet Name="fk_charactercard_id" Association="Self.fk_charactercard_id">
+            <End Role="charactercard" EntitySet="charactercard" />
+            <End Role="partycharacter" EntitySet="partycharacter" />
+          </AssociationSet>
+          <AssociationSet Name="fk_party_id" Association="Self.fk_party_id">
+            <End Role="party" EntitySet="party" />
+            <End Role="partycharacter" EntitySet="partycharacter" />
+          </AssociationSet>
+          <AssociationSet Name="fk_pcguser_id" Association="Self.fk_pcguser_id">
+            <End Role="pcguser" EntitySet="pcguser" />
+            <End Role="party" EntitySet="party" />
+          </AssociationSet>
+          <AssociationSet Name="fk_skills_charactercard_id" Association="Self.fk_skills_charactercard_id">
+            <End Role="charactercard" EntitySet="charactercard" />
+            <End Role="skills" EntitySet="skills" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PcgStorageModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="trait">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="PcgStorageEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="traits" EntityType="PcgStorageModel.trait" />
+          <EntitySet Name="pcgusers" EntityType="PcgStorageModel.pcguser" />
+          <EntitySet Name="charactercards" EntityType="PcgStorageModel.charactercard" />
+          <EntitySet Name="parties" EntityType="PcgStorageModel.party" />
+          <EntitySet Name="partycharacters" EntityType="PcgStorageModel.partycharacter" />
+          <AssociationSet Name="fk_charactercard_id" Association="PcgStorageModel.fk_charactercard_id">
+            <End Role="charactercard" EntitySet="charactercards" />
+            <End Role="partycharacter" EntitySet="partycharacters" />
+          </AssociationSet>
+          <AssociationSet Name="fk_party_id" Association="PcgStorageModel.fk_party_id">
+            <End Role="party" EntitySet="parties" />
+            <End Role="partycharacter" EntitySet="partycharacters" />
+          </AssociationSet>
+          <AssociationSet Name="fk_pcguser_id" Association="PcgStorageModel.fk_pcguser_id">
+            <End Role="pcguser" EntitySet="pcgusers" />
+            <End Role="party" EntitySet="parties" />
+          </AssociationSet>
+          <EntitySet Name="skills" EntityType="PcgStorageModel.skill" />
+          <AssociationSet Name="fk_skills_charactercard_id" Association="PcgStorageModel.fk_skills_charactercard_id">
+            <End Role="charactercard" EntitySet="charactercards" />
+            <End Role="skill" EntitySet="skills" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="pcguser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="parties" Relationship="PcgStorageModel.fk_pcguser_id" FromRole="pcguser" ToRole="party" />
+        </EntityType>
+        <EntityType Name="charactercard">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="partycharacters" Relationship="PcgStorageModel.fk_charactercard_id" FromRole="charactercard" ToRole="partycharacter" />
+          <NavigationProperty Name="skills" Relationship="PcgStorageModel.fk_skills_charactercard_id" FromRole="charactercard" ToRole="skill" />
+        </EntityType>
+        <EntityType Name="party">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PcgUserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="partycharacters" Relationship="PcgStorageModel.fk_party_id" FromRole="party" ToRole="partycharacter" />
+          <NavigationProperty Name="pcguser" Relationship="PcgStorageModel.fk_pcguser_id" FromRole="party" ToRole="pcguser" />
+        </EntityType>
+        <EntityType Name="partycharacter">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PartyId" Type="Int32" Nullable="false" />
+          <Property Name="CharacterCardId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="charactercard" Relationship="PcgStorageModel.fk_charactercard_id" FromRole="partycharacter" ToRole="charactercard" />
+          <NavigationProperty Name="party" Relationship="PcgStorageModel.fk_party_id" FromRole="partycharacter" ToRole="party" />
+        </EntityType>
+        <Association Name="fk_charactercard_id">
+          <End Type="PcgStorageModel.charactercard" Role="charactercard" Multiplicity="1" />
+          <End Type="PcgStorageModel.partycharacter" Role="partycharacter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="charactercard">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="partycharacter">
+              <PropertyRef Name="CharacterCardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_party_id">
+          <End Type="PcgStorageModel.party" Role="party" Multiplicity="1" />
+          <End Type="PcgStorageModel.partycharacter" Role="partycharacter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="party">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="partycharacter">
+              <PropertyRef Name="PartyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_pcguser_id">
+          <End Type="PcgStorageModel.pcguser" Role="pcguser" Multiplicity="1" />
+          <End Type="PcgStorageModel.party" Role="party" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pcguser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="party">
+              <PropertyRef Name="PcgUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="skill">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Primary" Type="Boolean" Nullable="false" />
+          <Property Name="Group" Type="Int32" Nullable="false" />
+          <Property Name="Dice" Type="Int32" Nullable="false" />
+          <Property Name="Adjustment" Type="Int32" Nullable="false" />
+          <Property Name="CharacterCardId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="charactercard" Relationship="PcgStorageModel.fk_skills_charactercard_id" FromRole="skill" ToRole="charactercard" />
+        </EntityType>
+        <Association Name="fk_skills_charactercard_id">
+          <End Type="PcgStorageModel.charactercard" Role="charactercard" Multiplicity="1" />
+          <End Type="PcgStorageModel.skill" Role="skill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="charactercard">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="skill">
+              <PropertyRef Name="CharacterCardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PcgStorageModelStoreContainer" CdmEntityContainer="PcgStorageEntities">
+          <EntitySetMapping Name="traits">
+            <EntityTypeMapping TypeName="PcgStorageModel.trait">
+              <MappingFragment StoreEntitySet="trait">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pcgusers">
+            <EntityTypeMapping TypeName="PcgStorageModel.pcguser">
+              <MappingFragment StoreEntitySet="pcguser">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="charactercards">
+            <EntityTypeMapping TypeName="PcgStorageModel.charactercard">
+              <MappingFragment StoreEntitySet="charactercard">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="parties">
+            <EntityTypeMapping TypeName="PcgStorageModel.party">
+              <MappingFragment StoreEntitySet="party">
+                <ScalarProperty Name="PcgUserId" ColumnName="PcgUserId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="partycharacters">
+            <EntityTypeMapping TypeName="PcgStorageModel.partycharacter">
+              <MappingFragment StoreEntitySet="partycharacter">
+                <ScalarProperty Name="CharacterCardId" ColumnName="CharacterCardId" />
+                <ScalarProperty Name="PartyId" ColumnName="PartyId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="skills">
+            <EntityTypeMapping TypeName="PcgStorageModel.skill">
+              <MappingFragment StoreEntitySet="skills">
+                <ScalarProperty Name="CharacterCardId" ColumnName="CharacterCardId" />
+                <ScalarProperty Name="Adjustment" ColumnName="Adjustment" />
+                <ScalarProperty Name="Dice" ColumnName="Dice" />
+                <ScalarProperty Name="Group" ColumnName="Group" />
+                <ScalarProperty Name="Primary" ColumnName="Primary" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
