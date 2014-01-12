@@ -24,10 +24,38 @@ namespace Pcg_Storage.Webforms.Character
 
                 literalCharacterName.Text = character.Name;
                 literalPartyName.Text = party.Name;
+
+                repeaterSkills.DataSource = character.Skills;
+                repeaterSkills.DataBind();
             }
 
             linkEditCharacter.NavigateUrl = Url.PartyCharacterEdit(userId, partyId, characterId);
             linkGoToPartyView.NavigateUrl = Url.Party(userId, partyId);
+        }
+
+        protected void RepeaterSkills_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                var skill = (PcgManager.Dto.Skill)e.Item.DataItem;
+
+                var literalSkillName = (Literal)e.Item.FindControl("literalSkillName");
+                literalSkillName.Text = skill.Name;
+
+                var literalSkillDice = (Literal)e.Item.FindControl("literalSkillDice");
+                literalSkillDice.Text = "d" + skill.Dice.ToString();
+
+                var literalSkillAdjustment = (Literal)e.Item.FindControl("literalSkillAdjustment");
+                literalSkillAdjustment.Text = "+" + skill.Adjustment.ToString();
+
+                var literalSkillPossibleAddons = (Literal)e.Item.FindControl("literalSkillPossibleAddons");
+                literalSkillPossibleAddons.Text = "+" + skill.PossibleAddons.ToString();
+            }
+        }
+
+        protected void RepeaterSkills_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+
         }
     }
 }

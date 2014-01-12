@@ -14,6 +14,7 @@ namespace PcgManager.Dto
         public int Group { get; set; }
         public int Dice { get; set; }
         public int Adjustment { get; set; }
+        public int PossibleAddons { get; set; }
 
         public Skill()
         {
@@ -27,6 +28,7 @@ namespace PcgManager.Dto
             Group = skill.Group;
             Dice = skill.Dice;
             Adjustment = skill.Adjustment;
+            PossibleAddons = skill.PossibleAddons;
         }
     }
 }

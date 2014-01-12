@@ -69,4 +69,6 @@ ADD CONSTRAINT `fk_skills_charactercard_id`
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
 
+ALTER TABLE `pcgstorage`.`skills` 
+ADD COLUMN `PossibleAddons` INT NOT NULL AFTER `CharacterCardId`;
 

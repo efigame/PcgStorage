@@ -16,6 +16,7 @@ namespace DataAccess.Dto
         public int Dice { get; set; }
         public int Adjustment { get; set; }
         public int CharacterCardId { get; set; }
+        public int PossibleAddons { get; set; }
 
         internal Skill(DataAccess.skill skill)
         {
@@ -26,6 +27,7 @@ namespace DataAccess.Dto
             Dice = skill.Dice;
             Adjustment = skill.Adjustment;
             CharacterCardId = skill.CharacterCardId;
+            PossibleAddons = skill.PossibleAddons;
         }
     }
 }

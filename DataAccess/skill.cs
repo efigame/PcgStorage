@@ -21,6 +21,7 @@ namespace DataAccess
         public int Dice { get; set; }
         public int Adjustment { get; set; }
         public int CharacterCardId { get; set; }
+        public int PossibleAddons { get; set; }
     
         public virtual charactercard charactercard { get; set; }
     }

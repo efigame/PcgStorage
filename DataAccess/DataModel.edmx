@@ -47,6 +47,7 @@
           <Property Name="Dice" Type="int" Nullable="false" />
           <Property Name="Adjustment" Type="int" Nullable="false" />
           <Property Name="CharacterCardId" Type="int" Nullable="false" />
+          <Property Name="PossibleAddons" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="trait">
           <Key>
@@ -248,6 +249,7 @@
           <Property Name="Adjustment" Type="Int32" Nullable="false" />
           <Property Name="CharacterCardId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="charactercard" Relationship="PcgStorageModel.fk_skills_charactercard_id" FromRole="skill" ToRole="charactercard" />
+          <Property Name="PossibleAddons" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="fk_skills_charactercard_id">
           <End Type="PcgStorageModel.charactercard" Role="charactercard" Multiplicity="1" />
@@ -313,6 +315,7 @@
           <EntitySetMapping Name="skills">
             <EntityTypeMapping TypeName="PcgStorageModel.skill">
               <MappingFragment StoreEntitySet="skills">
+                <ScalarProperty Name="PossibleAddons" ColumnName="PossibleAddons" />
                 <ScalarProperty Name="CharacterCardId" ColumnName="CharacterCardId" />
                 <ScalarProperty Name="Adjustment" ColumnName="Adjustment" />
                 <ScalarProperty Name="Dice" ColumnName="Dice" />
