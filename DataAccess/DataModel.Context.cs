@@ -25,7 +25,6 @@ namespace DataAccess
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<trait> traits { get; set; }
         public virtual DbSet<pcguser> pcgusers { get; set; }
         public virtual DbSet<charactercard> charactercards { get; set; }
         public virtual DbSet<party> parties { get; set; }

@@ -9,37 +9,6 @@ namespace PcgManager
 {
     public class PcgManager : IPcgManager
     {
-        public IEnumerable<Dto.Card> GetCards()
-        {
-            // TODO: Should be changed to be something else like ... view method, or perhaps part of another object
-
-            var cardDtos = new List<Dto.Card>();
-
-            var cardDto = new Dto.Card
-            {
-                Id = 1,
-                Traits = new List<Dto.Trait>()
-            };
-
-            var traitDto = new Dto.Trait();
-
-            using (var data = new DataAccess.Data())
-            {
-                var traits = data.GetTraits().ToList();
-
-                var random = new Random();
-                var index = random.Next(0, traits.Count());
-
-                traitDto = new Dto.Trait(traits[index]);
-            }
-
-            cardDto.Traits.Add(traitDto);
-
-            cardDtos.Add(cardDto);
-
-            return cardDtos;
-        }
-
         public IEnumerable<Dto.Card> GetCards(Dto.CardType cardType)
         {
             // TODO: Should be changed to be something else like ... view method, or perhaps part of another object

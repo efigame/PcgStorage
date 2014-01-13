@@ -5,7 +5,6 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="5ddb206ea522452c9afbf29c19e79c5d" Name="Diagram1">
-        <EntityTypeShape EntityType="PcgStorageModel.trait" Width="1.5" PointX="5.5" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PcgStorageModel.pcguser" Width="1.5" PointX="0.5" PointY="0.5" />
         <EntityTypeShape EntityType="PcgStorageModel.charactercard" Width="1.5" PointX="8.5" PointY="0.5" />
         <EntityTypeShape EntityType="PcgStorageModel.party" Width="1.5" PointX="3.125" PointY="0.5" />

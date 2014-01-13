@@ -9,8 +9,6 @@ namespace PcgManager
 {
     public interface IPcgManager
     {
-        IEnumerable<Dto.Card> GetCards();
-
         List<Dto.Party> GetParties(int userId);
 
         Dto.Party GetParty(int partyId);

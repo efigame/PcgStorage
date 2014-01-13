@@ -83,7 +83,6 @@
     <Compile Include="Dto\PartyCharacter.cs" />
     <Compile Include="Dto\Party.cs" />
     <Compile Include="Dto\PcgUser.cs" />
-    <Compile Include="Dto\Trait.cs" />
     <Compile Include="IData.cs" />
     <Compile Include="party.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
@@ -99,9 +98,6 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="subskill.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="trait.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>

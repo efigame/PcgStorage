@@ -15,8 +15,6 @@ namespace PcgManager.Dto
 
         public CardType CardType { get; set; }
         
-        public List<Trait> Traits { get; set; }
-
         internal Card()
         {
         }

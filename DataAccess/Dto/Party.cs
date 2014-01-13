@@ -61,7 +61,7 @@ namespace DataAccess.Dto
                 }
             }
         }
-        public void Delete()
+        public void Delete() // TODO: Remember foreign relations
         {
             using (var data = new PcgStorageEntities())
             {

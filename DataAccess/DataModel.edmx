@@ -55,13 +55,6 @@
           <Property Name="BaseSkillId" Type="int" Nullable="false" />
           <Property Name="Adjustment" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="trait">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="45" Nullable="false" />
-        </EntityType>
         <Association Name="fk_charactercard_id">
           <End Role="charactercard" Type="Self.charactercard" Multiplicity="1" />
           <End Role="partycharacter" Type="Self.partycharacter" Multiplicity="*" />
@@ -129,7 +122,6 @@
           <EntitySet Name="pcguser" EntityType="Self.pcguser" Schema="pcgstorage" store:Type="Tables" />
           <EntitySet Name="skills" EntityType="Self.skills" Schema="pcgstorage" store:Type="Tables" />
           <EntitySet Name="subskills" EntityType="Self.subskills" Schema="pcgstorage" store:Type="Tables" />
-          <EntitySet Name="trait" EntityType="Self.trait" Schema="pcgstorage" store:Type="Tables" />
           <AssociationSet Name="fk_charactercard_id" Association="Self.fk_charactercard_id">
             <End Role="charactercard" EntitySet="charactercard" />
             <End Role="partycharacter" EntitySet="partycharacter" />
@@ -155,15 +147,7 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PcgStorageModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="trait">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-        </EntityType>
         <EntityContainer Name="PcgStorageEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="traits" EntityType="PcgStorageModel.trait" />
           <EntitySet Name="pcgusers" EntityType="PcgStorageModel.pcguser" />
           <EntitySet Name="charactercards" EntityType="PcgStorageModel.charactercard" />
           <EntitySet Name="parties" EntityType="PcgStorageModel.party" />
@@ -317,14 +301,6 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="PcgStorageModelStoreContainer" CdmEntityContainer="PcgStorageEntities">
-          <EntitySetMapping Name="traits">
-            <EntityTypeMapping TypeName="PcgStorageModel.trait">
-              <MappingFragment StoreEntitySet="trait">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="pcgusers">
             <EntityTypeMapping TypeName="PcgStorageModel.pcguser">
               <MappingFragment StoreEntitySet="pcguser">

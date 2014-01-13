@@ -1,10 +1,5 @@
 ﻿CREATE SCHEMA `pcgstorage` ;
 
-CREATE TABLE `pcgstorage`.`trait` (
-  `Id` INT NOT NULL AUTO_INCREMENT,
-  `Name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`Id`));
-
 CREATE TABLE `pcgstorage`.`pcguser` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `Email` VARCHAR(200) NOT NULL,
