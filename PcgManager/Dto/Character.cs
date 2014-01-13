@@ -38,11 +38,8 @@ namespace PcgManager.Dto
 
         public void Delete()
         {
-            using (var data = new DataAccess.Data())
-            {
-                var partyCharacter = data.GetPartyCharacter(Id);
-                partyCharacter.Delete();
-            }
+            var partyCharacter = DataAccess.Dto.PartyCharacter.Get(Id);
+            partyCharacter.Delete();
         }
 
         public Character()

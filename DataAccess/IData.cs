@@ -10,9 +10,6 @@ namespace DataAccess
     public interface IData
     {
  
-        IEnumerable<Dto.PartyCharacter> GetPartyCharacters(int partyId);
-
-        Dto.PartyCharacter GetPartyCharacter(int id);
 
         bool CheckUserByEmail(string email);
 

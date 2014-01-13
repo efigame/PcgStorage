@@ -35,11 +35,8 @@ namespace PcgManager.Dto
 
             if (DeepObjects)
             {
-                using (var data = new DataAccess.Data())
-                {
-                    var characters = data.GetPartyCharacters(Id);
-                    Characters.AddRange(characters.Select(c => new Character(c)));
-                }
+                var characters = DataAccess.Dto.PartyCharacter.All(Id);
+                Characters.AddRange(characters.Select(c => new Character(c)));
             }
         }
 
@@ -75,7 +72,7 @@ namespace PcgManager.Dto
 
                 partyInDb.Update();
 
-                var partyCardsInDb = data.GetPartyCharacters(partyInDb.Id);
+                var partyCardsInDb = DataAccess.Dto.PartyCharacter.All(partyInDb.Id);
 
                 var intersetingIds = Characters.Select(c => c.CharacterCardId).Intersect(partyCardsInDb.Select(p => p.CharacterCardId));
 

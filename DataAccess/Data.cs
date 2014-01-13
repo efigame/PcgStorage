@@ -8,32 +8,6 @@ namespace DataAccess
 {
     public class Data : IData, IDisposable
     {
- 
-        public IEnumerable<Dto.PartyCharacter> GetPartyCharacters(int partyId)
-        {
-            var partyCharacterDtos = new List<Dto.PartyCharacter>();
-
-            using (var data = new PcgStorageEntities())
-            {
-                var partyCharacters = data.partycharacters.Where(p => p.PartyId == partyId).ToList();
-                partyCharacterDtos.AddRange(partyCharacters.Select(p => new Dto.PartyCharacter(p, p.charactercard)));
-            }
-
-            return partyCharacterDtos;
-        }
-
-        public Dto.PartyCharacter GetPartyCharacter(int id)
-        {
-            var partyCharacterDto = new Dto.PartyCharacter();
-
-            using (var data = new PcgStorageEntities())
-            {
-                var partyCharacter = data.partycharacters.SingleOrDefault(p => p.Id == id);
-                partyCharacterDto = new Dto.PartyCharacter(partyCharacter, partyCharacter.charactercard);
-            }
-
-            return partyCharacterDto;
-        }
 
         public bool CheckUserByEmail(string email)
         {
