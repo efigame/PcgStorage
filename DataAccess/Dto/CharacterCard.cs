@@ -39,10 +39,33 @@ namespace DataAccess.Dto
             return allCards;
         }
 
+        public void Persist()
+        {
+            using (var data = new PcgStorageEntities())
+            {
+                var card = this.ToEntity();
+
+                data.charactercards.Add(card);
+                data.SaveChanges();
+
+                Id = card.Id;
+            }
+        }
+
         internal CharacterCard(DataAccess.charactercard card)
         {
             Id = card.Id;
             Name = card.Name;
+        }
+
+        internal charactercard ToEntity()
+        {
+            var card = new DataAccess.charactercard
+            {
+                Name = this.Name
+            };
+
+            return card;
         }
     }
 }
