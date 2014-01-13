@@ -45,9 +45,6 @@ namespace Pcg_Storage.Webforms.Character
                 var literalSkillDice = (Literal)e.Item.FindControl("literalSkillDice");
                 literalSkillDice.Text = "d" + skill.Dice.ToString();
 
-                var literalSkillAdjustment = (Literal)e.Item.FindControl("literalSkillAdjustment");
-                literalSkillAdjustment.Text = "+" + skill.Adjustment.ToString();
-
                 var literalSkillPossibleAddons = (Literal)e.Item.FindControl("literalSkillPossibleAddons");
                 literalSkillPossibleAddons.Text = "+" + skill.PossibleAddons.ToString();
             }

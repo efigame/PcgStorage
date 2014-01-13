@@ -55,11 +55,9 @@ ADD CONSTRAINT `fk_charactercard_id`
 CREATE TABLE `pcgstorage`.`skills` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `Name` VARCHAR(45) NOT NULL,
-  `Primary` BIT NOT NULL,
-  `Group` INT NOT NULL,
   `Dice` INT NOT NULL,
-  `Adjustment` INT NOT NULL,
   `CharacterCardId` INT NOT NULL,
+  `PossibleAddons` INT NOT NULL,
   PRIMARY KEY (`Id`));
 
 ALTER TABLE `pcgstorage`.`skills` 
@@ -69,6 +67,18 @@ ADD CONSTRAINT `fk_skills_charactercard_id`
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
 
-ALTER TABLE `pcgstorage`.`skills` 
-ADD COLUMN `PossibleAddons` INT NOT NULL AFTER `CharacterCardId`;
+CREATE TABLE `pcgstorage`.`subskills` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(45) NOT NULL,
+  `BaseSkillId` INT NOT NULL,
+  `Adjustment` INT NOT NULL,
+  PRIMARY KEY (`Id`));
 
+ALTER TABLE `pcgstorage`.`subskills` 
+ADD INDEX `fk_subskills_skills_id_idx` (`BaseSkillId` ASC);
+ALTER TABLE `pcgstorage`.`subskills` 
+ADD CONSTRAINT `fk_subskills_skills_id`
+  FOREIGN KEY (`BaseSkillId`)
+  REFERENCES `pcgstorage`.`skills` (`Id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;

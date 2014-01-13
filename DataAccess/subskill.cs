@@ -12,20 +12,13 @@ namespace DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class skill
+    public partial class subskill
     {
-        public skill()
-        {
-            this.subskills = new HashSet<subskill>();
-        }
-    
         public int Id { get; set; }
         public string Name { get; set; }
-        public int Dice { get; set; }
-        public int CharacterCardId { get; set; }
-        public int PossibleAddons { get; set; }
+        public int BaseSkillId { get; set; }
+        public int Adjustment { get; set; }
     
-        public virtual charactercard charactercard { get; set; }
-        public virtual ICollection<subskill> subskills { get; set; }
+        public virtual skill skill { get; set; }
     }
 }

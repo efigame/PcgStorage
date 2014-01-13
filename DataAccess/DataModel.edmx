@@ -42,12 +42,18 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="Primary" Type="bit" Nullable="false" />
-          <Property Name="Group" Type="int" Nullable="false" />
           <Property Name="Dice" Type="int" Nullable="false" />
-          <Property Name="Adjustment" Type="int" Nullable="false" />
           <Property Name="CharacterCardId" Type="int" Nullable="false" />
           <Property Name="PossibleAddons" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="subskills">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="BaseSkillId" Type="int" Nullable="false" />
+          <Property Name="Adjustment" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="trait">
           <Key>
@@ -104,12 +110,25 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_subskills_skills_id">
+          <End Role="skills" Type="Self.skills" Multiplicity="1" />
+          <End Role="subskills" Type="Self.subskills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="skills">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="subskills">
+              <PropertyRef Name="BaseSkillId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="PcgStorageModelStoreContainer">
           <EntitySet Name="charactercard" EntityType="Self.charactercard" Schema="pcgstorage" store:Type="Tables" />
           <EntitySet Name="party" EntityType="Self.party" Schema="pcgstorage" store:Type="Tables" />
           <EntitySet Name="partycharacter" EntityType="Self.partycharacter" Schema="pcgstorage" store:Type="Tables" />
           <EntitySet Name="pcguser" EntityType="Self.pcguser" Schema="pcgstorage" store:Type="Tables" />
           <EntitySet Name="skills" EntityType="Self.skills" Schema="pcgstorage" store:Type="Tables" />
+          <EntitySet Name="subskills" EntityType="Self.subskills" Schema="pcgstorage" store:Type="Tables" />
           <EntitySet Name="trait" EntityType="Self.trait" Schema="pcgstorage" store:Type="Tables" />
           <AssociationSet Name="fk_charactercard_id" Association="Self.fk_charactercard_id">
             <End Role="charactercard" EntitySet="charactercard" />
@@ -126,6 +145,10 @@
           <AssociationSet Name="fk_skills_charactercard_id" Association="Self.fk_skills_charactercard_id">
             <End Role="charactercard" EntitySet="charactercard" />
             <End Role="skills" EntitySet="skills" />
+          </AssociationSet>
+          <AssociationSet Name="fk_subskills_skills_id" Association="Self.fk_subskills_skills_id">
+            <End Role="skills" EntitySet="skills" />
+            <End Role="subskills" EntitySet="subskills" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -158,9 +181,14 @@
             <End Role="party" EntitySet="parties" />
           </AssociationSet>
           <EntitySet Name="skills" EntityType="PcgStorageModel.skill" />
+          <EntitySet Name="subskills" EntityType="PcgStorageModel.subskill" />
           <AssociationSet Name="fk_skills_charactercard_id" Association="PcgStorageModel.fk_skills_charactercard_id">
             <End Role="charactercard" EntitySet="charactercards" />
             <End Role="skill" EntitySet="skills" />
+          </AssociationSet>
+          <AssociationSet Name="fk_subskills_skills_id" Association="PcgStorageModel.fk_subskills_skills_id">
+            <End Role="skill" EntitySet="skills" />
+            <End Role="subskill" EntitySet="subskills" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="pcguser">
@@ -243,13 +271,21 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="Primary" Type="Boolean" Nullable="false" />
-          <Property Name="Group" Type="Int32" Nullable="false" />
           <Property Name="Dice" Type="Int32" Nullable="false" />
-          <Property Name="Adjustment" Type="Int32" Nullable="false" />
           <Property Name="CharacterCardId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="charactercard" Relationship="PcgStorageModel.fk_skills_charactercard_id" FromRole="skill" ToRole="charactercard" />
           <Property Name="PossibleAddons" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="charactercard" Relationship="PcgStorageModel.fk_skills_charactercard_id" FromRole="skill" ToRole="charactercard" />
+          <NavigationProperty Name="subskills" Relationship="PcgStorageModel.fk_subskills_skills_id" FromRole="skill" ToRole="subskill" />
+        </EntityType>
+        <EntityType Name="subskill">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="BaseSkillId" Type="Int32" Nullable="false" />
+          <Property Name="Adjustment" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="skill" Relationship="PcgStorageModel.fk_subskills_skills_id" FromRole="subskill" ToRole="skill" />
         </EntityType>
         <Association Name="fk_skills_charactercard_id">
           <End Type="PcgStorageModel.charactercard" Role="charactercard" Multiplicity="1" />
@@ -260,6 +296,18 @@
             </Principal>
             <Dependent Role="skill">
               <PropertyRef Name="CharacterCardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_subskills_skills_id">
+          <End Type="PcgStorageModel.skill" Role="skill" Multiplicity="1" />
+          <End Type="PcgStorageModel.subskill" Role="subskill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="skill">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="subskill">
+              <PropertyRef Name="BaseSkillId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -317,10 +365,17 @@
               <MappingFragment StoreEntitySet="skills">
                 <ScalarProperty Name="PossibleAddons" ColumnName="PossibleAddons" />
                 <ScalarProperty Name="CharacterCardId" ColumnName="CharacterCardId" />
-                <ScalarProperty Name="Adjustment" ColumnName="Adjustment" />
                 <ScalarProperty Name="Dice" ColumnName="Dice" />
-                <ScalarProperty Name="Group" ColumnName="Group" />
-                <ScalarProperty Name="Primary" ColumnName="Primary" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="subskills">
+            <EntityTypeMapping TypeName="PcgStorageModel.subskill">
+              <MappingFragment StoreEntitySet="subskills">
+                <ScalarProperty Name="Adjustment" ColumnName="Adjustment" />
+                <ScalarProperty Name="BaseSkillId" ColumnName="BaseSkillId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

@@ -13,8 +13,10 @@
         <AssociationConnector Association="PcgStorageModel.fk_charactercard_id" />
         <AssociationConnector Association="PcgStorageModel.fk_party_id" />
         <AssociationConnector Association="PcgStorageModel.fk_pcguser_id" />
-        <EntityTypeShape EntityType="PcgStorageModel.skill" Width="1.5" PointX="11" PointY="0.5" />
+        <EntityTypeShape EntityType="PcgStorageModel.skill" Width="1.5" PointX="10.625" PointY="0.5" />
+        <EntityTypeShape EntityType="PcgStorageModel.subskill" Width="1.5" PointX="12.875" PointY="0.75" />
         <AssociationConnector Association="PcgStorageModel.fk_skills_charactercard_id" />
+        <AssociationConnector Association="PcgStorageModel.fk_subskills_skills_id" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -31,5 +31,6 @@ namespace DataAccess
         public virtual DbSet<party> parties { get; set; }
         public virtual DbSet<partycharacter> partycharacters { get; set; }
         public virtual DbSet<skill> skills { get; set; }
+        public virtual DbSet<subskill> subskills { get; set; }
     }
 }

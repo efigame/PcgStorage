@@ -98,6 +98,9 @@
     <Compile Include="skill.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="subskill.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="trait.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
