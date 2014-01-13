@@ -26,6 +26,19 @@ namespace DataAccess.Dto
             return characterCard;
         }
 
+        public static List<CharacterCard> All()
+        {
+            var allCards = new List<CharacterCard>();
+
+            using (var data = new PcgStorageEntities())
+            {
+                var all = data.charactercards;
+                allCards.AddRange(all.Select(a => new CharacterCard(a)));
+            }
+
+            return allCards;
+        }
+
         internal CharacterCard(DataAccess.charactercard card)
         {
             Id = card.Id;
