@@ -57,9 +57,20 @@ namespace DataAccess.Dto
                 if (party != null)
                 {
                     party.Name = Name;
+                    data.SaveChanges();
                 }
-
-                data.SaveChanges();
+            }
+        }
+        public void Delete()
+        {
+            using (var data = new PcgStorageEntities())
+            {
+                var party = data.parties.SingleOrDefault(u => u.Id == Id);
+                if (party != null)
+                {
+                    data.parties.Remove(party);
+                    data.SaveChanges();
+                }
             }
         }
 
