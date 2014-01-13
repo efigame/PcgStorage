@@ -11,7 +11,7 @@ namespace DataAccess
     {
         IEnumerable<Dto.Trait> GetTraits();
 
-        IEnumerable<Dto.Party> GetParties(int userId);
+        //IEnumerable<Dto.Party> GetParties(int userId);
 
         //Dto.Party GetParty(int partyId);
 

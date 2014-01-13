@@ -25,6 +25,18 @@ namespace DataAccess.Dto
 
             return party;
         }
+        public static List<Party> All(int userId)
+        {
+            var parties = new List<Party>();
+
+            using (var data = new PcgStorageEntities())
+            {
+                var all = data.parties.Where(p => p.PcgUserId == userId);
+                parties.AddRange(all.Select(a => new Party(a)));
+            }
+
+            return parties;
+        }
 
         public void Persist()
         {

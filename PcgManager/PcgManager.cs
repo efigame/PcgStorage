@@ -46,17 +46,14 @@ namespace PcgManager
 
             var cardDtos = new List<Dto.Card>();
 
-            using (var data = new DataAccess.Data())
+            switch (cardType)
             {
-                switch (cardType)
-                {
-                    case Dto.CardType.Character:
-                        var characterCards = DataAccess.Dto.CharacterCard.All();
-                        cardDtos.AddRange(characterCards.Select(c => new Dto.Card(c)));
-                        break;
-                    case Dto.CardType.Monster:
-                        break;
-                }
+                case Dto.CardType.Character:
+                    var characterCards = DataAccess.Dto.CharacterCard.All();
+                    cardDtos.AddRange(characterCards.Select(c => new Dto.Card(c)));
+                    break;
+                case Dto.CardType.Monster:
+                    break;
             }
 
             return cardDtos;
@@ -68,11 +65,8 @@ namespace PcgManager
 
             var parties = new List<Dto.Party>();
 
-            using (var data = new DataAccess.Data())
-            {
-                var partyList = data.GetParties(userId);
-                parties.AddRange(partyList.Select(p => new Dto.Party(p, false)));
-            }
+            var partyList = DataAccess.Dto.Party.All(userId);
+            parties.AddRange(partyList.Select(p => new Dto.Party(p, false)));
 
             return parties;
         }
@@ -81,11 +75,8 @@ namespace PcgManager
         {
             var partyDto = new Dto.Party();
 
-            using(var data = new DataAccess.Data())
-            {
-                var party = DataAccess.Dto.Party.Get(partyId);
-                partyDto = new Dto.Party(party);
-            }
+            var party = DataAccess.Dto.Party.Get(partyId);
+            partyDto = new Dto.Party(party);
 
             return partyDto;
         }

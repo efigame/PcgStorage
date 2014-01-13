@@ -21,18 +21,18 @@ namespace DataAccess
             return traitsDto;
         }
 
-        public IEnumerable<Dto.Party> GetParties(int userId)
-        {
-            var parties = new List<Dto.Party>();
+        //public IEnumerable<Dto.Party> GetParties(int userId)
+        //{
+        //    var parties = new List<Dto.Party>();
 
-            using (var data = new PcgStorageEntities())
-            {
-                var partyList = data.parties.Where(p => p.PcgUserId == userId).ToList();
-                parties.AddRange(partyList.Select(p => new Dto.Party(p)));
-            }
+        //    using (var data = new PcgStorageEntities())
+        //    {
+        //        var partyList = data.parties.Where(p => p.PcgUserId == userId).ToList();
+        //        parties.AddRange(partyList.Select(p => new Dto.Party(p)));
+        //    }
 
-            return parties;
-        }
+        //    return parties;
+        //}
 
         //public Dto.Party GetParty(int partyId)
         //{
