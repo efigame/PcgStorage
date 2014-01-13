@@ -10,14 +10,8 @@ namespace DataAccess.Dto
     public class PcgUser
     {
         public int Id { get; set; }
-
         public string Email { get; set; }
-
         public string Password { get; set; }
-
-        public PcgUser()
-        {
-        }
 
         public static PcgUser Get(string email, string password)
         {
@@ -26,13 +20,11 @@ namespace DataAccess.Dto
             using (var data = new PcgStorageEntities())
             {
                 var user = data.pcgusers.FirstOrDefault(u => u.Email == email && u.Password == password);
-                if (user != null)
-                    pcgUser = new PcgUser(user);
+                if (user != null) pcgUser = new PcgUser(user);
             }
 
             return pcgUser;
         }
-
         public static List<PcgUser> All()
         {
             var allUsers = new List<PcgUser>();
@@ -58,7 +50,6 @@ namespace DataAccess.Dto
                 Id = pcgUser.Id;
             }
         }
-
         public void Update()
         {
             using (var data = new PcgStorageEntities())
@@ -72,7 +63,6 @@ namespace DataAccess.Dto
                 }
             }
         }
-
         public void Delete()
         {
             using (var data = new PcgStorageEntities())
@@ -86,13 +76,16 @@ namespace DataAccess.Dto
             }
         }
 
+        public PcgUser()
+        {
+        }
+
         internal PcgUser(DataAccess.pcguser pcgUser)
         {
             Id = pcgUser.Id;
             Email = pcgUser.Email;
             Password = pcgUser.Password;
         }
-
         internal pcguser ToEntity()
         {
             var pcgUser = new DataAccess.pcguser
