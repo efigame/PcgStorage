@@ -61,7 +61,17 @@ namespace DataAccess.Dto
 
         public void Update()
         {
-            throw new NotImplementedException();
+            using (var data = new PcgStorageEntities())
+            {
+                var pcgUser = data.pcgusers.SingleOrDefault(u => u.Id == Id);
+                if (pcgUser != null)
+                {
+                    pcgUser.Email = Email;
+                    pcgUser.Password = Password;
+                }
+
+                data.SaveChanges();
+            }
         }
 
         public void Delete()
