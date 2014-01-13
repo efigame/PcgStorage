@@ -5,17 +5,20 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="5ddb206ea522452c9afbf29c19e79c5d" Name="Diagram1">
+        <EntityTypeShape EntityType="PcgStorageModel.charactercard" Width="1.5" PointX="2.75" PointY="3.125" />
+        <EntityTypeShape EntityType="PcgStorageModel.characterskill" Width="1.5" PointX="4.875" PointY="3.125" />
+        <EntityTypeShape EntityType="PcgStorageModel.party" Width="1.5" PointX="2.75" PointY="0.5" />
+        <EntityTypeShape EntityType="PcgStorageModel.partycharacter" Width="1.5" PointX="4.875" PointY="0.5" />
         <EntityTypeShape EntityType="PcgStorageModel.pcguser" Width="1.5" PointX="0.5" PointY="0.5" />
-        <EntityTypeShape EntityType="PcgStorageModel.charactercard" Width="1.5" PointX="8.5" PointY="0.5" />
-        <EntityTypeShape EntityType="PcgStorageModel.party" Width="1.5" PointX="3.125" PointY="0.5" />
-        <EntityTypeShape EntityType="PcgStorageModel.partycharacter" Width="1.5" PointX="5.875" PointY="0.5" />
-        <AssociationConnector Association="PcgStorageModel.fk_charactercard_id" />
-        <AssociationConnector Association="PcgStorageModel.fk_party_id" />
-        <AssociationConnector Association="PcgStorageModel.fk_pcguser_id" />
-        <EntityTypeShape EntityType="PcgStorageModel.skill" Width="1.5" PointX="10.625" PointY="0.5" />
-        <EntityTypeShape EntityType="PcgStorageModel.subskill" Width="1.5" PointX="12.875" PointY="0.75" />
-        <AssociationConnector Association="PcgStorageModel.fk_skills_charactercard_id" />
-        <AssociationConnector Association="PcgStorageModel.fk_subskills_skills_id" />
+        <EntityTypeShape EntityType="PcgStorageModel.skill" Width="1.5" PointX="4.875" PointY="5.875" />
+        <EntityTypeShape EntityType="PcgStorageModel.subskill" Width="1.5" PointX="7" PointY="5.875" />
+        <AssociationConnector Association="PcgStorageModel.fk_partycharacter_charactercard" />
+        <AssociationConnector Association="PcgStorageModel.fk_skill_charactercard" />
+        <AssociationConnector Association="PcgStorageModel.fk_characterskill_partycharacter" />
+        <AssociationConnector Association="PcgStorageModel.fk_characterskill_skill" />
+        <AssociationConnector Association="PcgStorageModel.fk_party_pcguser" />
+        <AssociationConnector Association="PcgStorageModel.fk_partycharacter_party" />
+        <AssociationConnector Association="PcgStorageModel.fk_subskill_skill" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

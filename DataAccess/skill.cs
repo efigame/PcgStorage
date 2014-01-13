@@ -16,6 +16,7 @@ namespace DataAccess
     {
         public skill()
         {
+            this.characterskills = new HashSet<characterskill>();
             this.subskills = new HashSet<subskill>();
         }
     
@@ -26,6 +27,7 @@ namespace DataAccess
         public int PossibleAddons { get; set; }
     
         public virtual charactercard charactercard { get; set; }
+        public virtual ICollection<characterskill> characterskills { get; set; }
         public virtual ICollection<subskill> subskills { get; set; }
     }
 }

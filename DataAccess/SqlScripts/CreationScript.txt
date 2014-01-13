@@ -13,9 +13,9 @@ CREATE TABLE `pcgstorage`.`party` (
   PRIMARY KEY (`Id`));
 
 ALTER TABLE `pcgstorage`.`party` 
-ADD INDEX `fk_pcguser_id_idx` (`PcgUserId` ASC);
+ADD INDEX `fk_party_pcguser_idx` (`PcgUserId` ASC);
 ALTER TABLE `pcgstorage`.`party` 
-ADD CONSTRAINT `fk_pcguser_id`
+ADD CONSTRAINT `fk_party_pcguser`
   FOREIGN KEY (`PcgUserId`)
   REFERENCES `pcgstorage`.`pcguser` (`Id`)
   ON DELETE NO ACTION
@@ -33,21 +33,22 @@ CREATE TABLE `pcgstorage`.`partycharacter` (
   PRIMARY KEY (`Id`));
 
 ALTER TABLE `pcgstorage`.`partycharacter` 
-ADD INDEX `fk_party_id_idx` (`PartyId` ASC),
-ADD INDEX `fk_charactercard_id_idx` (`CharacterCardId` ASC);
+ADD INDEX `fk_partycharacter_party_idx` (`PartyId` ASC),
+ADD INDEX `fk_partycharacter_charactercard_idx` (`CharacterCardId` ASC);
+
 ALTER TABLE `pcgstorage`.`partycharacter` 
-ADD CONSTRAINT `fk_party_id`
+ADD CONSTRAINT `fk_partycharacter_party`
   FOREIGN KEY (`PartyId`)
   REFERENCES `pcgstorage`.`party` (`Id`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION,
-ADD CONSTRAINT `fk_charactercard_id`
+ADD CONSTRAINT `fk_partycharacter_charactercard`
   FOREIGN KEY (`CharacterCardId`)
   REFERENCES `pcgstorage`.`charactercard` (`Id`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
 
-CREATE TABLE `pcgstorage`.`skills` (
+CREATE TABLE `pcgstorage`.`skill` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `Name` VARCHAR(45) NOT NULL,
   `Dice` INT NOT NULL,
@@ -55,25 +56,48 @@ CREATE TABLE `pcgstorage`.`skills` (
   `PossibleAddons` INT NOT NULL,
   PRIMARY KEY (`Id`));
 
-ALTER TABLE `pcgstorage`.`skills` 
-ADD CONSTRAINT `fk_skills_charactercard_id`
+ALTER TABLE `pcgstorage`.`skill` 
+ADD CONSTRAINT `fk_skill_charactercard`
   FOREIGN KEY (`CharacterCardId`)
   REFERENCES `pcgstorage`.`charactercard` (`Id`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
 
-CREATE TABLE `pcgstorage`.`subskills` (
+CREATE TABLE `pcgstorage`.`subskill` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `Name` VARCHAR(45) NOT NULL,
   `BaseSkillId` INT NOT NULL,
   `Adjustment` INT NOT NULL,
   PRIMARY KEY (`Id`));
 
-ALTER TABLE `pcgstorage`.`subskills` 
-ADD INDEX `fk_subskills_skills_id_idx` (`BaseSkillId` ASC);
-ALTER TABLE `pcgstorage`.`subskills` 
-ADD CONSTRAINT `fk_subskills_skills_id`
+ALTER TABLE `pcgstorage`.`subskill` 
+ADD INDEX `fk_subskill_skill_idx` (`BaseSkillId` ASC);
+ALTER TABLE `pcgstorage`.`subskill` 
+ADD CONSTRAINT `fk_subskill_skill`
   FOREIGN KEY (`BaseSkillId`)
-  REFERENCES `pcgstorage`.`skills` (`Id`)
+  REFERENCES `pcgstorage`.`skill` (`Id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+CREATE TABLE `pcgstorage`.`characterskill` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `PartyCharacterId` INT NOT NULL,
+  `SkillId` INT NOT NULL,
+  `SelectedAdjustment` INT NOT NULL,
+  PRIMARY KEY (`Id`));
+
+ALTER TABLE `pcgstorage`.`characterskill` 
+ADD INDEX `fk_characterskill_partycharacter_idx` (`PartyCharacterId` ASC),
+ADD INDEX `fk_characterskill_skill_idx` (`SkillId` ASC);
+
+ALTER TABLE `pcgstorage`.`characterskill` 
+ADD CONSTRAINT `fk_characterskill_partycharacter`
+  FOREIGN KEY (`PartyCharacterId`)
+  REFERENCES `pcgstorage`.`partycharacter` (`Id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `fk_characterskill_skill`
+  FOREIGN KEY (`SkillsId`)
+  REFERENCES `pcgstorage`.`skill` (`Id`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;

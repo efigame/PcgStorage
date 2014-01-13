@@ -12,18 +12,14 @@ namespace DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class party
+    public partial class characterskill
     {
-        public party()
-        {
-            this.partycharacters = new HashSet<partycharacter>();
-        }
-    
         public int Id { get; set; }
-        public string Name { get; set; }
-        public int PcgUserId { get; set; }
+        public int PartyCharacterId { get; set; }
+        public int SkillId { get; set; }
+        public int SelectedAdjustment { get; set; }
     
-        public virtual pcguser pcguser { get; set; }
-        public virtual ICollection<partycharacter> partycharacters { get; set; }
+        public virtual partycharacter partycharacter { get; set; }
+        public virtual skill skill { get; set; }
     }
 }

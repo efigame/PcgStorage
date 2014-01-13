@@ -14,11 +14,17 @@ namespace DataAccess
     
     public partial class partycharacter
     {
+        public partycharacter()
+        {
+            this.characterskills = new HashSet<characterskill>();
+        }
+    
         public int Id { get; set; }
         public int PartyId { get; set; }
         public int CharacterCardId { get; set; }
     
         public virtual charactercard charactercard { get; set; }
+        public virtual ICollection<characterskill> characterskills { get; set; }
         public virtual party party { get; set; }
     }
 }

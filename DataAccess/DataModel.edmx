@@ -12,6 +12,15 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="45" Nullable="false" />
         </EntityType>
+        <EntityType Name="characterskill">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PartyCharacterId" Type="int" Nullable="false" />
+          <Property Name="SkillId" Type="int" Nullable="false" />
+          <Property Name="SelectedAdjustment" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="party">
           <Key>
             <PropertyRef Name="Id" />
@@ -36,7 +45,7 @@
           <Property Name="Email" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
-        <EntityType Name="skills">
+        <EntityType Name="skill">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -46,7 +55,7 @@
           <Property Name="CharacterCardId" Type="int" Nullable="false" />
           <Property Name="PossibleAddons" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="subskills">
+        <EntityType Name="subskill">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -55,31 +64,31 @@
           <Property Name="BaseSkillId" Type="int" Nullable="false" />
           <Property Name="Adjustment" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="fk_charactercard_id">
-          <End Role="charactercard" Type="Self.charactercard" Multiplicity="1" />
-          <End Role="partycharacter" Type="Self.partycharacter" Multiplicity="*" />
+        <Association Name="fk_characterskill_partycharacter">
+          <End Role="partycharacter" Type="Self.partycharacter" Multiplicity="1" />
+          <End Role="characterskill" Type="Self.characterskill" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="charactercard">
+            <Principal Role="partycharacter">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="partycharacter">
-              <PropertyRef Name="CharacterCardId" />
+            <Dependent Role="characterskill">
+              <PropertyRef Name="PartyCharacterId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_party_id">
-          <End Role="party" Type="Self.party" Multiplicity="1" />
-          <End Role="partycharacter" Type="Self.partycharacter" Multiplicity="*" />
+        <Association Name="fk_characterskill_skill">
+          <End Role="skill" Type="Self.skill" Multiplicity="1" />
+          <End Role="characterskill" Type="Self.characterskill" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="party">
+            <Principal Role="skill">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="partycharacter">
-              <PropertyRef Name="PartyId" />
+            <Dependent Role="characterskill">
+              <PropertyRef Name="SkillId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_pcguser_id">
+        <Association Name="fk_party_pcguser">
           <End Role="pcguser" Type="Self.pcguser" Multiplicity="1" />
           <End Role="party" Type="Self.party" Multiplicity="*" />
           <ReferentialConstraint>
@@ -91,56 +100,89 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_skills_charactercard_id">
+        <Association Name="fk_partycharacter_charactercard">
           <End Role="charactercard" Type="Self.charactercard" Multiplicity="1" />
-          <End Role="skills" Type="Self.skills" Multiplicity="*" />
+          <End Role="partycharacter" Type="Self.partycharacter" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="charactercard">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="skills">
+            <Dependent Role="partycharacter">
               <PropertyRef Name="CharacterCardId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_subskills_skills_id">
-          <End Role="skills" Type="Self.skills" Multiplicity="1" />
-          <End Role="subskills" Type="Self.subskills" Multiplicity="*" />
+        <Association Name="fk_partycharacter_party">
+          <End Role="party" Type="Self.party" Multiplicity="1" />
+          <End Role="partycharacter" Type="Self.partycharacter" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="skills">
+            <Principal Role="party">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="subskills">
+            <Dependent Role="partycharacter">
+              <PropertyRef Name="PartyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_skill_charactercard">
+          <End Role="charactercard" Type="Self.charactercard" Multiplicity="1" />
+          <End Role="skill" Type="Self.skill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="charactercard">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="skill">
+              <PropertyRef Name="CharacterCardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_subskill_skill">
+          <End Role="skill" Type="Self.skill" Multiplicity="1" />
+          <End Role="subskill" Type="Self.subskill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="skill">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="subskill">
               <PropertyRef Name="BaseSkillId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="PcgStorageModelStoreContainer">
           <EntitySet Name="charactercard" EntityType="Self.charactercard" Schema="pcgstorage" store:Type="Tables" />
+          <EntitySet Name="characterskill" EntityType="Self.characterskill" Schema="pcgstorage" store:Type="Tables" />
           <EntitySet Name="party" EntityType="Self.party" Schema="pcgstorage" store:Type="Tables" />
           <EntitySet Name="partycharacter" EntityType="Self.partycharacter" Schema="pcgstorage" store:Type="Tables" />
           <EntitySet Name="pcguser" EntityType="Self.pcguser" Schema="pcgstorage" store:Type="Tables" />
-          <EntitySet Name="skills" EntityType="Self.skills" Schema="pcgstorage" store:Type="Tables" />
-          <EntitySet Name="subskills" EntityType="Self.subskills" Schema="pcgstorage" store:Type="Tables" />
-          <AssociationSet Name="fk_charactercard_id" Association="Self.fk_charactercard_id">
-            <End Role="charactercard" EntitySet="charactercard" />
+          <EntitySet Name="skill" EntityType="Self.skill" Schema="pcgstorage" store:Type="Tables" />
+          <EntitySet Name="subskill" EntityType="Self.subskill" Schema="pcgstorage" store:Type="Tables" />
+          <AssociationSet Name="fk_characterskill_partycharacter" Association="Self.fk_characterskill_partycharacter">
             <End Role="partycharacter" EntitySet="partycharacter" />
+            <End Role="characterskill" EntitySet="characterskill" />
           </AssociationSet>
-          <AssociationSet Name="fk_party_id" Association="Self.fk_party_id">
-            <End Role="party" EntitySet="party" />
-            <End Role="partycharacter" EntitySet="partycharacter" />
+          <AssociationSet Name="fk_characterskill_skill" Association="Self.fk_characterskill_skill">
+            <End Role="skill" EntitySet="skill" />
+            <End Role="characterskill" EntitySet="characterskill" />
           </AssociationSet>
-          <AssociationSet Name="fk_pcguser_id" Association="Self.fk_pcguser_id">
+          <AssociationSet Name="fk_party_pcguser" Association="Self.fk_party_pcguser">
             <End Role="pcguser" EntitySet="pcguser" />
             <End Role="party" EntitySet="party" />
           </AssociationSet>
-          <AssociationSet Name="fk_skills_charactercard_id" Association="Self.fk_skills_charactercard_id">
+          <AssociationSet Name="fk_partycharacter_charactercard" Association="Self.fk_partycharacter_charactercard">
             <End Role="charactercard" EntitySet="charactercard" />
-            <End Role="skills" EntitySet="skills" />
+            <End Role="partycharacter" EntitySet="partycharacter" />
           </AssociationSet>
-          <AssociationSet Name="fk_subskills_skills_id" Association="Self.fk_subskills_skills_id">
-            <End Role="skills" EntitySet="skills" />
-            <End Role="subskills" EntitySet="subskills" />
+          <AssociationSet Name="fk_partycharacter_party" Association="Self.fk_partycharacter_party">
+            <End Role="party" EntitySet="party" />
+            <End Role="partycharacter" EntitySet="partycharacter" />
+          </AssociationSet>
+          <AssociationSet Name="fk_skill_charactercard" Association="Self.fk_skill_charactercard">
+            <End Role="charactercard" EntitySet="charactercard" />
+            <End Role="skill" EntitySet="skill" />
+          </AssociationSet>
+          <AssociationSet Name="fk_subskill_skill" Association="Self.fk_subskill_skill">
+            <End Role="skill" EntitySet="skill" />
+            <End Role="subskill" EntitySet="subskill" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -148,50 +190,61 @@
     <edmx:ConceptualModels>
       <Schema Namespace="PcgStorageModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="PcgStorageEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="pcgusers" EntityType="PcgStorageModel.pcguser" />
           <EntitySet Name="charactercards" EntityType="PcgStorageModel.charactercard" />
+          <EntitySet Name="characterskills" EntityType="PcgStorageModel.characterskill" />
           <EntitySet Name="parties" EntityType="PcgStorageModel.party" />
           <EntitySet Name="partycharacters" EntityType="PcgStorageModel.partycharacter" />
-          <AssociationSet Name="fk_charactercard_id" Association="PcgStorageModel.fk_charactercard_id">
+          <EntitySet Name="pcgusers" EntityType="PcgStorageModel.pcguser" />
+          <EntitySet Name="skills" EntityType="PcgStorageModel.skill" />
+          <EntitySet Name="subskills" EntityType="PcgStorageModel.subskill" />
+          <AssociationSet Name="fk_partycharacter_charactercard" Association="PcgStorageModel.fk_partycharacter_charactercard">
             <End Role="charactercard" EntitySet="charactercards" />
             <End Role="partycharacter" EntitySet="partycharacters" />
           </AssociationSet>
-          <AssociationSet Name="fk_party_id" Association="PcgStorageModel.fk_party_id">
-            <End Role="party" EntitySet="parties" />
-            <End Role="partycharacter" EntitySet="partycharacters" />
-          </AssociationSet>
-          <AssociationSet Name="fk_pcguser_id" Association="PcgStorageModel.fk_pcguser_id">
-            <End Role="pcguser" EntitySet="pcgusers" />
-            <End Role="party" EntitySet="parties" />
-          </AssociationSet>
-          <EntitySet Name="skills" EntityType="PcgStorageModel.skill" />
-          <EntitySet Name="subskills" EntityType="PcgStorageModel.subskill" />
-          <AssociationSet Name="fk_skills_charactercard_id" Association="PcgStorageModel.fk_skills_charactercard_id">
+          <AssociationSet Name="fk_skill_charactercard" Association="PcgStorageModel.fk_skill_charactercard">
             <End Role="charactercard" EntitySet="charactercards" />
             <End Role="skill" EntitySet="skills" />
           </AssociationSet>
-          <AssociationSet Name="fk_subskills_skills_id" Association="PcgStorageModel.fk_subskills_skills_id">
+          <AssociationSet Name="fk_characterskill_partycharacter" Association="PcgStorageModel.fk_characterskill_partycharacter">
+            <End Role="partycharacter" EntitySet="partycharacters" />
+            <End Role="characterskill" EntitySet="characterskills" />
+          </AssociationSet>
+          <AssociationSet Name="fk_characterskill_skill" Association="PcgStorageModel.fk_characterskill_skill">
+            <End Role="skill" EntitySet="skills" />
+            <End Role="characterskill" EntitySet="characterskills" />
+          </AssociationSet>
+          <AssociationSet Name="fk_party_pcguser" Association="PcgStorageModel.fk_party_pcguser">
+            <End Role="pcguser" EntitySet="pcgusers" />
+            <End Role="party" EntitySet="parties" />
+          </AssociationSet>
+          <AssociationSet Name="fk_partycharacter_party" Association="PcgStorageModel.fk_partycharacter_party">
+            <End Role="party" EntitySet="parties" />
+            <End Role="partycharacter" EntitySet="partycharacters" />
+          </AssociationSet>
+          <AssociationSet Name="fk_subskill_skill" Association="PcgStorageModel.fk_subskill_skill">
             <End Role="skill" EntitySet="skills" />
             <End Role="subskill" EntitySet="subskills" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="pcguser">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Email" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="parties" Relationship="PcgStorageModel.fk_pcguser_id" FromRole="pcguser" ToRole="party" />
-        </EntityType>
         <EntityType Name="charactercard">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="partycharacters" Relationship="PcgStorageModel.fk_charactercard_id" FromRole="charactercard" ToRole="partycharacter" />
-          <NavigationProperty Name="skills" Relationship="PcgStorageModel.fk_skills_charactercard_id" FromRole="charactercard" ToRole="skill" />
+          <NavigationProperty Name="partycharacters" Relationship="PcgStorageModel.fk_partycharacter_charactercard" FromRole="charactercard" ToRole="partycharacter" />
+          <NavigationProperty Name="skills" Relationship="PcgStorageModel.fk_skill_charactercard" FromRole="charactercard" ToRole="skill" />
+        </EntityType>
+        <EntityType Name="characterskill">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PartyCharacterId" Type="Int32" Nullable="false" />
+          <Property Name="SkillId" Type="Int32" Nullable="false" />
+          <Property Name="SelectedAdjustment" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="partycharacter" Relationship="PcgStorageModel.fk_characterskill_partycharacter" FromRole="characterskill" ToRole="partycharacter" />
+          <NavigationProperty Name="skill" Relationship="PcgStorageModel.fk_characterskill_skill" FromRole="characterskill" ToRole="skill" />
         </EntityType>
         <EntityType Name="party">
           <Key>
@@ -200,8 +253,8 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="PcgUserId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="partycharacters" Relationship="PcgStorageModel.fk_party_id" FromRole="party" ToRole="partycharacter" />
-          <NavigationProperty Name="pcguser" Relationship="PcgStorageModel.fk_pcguser_id" FromRole="party" ToRole="pcguser" />
+          <NavigationProperty Name="pcguser" Relationship="PcgStorageModel.fk_party_pcguser" FromRole="party" ToRole="pcguser" />
+          <NavigationProperty Name="partycharacters" Relationship="PcgStorageModel.fk_partycharacter_party" FromRole="party" ToRole="partycharacter" />
         </EntityType>
         <EntityType Name="partycharacter">
           <Key>
@@ -210,10 +263,43 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PartyId" Type="Int32" Nullable="false" />
           <Property Name="CharacterCardId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="charactercard" Relationship="PcgStorageModel.fk_charactercard_id" FromRole="partycharacter" ToRole="charactercard" />
-          <NavigationProperty Name="party" Relationship="PcgStorageModel.fk_party_id" FromRole="partycharacter" ToRole="party" />
+          <NavigationProperty Name="charactercard" Relationship="PcgStorageModel.fk_partycharacter_charactercard" FromRole="partycharacter" ToRole="charactercard" />
+          <NavigationProperty Name="characterskills" Relationship="PcgStorageModel.fk_characterskill_partycharacter" FromRole="partycharacter" ToRole="characterskill" />
+          <NavigationProperty Name="party" Relationship="PcgStorageModel.fk_partycharacter_party" FromRole="partycharacter" ToRole="party" />
         </EntityType>
-        <Association Name="fk_charactercard_id">
+        <EntityType Name="pcguser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="parties" Relationship="PcgStorageModel.fk_party_pcguser" FromRole="pcguser" ToRole="party" />
+        </EntityType>
+        <EntityType Name="skill">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Dice" Type="Int32" Nullable="false" />
+          <Property Name="CharacterCardId" Type="Int32" Nullable="false" />
+          <Property Name="PossibleAddons" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="charactercard" Relationship="PcgStorageModel.fk_skill_charactercard" FromRole="skill" ToRole="charactercard" />
+          <NavigationProperty Name="characterskills" Relationship="PcgStorageModel.fk_characterskill_skill" FromRole="skill" ToRole="characterskill" />
+          <NavigationProperty Name="subskills" Relationship="PcgStorageModel.fk_subskill_skill" FromRole="skill" ToRole="subskill" />
+        </EntityType>
+        <EntityType Name="subskill">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="BaseSkillId" Type="Int32" Nullable="false" />
+          <Property Name="Adjustment" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="skill" Relationship="PcgStorageModel.fk_subskill_skill" FromRole="subskill" ToRole="skill" />
+        </EntityType>
+        <Association Name="fk_partycharacter_charactercard">
           <End Type="PcgStorageModel.charactercard" Role="charactercard" Multiplicity="1" />
           <End Type="PcgStorageModel.partycharacter" Role="partycharacter" Multiplicity="*" />
           <ReferentialConstraint>
@@ -225,53 +311,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_party_id">
-          <End Type="PcgStorageModel.party" Role="party" Multiplicity="1" />
-          <End Type="PcgStorageModel.partycharacter" Role="partycharacter" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="party">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="partycharacter">
-              <PropertyRef Name="PartyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_pcguser_id">
-          <End Type="PcgStorageModel.pcguser" Role="pcguser" Multiplicity="1" />
-          <End Type="PcgStorageModel.party" Role="party" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="pcguser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="party">
-              <PropertyRef Name="PcgUserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="skill">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="Dice" Type="Int32" Nullable="false" />
-          <Property Name="CharacterCardId" Type="Int32" Nullable="false" />
-          <Property Name="PossibleAddons" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="charactercard" Relationship="PcgStorageModel.fk_skills_charactercard_id" FromRole="skill" ToRole="charactercard" />
-          <NavigationProperty Name="subskills" Relationship="PcgStorageModel.fk_subskills_skills_id" FromRole="skill" ToRole="subskill" />
-        </EntityType>
-        <EntityType Name="subskill">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="BaseSkillId" Type="Int32" Nullable="false" />
-          <Property Name="Adjustment" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="skill" Relationship="PcgStorageModel.fk_subskills_skills_id" FromRole="subskill" ToRole="skill" />
-        </EntityType>
-        <Association Name="fk_skills_charactercard_id">
+        <Association Name="fk_skill_charactercard">
           <End Type="PcgStorageModel.charactercard" Role="charactercard" Multiplicity="1" />
           <End Type="PcgStorageModel.skill" Role="skill" Multiplicity="*" />
           <ReferentialConstraint>
@@ -283,7 +323,55 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_subskills_skills_id">
+        <Association Name="fk_characterskill_partycharacter">
+          <End Type="PcgStorageModel.partycharacter" Role="partycharacter" Multiplicity="1" />
+          <End Type="PcgStorageModel.characterskill" Role="characterskill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="partycharacter">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="characterskill">
+              <PropertyRef Name="PartyCharacterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_characterskill_skill">
+          <End Type="PcgStorageModel.skill" Role="skill" Multiplicity="1" />
+          <End Type="PcgStorageModel.characterskill" Role="characterskill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="skill">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="characterskill">
+              <PropertyRef Name="SkillId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_party_pcguser">
+          <End Type="PcgStorageModel.pcguser" Role="pcguser" Multiplicity="1" />
+          <End Type="PcgStorageModel.party" Role="party" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pcguser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="party">
+              <PropertyRef Name="PcgUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_partycharacter_party">
+          <End Type="PcgStorageModel.party" Role="party" Multiplicity="1" />
+          <End Type="PcgStorageModel.partycharacter" Role="partycharacter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="party">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="partycharacter">
+              <PropertyRef Name="PartyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_subskill_skill">
           <End Type="PcgStorageModel.skill" Role="skill" Multiplicity="1" />
           <End Type="PcgStorageModel.subskill" Role="subskill" Multiplicity="*" />
           <ReferentialConstraint>
@@ -295,25 +383,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="PcgStorageModelStoreContainer" CdmEntityContainer="PcgStorageEntities">
-          <EntitySetMapping Name="pcgusers">
-            <EntityTypeMapping TypeName="PcgStorageModel.pcguser">
-              <MappingFragment StoreEntitySet="pcguser">
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="charactercards">
             <EntityTypeMapping TypeName="PcgStorageModel.charactercard">
               <MappingFragment StoreEntitySet="charactercard">
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="characterskills">
+            <EntityTypeMapping TypeName="PcgStorageModel.characterskill">
+              <MappingFragment StoreEntitySet="characterskill">
+                <ScalarProperty Name="SelectedAdjustment" ColumnName="SelectedAdjustment" />
+                <ScalarProperty Name="SkillId" ColumnName="SkillId" />
+                <ScalarProperty Name="PartyCharacterId" ColumnName="PartyCharacterId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -336,9 +425,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="pcgusers">
+            <EntityTypeMapping TypeName="PcgStorageModel.pcguser">
+              <MappingFragment StoreEntitySet="pcguser">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="skills">
             <EntityTypeMapping TypeName="PcgStorageModel.skill">
-              <MappingFragment StoreEntitySet="skills">
+              <MappingFragment StoreEntitySet="skill">
                 <ScalarProperty Name="PossibleAddons" ColumnName="PossibleAddons" />
                 <ScalarProperty Name="CharacterCardId" ColumnName="CharacterCardId" />
                 <ScalarProperty Name="Dice" ColumnName="Dice" />
@@ -349,7 +447,7 @@
           </EntitySetMapping>
           <EntitySetMapping Name="subskills">
             <EntityTypeMapping TypeName="PcgStorageModel.subskill">
-              <MappingFragment StoreEntitySet="subskills">
+              <MappingFragment StoreEntitySet="subskill">
                 <ScalarProperty Name="Adjustment" ColumnName="Adjustment" />
                 <ScalarProperty Name="BaseSkillId" ColumnName="BaseSkillId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />

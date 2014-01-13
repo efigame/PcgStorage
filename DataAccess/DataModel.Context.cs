@@ -25,10 +25,11 @@ namespace DataAccess
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<pcguser> pcgusers { get; set; }
         public virtual DbSet<charactercard> charactercards { get; set; }
+        public virtual DbSet<characterskill> characterskills { get; set; }
         public virtual DbSet<party> parties { get; set; }
         public virtual DbSet<partycharacter> partycharacters { get; set; }
+        public virtual DbSet<pcguser> pcgusers { get; set; }
         public virtual DbSet<skill> skills { get; set; }
         public virtual DbSet<subskill> subskills { get; set; }
     }
