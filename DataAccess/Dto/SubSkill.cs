@@ -32,7 +32,7 @@ namespace DataAccess.Dto
 
             using (var data = new PcgStorageEntities())
             {
-                var all = data.subskills.Where(s => s.BaseSkillId == baseSkillId);
+                var all = data.subskills.Where(s => s.BaseSkillId == baseSkillId).ToList();
                 skills.AddRange(all.Select(a => new SubSkill(a)));
             }
 

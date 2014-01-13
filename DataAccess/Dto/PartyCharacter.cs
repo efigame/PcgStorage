@@ -32,7 +32,7 @@ namespace DataAccess.Dto
 
             using (var data = new PcgStorageEntities())
             {
-                var all = data.partycharacters.Where(p => p.PartyId == partyId);
+                var all = data.partycharacters.Where(p => p.PartyId == partyId).ToList();
                 partyCharacters.AddRange(all.Select(a => new PartyCharacter(a)));
             }
 

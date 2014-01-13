@@ -33,7 +33,7 @@ namespace PcgManager.Dto
 
             if (deepObjects)
             {
-                var characters = DataAccess.Dto.PartyCharacter.All(Id);
+                var characters = DataAccess.Dto.PartyCharacter.All(Id).ToList();
                 Characters.AddRange(characters.Select(c => new Character(c)));
             }
         }
