@@ -65,6 +65,19 @@ namespace DataAccess.Dto
             }
         }
 
+        public void Delete()
+        {
+            using (var data = new PcgStorageEntities())
+            {
+                var card = data.charactercards.SingleOrDefault(u => u.Id == Id);
+                if (card != null)
+                {
+                    data.charactercards.Remove(card);
+                    data.SaveChanges();
+                }
+            }
+        }
+
         internal CharacterCard(DataAccess.charactercard card)
         {
             Id = card.Id;
