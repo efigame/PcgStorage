@@ -51,7 +51,7 @@ namespace PcgManager
                 switch (cardType)
                 {
                     case Dto.CardType.Character:
-                        var characterCards = data.GetCharacterCards();
+                        var characterCards = DataAccess.Dto.CharacterCard.All();
                         cardDtos.AddRange(characterCards.Select(c => new Dto.Card(c)));
                         break;
                     case Dto.CardType.Monster:

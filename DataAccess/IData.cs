@@ -15,7 +15,7 @@ namespace DataAccess
 
         Dto.Party GetParty(int partyId);
 
-        IEnumerable<Dto.CharacterCard> GetCharacterCards();
+        //IEnumerable<Dto.CharacterCard> GetCharacterCards();
 
         IEnumerable<Dto.PartyCharacter> GetPartyCharacters(int partyId);
 

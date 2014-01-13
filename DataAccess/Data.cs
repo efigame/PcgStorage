@@ -47,18 +47,18 @@ namespace DataAccess
             return partyDto;
         }
 
-        public IEnumerable<Dto.CharacterCard> GetCharacterCards()
-        {
-            var characterCards = new List<Dto.CharacterCard>();
+        //public IEnumerable<Dto.CharacterCard> GetCharacterCards()
+        //{
+        //    var characterCards = new List<Dto.CharacterCard>();
 
-            using (var data = new PcgStorageEntities())
-            {
-                var characters = data.charactercards.ToList();
-                characterCards.AddRange(characters.Select(c => new Dto.CharacterCard(c)));
-            }
+        //    using (var data = new PcgStorageEntities())
+        //    {
+        //        var characters = data.charactercards.ToList();
+        //        characterCards.AddRange(characters.Select(c => new Dto.CharacterCard(c)));
+        //    }
 
-            return characterCards;
-        }
+        //    return characterCards;
+        //}
 
         public IEnumerable<Dto.PartyCharacter> GetPartyCharacters(int partyId)
         {
