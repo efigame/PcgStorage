@@ -100,19 +100,19 @@ namespace DataAccess
             return found;
         }
 
-        public Dto.PcgUser GetUser(string email, string password)
-        {
-            Dto.PcgUser pcgUser = null;
+        //public Dto.PcgUser GetUser(string email, string password)
+        //{
+        //    Dto.PcgUser pcgUser = null;
 
-            using (var data = new PcgStorageEntities())
-            {
-                var user = data.pcgusers.FirstOrDefault(u => u.Email == email && u.Password == password);
-                if (user != null)
-                    pcgUser = new Dto.PcgUser(user);
-            }
+        //    using (var data = new PcgStorageEntities())
+        //    {
+        //        var user = data.pcgusers.FirstOrDefault(u => u.Email == email && u.Password == password);
+        //        if (user != null)
+        //            pcgUser = new Dto.PcgUser(user);
+        //    }
 
-            return pcgUser;
-        }
+        //    return pcgUser;
+        //}
 
         public Dto.PcgUser Create(Dto.PcgUser pcgUser)
         {

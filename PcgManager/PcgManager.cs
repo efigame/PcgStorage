@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DataAccess.Dto;
+using PcgManager.Dto;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -120,16 +122,12 @@ namespace PcgManager
             return successMessage;
         }
 
-        public Dto.User LoginUser(string email, string password)
+        public User LoginUser(string email, string password)
         {
-            Dto.User user = null;
+            User user = null;
 
-            using (var data = new DataAccess.Data())
-            {
-                var pcgUser = data.GetUser(email, password);
-                if (pcgUser != null)
-                    user = new Dto.User(pcgUser);
-            }
+            var pcgUser = PcgUser.Get(email, password);
+            if (pcgUser != null) user = new User(pcgUser);
 
             return user;
         }

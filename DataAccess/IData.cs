@@ -23,7 +23,7 @@ namespace DataAccess
 
         bool CheckUserByEmail(string email);
 
-        Dto.PcgUser GetUser(string email, string password);
+        //Dto.PcgUser GetUser(string email, string password);
 
         Dto.PcgUser Create(Dto.PcgUser pcgUser);
 
