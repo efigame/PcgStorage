@@ -59,11 +59,8 @@ namespace PcgManager.Dto
 
             if (DeepObjects)
             {
-                using (var data = new DataAccess.Data())
-                {
-                    var skills = data.GetCharacterSkills(CharacterCardId);
-                    Skills.AddRange(skills.Select(s => new Skill(s)));
-                }
+                var skills = DataAccess.Dto.Skill.All(CharacterCardId);
+                Skills.AddRange(skills.Select(s => new Skill(s)));
             }
         }
     }

@@ -23,19 +23,6 @@ namespace DataAccess
             return found;
         }
  
-        public IEnumerable<Dto.Skill> GetCharacterSkills(int characterCardId)
-        {
-            var characterSkillDtos = new List<Dto.Skill>();
-
-            using (var data = new PcgStorageEntities())
-            {
-                var skills = data.skills.Where(s => s.CharacterCardId == characterCardId).ToList();
-                characterSkillDtos.AddRange(skills.Select(s => new Dto.Skill(s)));
-            }
-
-            return characterSkillDtos;
-        }
-
         public void Dispose()
         {
         }

@@ -9,12 +9,6 @@ namespace DataAccess
 {
     public interface IData
     {
- 
-
         bool CheckUserByEmail(string email);
-
-
-        IEnumerable<Dto.Skill> GetCharacterSkills(int characterCardId);
-
     }
 }
