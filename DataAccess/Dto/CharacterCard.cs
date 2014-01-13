@@ -13,6 +13,19 @@ namespace DataAccess.Dto
 
         public string Name { get; set; }
 
+        public static CharacterCard Get(int id)
+        {
+            CharacterCard characterCard = null;
+
+            using (var data = new PcgStorageEntities())
+            {
+                var card = data.charactercards.FirstOrDefault(c => c.Id == id);
+                if (card != null) characterCard = new CharacterCard(card);
+            }
+
+            return characterCard;
+        }
+
         internal CharacterCard(DataAccess.charactercard card)
         {
             Id = card.Id;
