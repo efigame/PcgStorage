@@ -19,7 +19,8 @@ namespace PcgManager.Dto
 
         public List<Skill> Skills { get; set; }
 
-        // TODO: Populate this list
+        // TODO: Add character skills
+
 
 
         public void Persist()
@@ -51,11 +52,13 @@ namespace PcgManager.Dto
             Id = partyCharacter.Id;
             PartyId = partyCharacter.PartyId;
             CharacterCardId = partyCharacter.CharacterCardId;
-            Name = partyCharacter.CharacterCard.Name;
             Skills = new List<Skill>();
 
             if (deepObjects)
             {
+                var characterCard = DataAccess.Dto.CharacterCard.Get(partyCharacter.CharacterCardId);
+                Name = characterCard.Name;
+
                 var skills = DataAccess.Dto.Skill.All(CharacterCardId);
                 Skills.AddRange(skills.Select(s => new Skill(s)));
             }

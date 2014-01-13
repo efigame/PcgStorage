@@ -12,8 +12,6 @@ namespace DataAccess.Dto
         public int Id { get; set; }
         public int  PartyId { get; set; }
         public int CharacterCardId { get; set; }
-        public CharacterCard CharacterCard { get; set; }
-        public List<CharacterSkill> CharacterSkills { get; set; }
 
         public static PartyCharacter Get(int id)
         {
@@ -86,8 +84,6 @@ namespace DataAccess.Dto
             Id = character.Id;
             PartyId = character.PartyId;
             CharacterCardId = character.CharacterCardId;
-            CharacterCard = new CharacterCard(character.charactercard);
-            CharacterSkills = character.characterskills.Select(c => new CharacterSkill(c)).ToList();
         }
         internal partycharacter ToEntity()
         {
