@@ -67,7 +67,7 @@ namespace PcgManager.Dto
         {
             using (var data = new DataAccess.Data())
             {
-                var partyInDb = data.GetParty(this.Id);
+                var partyInDb = DataAccess.Dto.Party.Get(this.Id);
                 if (partyInDb.Name != this.Name)
                 {
                     partyInDb.Name = this.Name;

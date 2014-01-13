@@ -34,18 +34,18 @@ namespace DataAccess
             return parties;
         }
 
-        public Dto.Party GetParty(int partyId)
-        {
-            var partyDto = new Dto.Party();
+        //public Dto.Party GetParty(int partyId)
+        //{
+        //    var partyDto = new Dto.Party();
 
-            using (var data = new PcgStorageEntities())
-            {
-                var party = data.parties.SingleOrDefault(p => p.Id == partyId);
-                partyDto = new Dto.Party(party);
-            }
+        //    using (var data = new PcgStorageEntities())
+        //    {
+        //        var party = data.parties.SingleOrDefault(p => p.Id == partyId);
+        //        partyDto = new Dto.Party(party);
+        //    }
 
-            return partyDto;
-        }
+        //    return partyDto;
+        //}
 
         //public IEnumerable<Dto.CharacterCard> GetCharacterCards()
         //{

@@ -10,7 +10,6 @@ namespace DataAccess.Dto
     public class CharacterCard
     {
         public int Id { get; set; }
-
         public string Name { get; set; }
 
         public static CharacterCard Get(int id)
@@ -19,13 +18,12 @@ namespace DataAccess.Dto
 
             using (var data = new PcgStorageEntities())
             {
-                var card = data.charactercards.FirstOrDefault(c => c.Id == id);
+                var card = data.charactercards.SingleOrDefault(c => c.Id == id);
                 if (card != null) characterCard = new CharacterCard(card);
             }
 
             return characterCard;
         }
-
         public static List<CharacterCard> All()
         {
             var allCards = new List<CharacterCard>();
@@ -51,7 +49,6 @@ namespace DataAccess.Dto
                 Id = card.Id;
             }
         }
-
         public void Update()
         {
             using (var data = new PcgStorageEntities())
@@ -64,7 +61,6 @@ namespace DataAccess.Dto
                 }
             }
         }
-
         public void Delete()
         {
             using (var data = new PcgStorageEntities())
@@ -78,15 +74,14 @@ namespace DataAccess.Dto
             }
         }
 
-        internal CharacterCard(DataAccess.charactercard card)
+        internal CharacterCard(charactercard card)
         {
             Id = card.Id;
             Name = card.Name;
         }
-
         internal charactercard ToEntity()
         {
-            var card = new DataAccess.charactercard
+            var card = new charactercard
             {
                 Name = this.Name
             };

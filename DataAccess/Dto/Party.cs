@@ -10,10 +10,21 @@ namespace DataAccess.Dto
     public class Party
     {
         public int Id { get; set; }
-
         public string Name { get; set; }
-
         public int PcgUserId { get; set; }
+
+        public static Party Get(int id)
+        {
+            Party party = null;
+
+            using (var data = new PcgStorageEntities())
+            {
+                var partyData = data.parties.SingleOrDefault(p => p.Id == id);
+                if (partyData != null) party = new Party(partyData);
+            }
+
+            return party;
+        }
 
         public void Persist()
         {
@@ -26,7 +37,6 @@ namespace DataAccess.Dto
                 Id = entity.Id;
             }
         }
-
         public void Update()
         {
             using (var data = new PcgStorageEntities())
@@ -45,16 +55,15 @@ namespace DataAccess.Dto
         {
         }
 
-        internal Party(DataAccess.party party)
+        internal Party(party party)
         {
             Id = party.Id;
             Name = party.Name;
             PcgUserId = party.PcgUserId;
         }
-
-        internal DataAccess.party ToEntity()
+        internal party ToEntity()
         {
-            var party = new DataAccess.party
+            var party = new party
             {
                 Name = this.Name,
                 PcgUserId = this.PcgUserId

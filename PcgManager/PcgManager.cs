@@ -83,7 +83,7 @@ namespace PcgManager
 
             using(var data = new DataAccess.Data())
             {
-                var party = data.GetParty(partyId);
+                var party = DataAccess.Dto.Party.Get(partyId);
                 partyDto = new Dto.Party(party);
             }
 

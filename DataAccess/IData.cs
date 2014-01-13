@@ -13,7 +13,7 @@ namespace DataAccess
 
         IEnumerable<Dto.Party> GetParties(int userId);
 
-        Dto.Party GetParty(int partyId);
+        //Dto.Party GetParty(int partyId);
 
         //IEnumerable<Dto.CharacterCard> GetCharacterCards();
 
