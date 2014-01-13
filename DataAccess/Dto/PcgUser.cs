@@ -35,7 +35,15 @@ namespace DataAccess.Dto
 
         public static List<PcgUser> All()
         {
-            throw new NotImplementedException();
+            var allUsers = new List<PcgUser>();
+
+            using (var data = new PcgStorageEntities())
+            {
+                var all = data.pcgusers;
+                allUsers.AddRange(all.Select(u => new PcgUser(u)));
+            }
+
+            return allUsers;
         }
 
         public void Create()
