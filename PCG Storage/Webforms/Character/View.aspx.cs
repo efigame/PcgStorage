@@ -47,10 +47,33 @@ namespace Pcg_Storage.Webforms.Character
 
                 var literalSkillPossibleAddons = (Literal)e.Item.FindControl("literalSkillPossibleAddons");
                 literalSkillPossibleAddons.Text = "+" + skill.PossibleAddons.ToString();
+
+                var repeaterSubSkills = (Repeater)e.Item.FindControl("repeaterSubSkills");
+                repeaterSubSkills.DataSource = skill.SubSkills;
+                repeaterSubSkills.DataBind();
             }
         }
 
         protected void RepeaterSkills_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+
+        }
+
+        protected void RepeaterSubSkills_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                var skill = (PcgManager.Dto.SubSkill)e.Item.DataItem;
+
+                var literalSubSkillName = (Literal)e.Item.FindControl("literalSubSkillName");
+                literalSubSkillName.Text = skill.Name;
+
+                var literalSubSkillAdjustment = (Literal)e.Item.FindControl("literalSubSkillAdjustment");
+                literalSubSkillAdjustment.Text = "+" + skill.Adjustment.ToString();
+            }
+        }
+
+        protected void RepeaterSubSkills_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
 
         }

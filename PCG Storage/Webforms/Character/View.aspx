@@ -7,11 +7,20 @@
         <legend>Skills</legend>
         <asp:Repeater ID="repeaterSkills" runat="server" OnItemCommand="RepeaterSkills_ItemCommand" OnItemDataBound="RepeaterSkills_ItemDataBound">
             <ItemTemplate>
-                <asp:Literal ID="literalSkillName" runat="server"></asp:Literal>
-                <asp:Literal ID="literalSkillDice" runat="server"></asp:Literal>
-                <asp:Literal ID="literalSkillAdjustment" runat="server"></asp:Literal>
-                <asp:Literal ID="literalSkillPossibleAddons" runat="server"></asp:Literal>
-                <br />
+                <div>
+                    <asp:Literal ID="literalSkillName" runat="server"></asp:Literal>
+                    <asp:Literal ID="literalSkillDice" runat="server"></asp:Literal>
+                    <asp:Literal ID="literalSkillPossibleAddons" runat="server"></asp:Literal>
+                </div>
+                <asp:Repeater ID="repeaterSubSkills" runat="server" OnItemCommand="RepeaterSubSkills_ItemCommand" OnItemDataBound="RepeaterSubSkills_ItemDataBound">
+                    <ItemTemplate>
+                        <div style="margin-left: 10px;">
+                            <asp:Literal ID="literalSubSkillName" runat="server"></asp:Literal>
+                            <asp:Literal ID="literalSubSkillAdjustment" runat="server"></asp:Literal>
+                        </div>
+                    </ItemTemplate>
+                </asp:Repeater>
+                <hr />
             </ItemTemplate>
         </asp:Repeater>
     </fieldset>
