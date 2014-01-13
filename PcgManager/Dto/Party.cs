@@ -42,53 +42,47 @@ namespace PcgManager.Dto
 
         public void Persist()
         {
-            using(var data = new DataAccess.Data())
+            var party = new DataAccess.Dto.Party();
+            party.Name = Name;
+            party.PcgUserId = UserId;
+
+            party.Persist();
+
+            Id = party.Id;
+
+            foreach (var partyCard in Characters)
             {
-                var party = new DataAccess.Dto.Party();
-                party.Name = Name;
-                party.PcgUserId = UserId;
-
-                party.Persist();
-
-                Id = party.Id;
-
-                foreach(var partyCard in Characters)
-                {
-                    partyCard.PartyId = Id;
-                    partyCard.Persist();
-                }
+                partyCard.PartyId = Id;
+                partyCard.Persist();
             }
         }
 
         public void Update()
         {
-            using (var data = new DataAccess.Data())
+            var partyInDb = DataAccess.Dto.Party.Get(this.Id);
+            if (partyInDb.Name != this.Name)
             {
-                var partyInDb = DataAccess.Dto.Party.Get(this.Id);
-                if (partyInDb.Name != this.Name)
-                {
-                    partyInDb.Name = this.Name;
-                }
+                partyInDb.Name = this.Name;
+            }
 
-                partyInDb.Update();
+            partyInDb.Update();
 
-                var partyCardsInDb = DataAccess.Dto.PartyCharacter.All(partyInDb.Id);
+            var partyCardsInDb = DataAccess.Dto.PartyCharacter.All(partyInDb.Id);
 
-                var intersetingIds = Characters.Select(c => c.CharacterCardId).Intersect(partyCardsInDb.Select(p => p.CharacterCardId));
+            var intersetingIds = Characters.Select(c => c.CharacterCardId).Intersect(partyCardsInDb.Select(p => p.CharacterCardId));
 
-                var charactersToCreate = Characters.Where(c => !intersetingIds.Any(i => i == c.CharacterCardId));
-                var charactersToDelete = partyCardsInDb.Where(p => !intersetingIds.Any(i => i == p.CharacterCardId));
+            var charactersToCreate = Characters.Where(c => !intersetingIds.Any(i => i == c.CharacterCardId));
+            var charactersToDelete = partyCardsInDb.Where(p => !intersetingIds.Any(i => i == p.CharacterCardId));
 
-                foreach(var partyCard in charactersToCreate)
-                {
-                    partyCard.PartyId = Id;
-                    partyCard.Persist();
-                }
+            foreach (var partyCard in charactersToCreate)
+            {
+                partyCard.PartyId = Id;
+                partyCard.Persist();
+            }
 
-                foreach(var partyCard in charactersToDelete)
-                {
-                    partyCard.Delete();
-                }
+            foreach (var partyCard in charactersToDelete)
+            {
+                partyCard.Delete();
             }
         }
 

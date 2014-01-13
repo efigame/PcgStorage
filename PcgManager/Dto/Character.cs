@@ -24,16 +24,13 @@ namespace PcgManager.Dto
 
         public void Persist()
         {
-            using (var data = new DataAccess.Data())
-            {
-                var partyCharacter = new DataAccess.Dto.PartyCharacter();
-                partyCharacter.PartyId = PartyId;
-                partyCharacter.CharacterCardId = CharacterCardId;
+            var partyCharacter = new DataAccess.Dto.PartyCharacter();
+            partyCharacter.PartyId = PartyId;
+            partyCharacter.CharacterCardId = CharacterCardId;
 
-                partyCharacter.Persist();
+            partyCharacter.Persist();
 
-                Id = partyCharacter.Id;
-            }
+            Id = partyCharacter.Id;
         }
 
         public void Delete()

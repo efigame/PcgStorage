@@ -77,6 +77,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Dto\SubSkill.cs" />
     <Compile Include="Dto\Skill.cs" />
     <Compile Include="Dto\CharacterCard.cs" />
     <Compile Include="Dto\PartyCharacter.cs" />
