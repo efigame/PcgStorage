@@ -1,5 +1,4 @@
-﻿using DataAccess.Dto;
-using PcgManager.Dto;
+﻿using PcgManager.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -91,9 +90,9 @@ namespace PcgManager
             return partyDto;
         }
 
-        public Dto.SuccessMessage CreateUser(string email, string password)
+        public SuccessMessage CreateUser(string email, string password)
         {
-            var successMessage = new Dto.SuccessMessage
+            var successMessage = new SuccessMessage
             {
                 Success = false
             };
@@ -108,14 +107,14 @@ namespace PcgManager
 
                 if (!data.CheckUserByEmail(pcgUser.Email))
                 {
-                    var createdUser = data.Create(pcgUser);
-                    if (createdUser.Id > 0)
-                        successMessage.Success = true;
+                    pcgUser.Persist();
+
+                    if (pcgUser.Id > 0) successMessage.Success = true;
                 }
                 else
                 {
                     successMessage.Success = false;
-                    successMessage.FailedType = Dto.FailedType.UserAlreadyExists;
+                    successMessage.FailedType = FailedType.UserAlreadyExists;
                 }
             }
 
@@ -126,7 +125,7 @@ namespace PcgManager
         {
             User user = null;
 
-            var pcgUser = PcgUser.Get(email, password);
+            var pcgUser = DataAccess.Dto.PcgUser.Get(email, password);
             if (pcgUser != null) user = new User(pcgUser);
 
             return user;

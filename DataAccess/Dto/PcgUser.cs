@@ -46,9 +46,17 @@ namespace DataAccess.Dto
             return allUsers;
         }
 
-        public void Create()
+        public void Persist()
         {
-            throw new NotImplementedException();
+            using (var data = new PcgStorageEntities())
+            {
+                var pcgUser = this.ToEntity();
+
+                data.pcgusers.Add(pcgUser);
+                data.SaveChanges();
+
+                Id = pcgUser.Id;
+            }
         }
 
         public void Update()

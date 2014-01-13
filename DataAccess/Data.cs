@@ -114,21 +114,21 @@ namespace DataAccess
         //    return pcgUser;
         //}
 
-        public Dto.PcgUser Create(Dto.PcgUser pcgUser)
-        {
-            Dto.PcgUser createdPcgUser;
+        //public Dto.PcgUser Create(Dto.PcgUser pcgUser)
+        //{
+        //    Dto.PcgUser createdPcgUser;
 
-            using (var data = new PcgStorageEntities())
-            {
-                var pcgUserEntity = pcgUser.ToEntity();
-                data.pcgusers.Add(pcgUserEntity);
-                data.SaveChanges();
+        //    using (var data = new PcgStorageEntities())
+        //    {
+        //        var pcgUserEntity = pcgUser.ToEntity();
+        //        data.pcgusers.Add(pcgUserEntity);
+        //        data.SaveChanges();
 
-                createdPcgUser = new Dto.PcgUser(pcgUserEntity);
-            }
+        //        createdPcgUser = new Dto.PcgUser(pcgUserEntity);
+        //    }
 
-            return createdPcgUser;
-        }
+        //    return createdPcgUser;
+        //}
 
         public Dto.Trait Create(Dto.Trait pcgUser)
         {

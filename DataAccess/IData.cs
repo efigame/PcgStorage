@@ -25,7 +25,7 @@ namespace DataAccess
 
         //Dto.PcgUser GetUser(string email, string password);
 
-        Dto.PcgUser Create(Dto.PcgUser pcgUser);
+        //Dto.PcgUser Create(Dto.PcgUser pcgUser);
 
         Dto.Trait Create(Dto.Trait pcgUser);
 
