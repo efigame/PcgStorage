@@ -10,9 +10,7 @@ namespace PcgManager.Dto
     public class Party
     {
         public int Id { get; set; }
-
         public string Name { get; set; }
-
         public int UserId { get; set; }
 
         public List<Character> Characters { get; set; }
@@ -26,14 +24,14 @@ namespace PcgManager.Dto
         {
         }
 
-        internal Party(DataAccess.Dto.Party party, bool DeepObjects)
+        internal Party(DataAccess.Dto.Party party, bool deepObjects)
         {
             Id = party.Id;
             Name = party.Name;
             UserId = party.PcgUserId;
             Characters = new List<Character>();
 
-            if (DeepObjects)
+            if (deepObjects)
             {
                 var characters = DataAccess.Dto.PartyCharacter.All(Id);
                 Characters.AddRange(characters.Select(c => new Character(c)));

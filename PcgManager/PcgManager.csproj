@@ -52,6 +52,7 @@
     <Compile Include="Dto\CardType.cs" />
     <Compile Include="Dto\Party.cs" />
     <Compile Include="Dto\Character.cs" />
+    <Compile Include="Dto\SubSkill.cs" />
     <Compile Include="Dto\Skill.cs" />
     <Compile Include="Dto\User.cs" />
     <Compile Include="Dto\SuccessMessage.cs" />

@@ -46,7 +46,7 @@ namespace PcgManager.Dto
         internal Character(DataAccess.Dto.PartyCharacter partyCharacter) : this(partyCharacter, true)
         {
         }
-        internal Character(DataAccess.Dto.PartyCharacter partyCharacter, bool DeepObjects)
+        internal Character(DataAccess.Dto.PartyCharacter partyCharacter, bool deepObjects)
         {
             Id = partyCharacter.Id;
             PartyId = partyCharacter.PartyId;
@@ -54,7 +54,7 @@ namespace PcgManager.Dto
             Name = partyCharacter.CharacterCard.Name;
             Skills = new List<Skill>();
 
-            if (DeepObjects)
+            if (deepObjects)
             {
                 var skills = DataAccess.Dto.Skill.All(CharacterCardId);
                 Skills.AddRange(skills.Select(s => new Skill(s)));
