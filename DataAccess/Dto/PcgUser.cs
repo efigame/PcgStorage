@@ -37,6 +37,18 @@ namespace DataAccess.Dto
 
             return allUsers;
         }
+        public static bool CheckUserByEmail(string email)
+        {
+            var found = false;
+
+            using (var data = new PcgStorageEntities())
+            {
+                var pcgUser = data.pcgusers.FirstOrDefault(u => u.Email == email);
+                if (pcgUser != null) found = true;
+            }
+
+            return found;
+        }
 
         public void Persist()
         {

@@ -57,25 +57,22 @@ namespace PcgManager
                 Success = false
             };
 
-            using (var data = new DataAccess.Data())
+            var pcgUser = new DataAccess.Dto.PcgUser
             {
-                var pcgUser = new DataAccess.Dto.PcgUser
-                {
-                    Email = email,
-                    Password = password
-                };
+                Email = email,
+                Password = password
+            };
 
-                if (!data.CheckUserByEmail(pcgUser.Email))
-                {
-                    pcgUser.Persist();
+            if (!DataAccess.Dto.PcgUser.CheckUserByEmail(pcgUser.Email))
+            {
+                pcgUser.Persist();
 
-                    if (pcgUser.Id > 0) successMessage.Success = true;
-                }
-                else
-                {
-                    successMessage.Success = false;
-                    successMessage.FailedType = FailedType.UserAlreadyExists;
-                }
+                if (pcgUser.Id > 0) successMessage.Success = true;
+            }
+            else
+            {
+                successMessage.Success = false;
+                successMessage.FailedType = FailedType.UserAlreadyExists;
             }
 
             return successMessage;

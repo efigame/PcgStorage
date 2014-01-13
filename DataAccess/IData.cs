@@ -9,6 +9,6 @@ namespace DataAccess
 {
     public interface IData
     {
-        bool CheckUserByEmail(string email);
+        
     }
 }
