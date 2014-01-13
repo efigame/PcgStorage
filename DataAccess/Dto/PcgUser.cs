@@ -68,15 +68,22 @@ namespace DataAccess.Dto
                 {
                     pcgUser.Email = Email;
                     pcgUser.Password = Password;
+                    data.SaveChanges();
                 }
-
-                data.SaveChanges();
             }
         }
 
         public void Delete()
         {
-            throw new NotImplementedException();
+            using (var data = new PcgStorageEntities())
+            {
+                var pcgUser = data.pcgusers.SingleOrDefault(u => u.Id == Id);
+                if (pcgUser != null)
+                {
+                    data.pcgusers.Remove(pcgUser);
+                    data.SaveChanges();
+                }
+            }
         }
 
         internal PcgUser(DataAccess.pcguser pcgUser)
