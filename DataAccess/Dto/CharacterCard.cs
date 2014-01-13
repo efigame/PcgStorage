@@ -52,6 +52,19 @@ namespace DataAccess.Dto
             }
         }
 
+        public void Update()
+        {
+            using (var data = new PcgStorageEntities())
+            {
+                var card = data.charactercards.SingleOrDefault(c => c.Id == Id);
+                if (card != null)
+                {
+                    card.Name = Name;
+                    data.SaveChanges();
+                }
+            }
+        }
+
         internal CharacterCard(DataAccess.charactercard card)
         {
             Id = card.Id;
