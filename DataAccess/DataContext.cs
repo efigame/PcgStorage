@@ -12,10 +12,12 @@ namespace DataAccess
 
         public PcgStorageEntities GetDataContext()
         {
-            if (_context == null)
-                return new PcgStorageEntities();
-            else
-                return _context;
+            return new PcgStorageEntities();
+        }
+
+        public DataContext()
+        {
+            _context = new PcgStorageEntities();
         }
 
         public DataContext(PcgStorageEntities context)

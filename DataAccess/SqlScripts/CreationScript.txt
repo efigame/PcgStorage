@@ -97,7 +97,7 @@ ADD CONSTRAINT `fk_characterskill_partycharacter`
   ON DELETE NO ACTION
   ON UPDATE NO ACTION,
 ADD CONSTRAINT `fk_characterskill_skill`
-  FOREIGN KEY (`SkillsId`)
+  FOREIGN KEY (`SkillId`)
   REFERENCES `pcgstorage`.`skill` (`Id`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
