@@ -81,23 +81,23 @@ namespace DataAccessTest
         }
 
         [TestMethod]
-        public void GivenNewUserInDbWhenCallingPersistThenTheUserIsCreatedInDb()
+        public void GivenNewUserWhenCallingPersistThenTheUserIsCreatedInDb()
         {
             // Arrange
-            var expectedUser = new PcgUser { Email = "aaa@efigame.com", Password = "aaa" };
+            var newUser = new PcgUser { Email = "aaa@efigame.com", Password = "aaa" };
 
             // Act
-            expectedUser.Persist();
+            newUser.Persist();
 
             // Assert
-            var actual = PcgUser.Get(expectedUser.Email, expectedUser.Password);
+            var actual = PcgUser.Get(newUser.Email, newUser.Password);
 
             Assert.IsNotNull(actual);
-            Assert.AreEqual(expectedUser.Email, actual.Email);
-            Assert.AreEqual(expectedUser.Password, actual.Password);
+            Assert.AreEqual(newUser.Email, actual.Email);
+            Assert.AreEqual(newUser.Password, actual.Password);
 
             // Cleanup
-            expectedUser.Delete();
+            newUser.Delete();
         }
 
         [TestMethod]
