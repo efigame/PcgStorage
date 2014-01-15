@@ -31,7 +31,7 @@ namespace DataAccess.Dto
 
             using (var data = new PcgStorageEntities())
             {
-                var all = data.pcgusers;
+                var all = data.pcgusers.ToList();
                 allUsers.AddRange(all.Select(u => new PcgUser(u)));
             }
 
