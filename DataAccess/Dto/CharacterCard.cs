@@ -9,18 +9,14 @@ namespace DataAccess.Dto
 {
     public class CharacterCard
     {
-        private static IDataContext _context;
-
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public static CharacterCard Get(int id, IDataContext context = null)
+        public static CharacterCard Get(int id)
         {
-            _context = context;
-
             CharacterCard characterCard = null;
 
-            using (var data = _context.GetDataContext())
+            using (var data = new PcgStorageEntities())
             {
                 var card = data.charactercards.SingleOrDefault(c => c.Id == id);
                 if (card != null) characterCard = new CharacterCard(card);
@@ -28,15 +24,13 @@ namespace DataAccess.Dto
 
             return characterCard;
         }
-        public static List<CharacterCard> All(IDataContext context = null)
+        public static List<CharacterCard> All()
         {
-            _context = context;
-
             var allCards = new List<CharacterCard>();
 
-            using (var data = _context.GetDataContext())
+            using (var data = new PcgStorageEntities())
             {
-                var all = data.charactercards;
+                var all = data.charactercards.ToList();
                 allCards.AddRange(all.Select(a => new CharacterCard(a)));
             }
 
@@ -45,7 +39,7 @@ namespace DataAccess.Dto
 
         public void Persist()
         {
-            using (var data = _context.GetDataContext())
+            using (var data = new PcgStorageEntities())
             {
                 var card = this.ToEntity();
 
@@ -57,7 +51,7 @@ namespace DataAccess.Dto
         }
         public void Update()
         {
-            using (var data = _context.GetDataContext())
+            using (var data = new PcgStorageEntities())
             {
                 var card = data.charactercards.SingleOrDefault(c => c.Id == Id);
                 if (card != null)
@@ -69,7 +63,7 @@ namespace DataAccess.Dto
         }
         public void Delete() // TODO: Remember foreign relations
         {
-            using (var data = _context.GetDataContext())
+            using (var data = new PcgStorageEntities())
             {
                 var card = data.charactercards.SingleOrDefault(u => u.Id == Id);
                 if (card != null)
@@ -80,9 +74,8 @@ namespace DataAccess.Dto
             }
         }
 
-        public CharacterCard(IDataContext context)
+        public CharacterCard()
         {
-            _context = context;
         }
 
         internal CharacterCard(charactercard card)
