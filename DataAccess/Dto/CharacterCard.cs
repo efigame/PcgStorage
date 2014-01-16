@@ -11,6 +11,10 @@ namespace DataAccess.Dto
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public int BaseHandSize { get; set; }
+        public bool BaseLightArmors { get; set; }
+        public bool BaseHeavyArmors { get; set; }
+        public bool BaseWeapons { get; set; }
 
         public static CharacterCard Get(int id)
         {
@@ -57,6 +61,10 @@ namespace DataAccess.Dto
                 if (card != null)
                 {
                     card.Name = Name;
+                    card.BaseHandSize = BaseHandSize;
+                    card.BaseLightArmors = BaseLightArmors;
+                    card.BaseHeavyArmors = BaseHeavyArmors;
+                    card.BaseWeapons = BaseWeapons;
                     data.SaveChanges();
                 }
             }
@@ -82,12 +90,20 @@ namespace DataAccess.Dto
         {
             Id = card.Id;
             Name = card.Name;
+            BaseHandSize = card.BaseHandSize;
+            BaseLightArmors = card.BaseLightArmors;
+            BaseHeavyArmors = card.BaseHeavyArmors;
+            BaseWeapons = card.BaseWeapons;
         }
         internal charactercard ToEntity()
         {
             var card = new charactercard
             {
-                Name = this.Name
+                Name = this.Name,
+                BaseHandSize = this.BaseHandSize,
+                BaseLightArmors = this.BaseLightArmors,
+                BaseHeavyArmors = this.BaseHeavyArmors,
+                BaseWeapons = this.BaseWeapons
             };
 
             return card;

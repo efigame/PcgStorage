@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DataAccess.Dto;
+using System.Collections.Generic;
 
 namespace DataAccessTest
 {
@@ -11,7 +12,7 @@ namespace DataAccessTest
         public void GivenCharacterCardInDbWhenCallingCharacterCardGetThenTheCorrectCharacterCardIsReturned()
         {
             // Arrange
-            var expectedCharacterCard = new CharacterCard { Name = "Donald Duck" };
+            var expectedCharacterCard = new CharacterCard { Name = "Donald Duck", BaseHandSize = 5, BaseLightArmors = true, BaseHeavyArmors = true, BaseWeapons = false };
             expectedCharacterCard.Persist();
 
             // Act
@@ -19,6 +20,10 @@ namespace DataAccessTest
 
             // Assert
             Assert.AreEqual(expectedCharacterCard.Name, actual.Name);
+            Assert.AreEqual(expectedCharacterCard.BaseHandSize, actual.BaseHandSize);
+            Assert.AreEqual(expectedCharacterCard.BaseLightArmors, actual.BaseLightArmors);
+            Assert.AreEqual(expectedCharacterCard.BaseHeavyArmors, actual.BaseHeavyArmors);
+            Assert.AreEqual(expectedCharacterCard.BaseWeapons, actual.BaseWeapons);
 
             // Cleanup
             expectedCharacterCard.Delete();
@@ -28,8 +33,8 @@ namespace DataAccessTest
         public void GivenTwoCharacterCardsInDbWhenCallingCharacterCardAllThenBothCharacterCardsAreReturned()
         {
             // Arrange
-            var expectedCharacterCard1 = new CharacterCard { Name = "Donald Duck" };
-            var expectedCharacterCard2 = new CharacterCard { Name = "Daisy Duck" };
+            var expectedCharacterCard1 = new CharacterCard { Name = "Donald Duck", BaseHandSize = 5, BaseLightArmors = true, BaseHeavyArmors = true, BaseWeapons = false };
+            var expectedCharacterCard2 = new CharacterCard { Name = "Daisy Duck", BaseHandSize = 3, BaseLightArmors = false, BaseHeavyArmors = false, BaseWeapons = true };
 
             expectedCharacterCard1.Persist();
             expectedCharacterCard2.Persist();
@@ -51,7 +56,7 @@ namespace DataAccessTest
         public void GivenNewCharacterCardWhenCallingPersistThenTheCharacterCardIsCreatedInDb()
         {
             // Arrange
-            var newCharacterCard = new CharacterCard { Name = "Donald Duck" };
+            var newCharacterCard = new CharacterCard { Name = "Donald Duck", BaseHandSize = 5, BaseLightArmors = true, BaseHeavyArmors = true, BaseWeapons = false };
 
             // Act
             newCharacterCard.Persist();
@@ -61,6 +66,10 @@ namespace DataAccessTest
 
             Assert.IsNotNull(actual);
             Assert.AreEqual(newCharacterCard.Name, actual.Name);
+            Assert.AreEqual(newCharacterCard.BaseHandSize, actual.BaseHandSize);
+            Assert.AreEqual(newCharacterCard.BaseLightArmors, actual.BaseLightArmors);
+            Assert.AreEqual(newCharacterCard.BaseHeavyArmors, actual.BaseHeavyArmors);
+            Assert.AreEqual(newCharacterCard.BaseWeapons, actual.BaseWeapons);
 
             // Cleanup
             newCharacterCard.Delete();
@@ -71,13 +80,21 @@ namespace DataAccessTest
         {
             // Arrange
             var expectedName = "Donald Duck";
+            var expectedBaseHandSize = 5;
+            var expectedBaseLightArmors = true;
+            var expectedBaseHeavyArmors = true;
+            var expectedBaseWeapons = false;
 
-            var characterCardInDb = new CharacterCard { Name = "Daisy Duck" };
+            var characterCardInDb = new CharacterCard { Name = "Daisy Duck", BaseHandSize = 3, BaseLightArmors = false, BaseHeavyArmors = false, BaseWeapons = true };
             characterCardInDb.Persist();
 
             // Act
             var actualCharacterCard = CharacterCard.Get(characterCardInDb.Id);
             actualCharacterCard.Name = expectedName;
+            actualCharacterCard.BaseHandSize = expectedBaseHandSize;
+            actualCharacterCard.BaseLightArmors = expectedBaseLightArmors;
+            actualCharacterCard.BaseHeavyArmors = expectedBaseHeavyArmors;
+            actualCharacterCard.BaseWeapons = expectedBaseWeapons;
             actualCharacterCard.Update();
 
             var actual = CharacterCard.Get(characterCardInDb.Id);
@@ -86,6 +103,10 @@ namespace DataAccessTest
             Assert.IsNotNull(actual);
             Assert.AreEqual(characterCardInDb.Id, actual.Id);
             Assert.AreEqual(expectedName, actual.Name);
+            Assert.AreEqual(expectedBaseHandSize, actual.BaseHandSize);
+            Assert.AreEqual(expectedBaseLightArmors, actual.BaseLightArmors);
+            Assert.AreEqual(expectedBaseHeavyArmors, actual.BaseHeavyArmors);
+            Assert.AreEqual(expectedBaseWeapons, actual.BaseWeapons);
             
             // Cleanup
             characterCardInDb.Delete();
@@ -95,7 +116,7 @@ namespace DataAccessTest
         public void GivenCharacterCardInDbWhenCallingDeleteThenTheCharacterCardIsDeletedInDb()
         {
             // Arrange
-            var characterCardInDb = new CharacterCard { Name = "Donald Duck" };
+            var characterCardInDb = new CharacterCard { Name = "Donald Duck", BaseHandSize = 5, BaseLightArmors = true, BaseHeavyArmors = true, BaseWeapons = false };
             characterCardInDb.Persist();
 
             // Act
