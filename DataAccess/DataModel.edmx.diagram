@@ -19,6 +19,8 @@
         <AssociationConnector Association="PcgStorageModel.fk_party_pcguser" />
         <AssociationConnector Association="PcgStorageModel.fk_partycharacter_party" />
         <AssociationConnector Association="PcgStorageModel.fk_subskill_skill" />
+        <EntityTypeShape EntityType="PcgStorageModel.power" Width="1.5" PointX="0.5" PointY="3.125" />
+        <AssociationConnector Association="PcgStorageModel.fk_power_charactercard_id" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

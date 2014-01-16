@@ -32,5 +32,6 @@ namespace DataAccess
         public virtual DbSet<pcguser> pcgusers { get; set; }
         public virtual DbSet<skill> skills { get; set; }
         public virtual DbSet<subskill> subskills { get; set; }
+        public virtual DbSet<power> powers { get; set; }
     }
 }

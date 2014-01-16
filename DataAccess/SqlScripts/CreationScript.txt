@@ -107,3 +107,18 @@ ADD COLUMN `BaseHandSize` INT NOT NULL AFTER `Name`,
 ADD COLUMN `BaseLightArmors` BIT NOT NULL AFTER `BaseHandSize`,
 ADD COLUMN `BaseHeavyArmors` BIT NOT NULL AFTER `BaseLightArmors`,
 ADD COLUMN `BaseWeapons` BIT NOT NULL AFTER `BaseHeavyArmors`;
+
+CREATE TABLE `pcgstorage`.`power` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `Text` VARCHAR(500) NOT NULL,
+  `Number` INT NOT NULL,
+  `Dice` INT NULL,
+  `Adjustment` INT NULL,
+  `CharacterCardId` INT NOT NULL,
+  PRIMARY KEY (`Id`),
+  INDEX `fk_power_charactercard_id_idx` (`CharacterCardId` ASC),
+  CONSTRAINT `fk_power_charactercard_id`
+    FOREIGN KEY (`CharacterCardId`)
+    REFERENCES `pcgstorage`.`charactercard` (`Id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);

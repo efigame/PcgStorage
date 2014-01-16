@@ -98,6 +98,9 @@
     <Compile Include="pcguser.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="power.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="skill.cs">
       <DependentUpon>DataModel.tt</DependentUpon>

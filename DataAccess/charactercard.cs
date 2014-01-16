@@ -18,6 +18,7 @@ namespace DataAccess
         {
             this.partycharacters = new HashSet<partycharacter>();
             this.skills = new HashSet<skill>();
+            this.powers = new HashSet<power>();
         }
     
         public int Id { get; set; }
@@ -29,5 +30,6 @@ namespace DataAccess
     
         public virtual ICollection<partycharacter> partycharacters { get; set; }
         public virtual ICollection<skill> skills { get; set; }
+        public virtual ICollection<power> powers { get; set; }
     }
 }

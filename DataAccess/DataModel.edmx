@@ -49,6 +49,17 @@
           <Property Name="Email" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <EntityType Name="power">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Text" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Number" Type="int" Nullable="false" />
+          <Property Name="Dice" Type="int" />
+          <Property Name="Adjustment" Type="int" />
+          <Property Name="CharacterCardId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="skill">
           <Key>
             <PropertyRef Name="Id" />
@@ -128,6 +139,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_power_charactercard_id">
+          <End Role="charactercard" Type="Self.charactercard" Multiplicity="1" />
+          <End Role="power" Type="Self.power" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="charactercard">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="power">
+              <PropertyRef Name="CharacterCardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_skill_charactercard">
           <End Role="charactercard" Type="Self.charactercard" Multiplicity="1" />
           <End Role="skill" Type="Self.skill" Multiplicity="*" />
@@ -158,6 +181,7 @@
           <EntitySet Name="party" EntityType="Self.party" Schema="pcgstorage" store:Type="Tables" />
           <EntitySet Name="partycharacter" EntityType="Self.partycharacter" Schema="pcgstorage" store:Type="Tables" />
           <EntitySet Name="pcguser" EntityType="Self.pcguser" Schema="pcgstorage" store:Type="Tables" />
+          <EntitySet Name="power" EntityType="Self.power" Schema="pcgstorage" store:Type="Tables" />
           <EntitySet Name="skill" EntityType="Self.skill" Schema="pcgstorage" store:Type="Tables" />
           <EntitySet Name="subskill" EntityType="Self.subskill" Schema="pcgstorage" store:Type="Tables" />
           <AssociationSet Name="fk_characterskill_partycharacter" Association="Self.fk_characterskill_partycharacter">
@@ -179,6 +203,10 @@
           <AssociationSet Name="fk_partycharacter_party" Association="Self.fk_partycharacter_party">
             <End Role="party" EntitySet="party" />
             <End Role="partycharacter" EntitySet="partycharacter" />
+          </AssociationSet>
+          <AssociationSet Name="fk_power_charactercard_id" Association="Self.fk_power_charactercard_id">
+            <End Role="charactercard" EntitySet="charactercard" />
+            <End Role="power" EntitySet="power" />
           </AssociationSet>
           <AssociationSet Name="fk_skill_charactercard" Association="Self.fk_skill_charactercard">
             <End Role="charactercard" EntitySet="charactercard" />
@@ -229,6 +257,11 @@
             <End Role="skill" EntitySet="skills" />
             <End Role="subskill" EntitySet="subskills" />
           </AssociationSet>
+          <EntitySet Name="powers" EntityType="PcgStorageModel.power" />
+          <AssociationSet Name="fk_power_charactercard_id" Association="PcgStorageModel.fk_power_charactercard_id">
+            <End Role="charactercard" EntitySet="charactercards" />
+            <End Role="power" EntitySet="powers" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="charactercard">
           <Key>
@@ -242,6 +275,7 @@
           <Property Name="BaseLightArmors" Type="Boolean" Nullable="false" />
           <Property Name="BaseHeavyArmors" Type="Boolean" Nullable="false" />
           <Property Name="BaseWeapons" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="powers" Relationship="PcgStorageModel.fk_power_charactercard_id" FromRole="charactercard" ToRole="power" />
         </EntityType>
         <EntityType Name="characterskill">
           <Key>
@@ -391,6 +425,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="power">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Number" Type="Int32" Nullable="false" />
+          <Property Name="Dice" Type="Int32" />
+          <Property Name="Adjustment" Type="Int32" />
+          <Property Name="CharacterCardId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="charactercard" Relationship="PcgStorageModel.fk_power_charactercard_id" FromRole="power" ToRole="charactercard" />
+        </EntityType>
+        <Association Name="fk_power_charactercard_id">
+          <End Type="PcgStorageModel.charactercard" Role="charactercard" Multiplicity="1" />
+          <End Type="PcgStorageModel.power" Role="power" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="charactercard">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="power">
+              <PropertyRef Name="CharacterCardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -463,6 +521,18 @@
                 <ScalarProperty Name="Adjustment" ColumnName="Adjustment" />
                 <ScalarProperty Name="BaseSkillId" ColumnName="BaseSkillId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="powers">
+            <EntityTypeMapping TypeName="PcgStorageModel.power">
+              <MappingFragment StoreEntitySet="power">
+                <ScalarProperty Name="CharacterCardId" ColumnName="CharacterCardId" />
+                <ScalarProperty Name="Adjustment" ColumnName="Adjustment" />
+                <ScalarProperty Name="Dice" ColumnName="Dice" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
