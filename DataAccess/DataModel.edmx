@@ -11,6 +11,10 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="BaseHandSize" Type="int" Nullable="false" />
+          <Property Name="BaseLightArmors" Type="bit" Nullable="false" />
+          <Property Name="BaseHeavyArmors" Type="bit" Nullable="false" />
+          <Property Name="BaseWeapons" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="characterskill">
           <Key>
@@ -234,6 +238,10 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="partycharacters" Relationship="PcgStorageModel.fk_partycharacter_charactercard" FromRole="charactercard" ToRole="partycharacter" />
           <NavigationProperty Name="skills" Relationship="PcgStorageModel.fk_skill_charactercard" FromRole="charactercard" ToRole="skill" />
+          <Property Name="BaseHandSize" Type="Int32" Nullable="false" />
+          <Property Name="BaseLightArmors" Type="Boolean" Nullable="false" />
+          <Property Name="BaseHeavyArmors" Type="Boolean" Nullable="false" />
+          <Property Name="BaseWeapons" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="characterskill">
           <Key>
@@ -392,6 +400,10 @@
           <EntitySetMapping Name="charactercards">
             <EntityTypeMapping TypeName="PcgStorageModel.charactercard">
               <MappingFragment StoreEntitySet="charactercard">
+                <ScalarProperty Name="BaseWeapons" ColumnName="BaseWeapons" />
+                <ScalarProperty Name="BaseHeavyArmors" ColumnName="BaseHeavyArmors" />
+                <ScalarProperty Name="BaseLightArmors" ColumnName="BaseLightArmors" />
+                <ScalarProperty Name="BaseHandSize" ColumnName="BaseHandSize" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

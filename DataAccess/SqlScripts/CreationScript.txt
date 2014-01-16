@@ -101,3 +101,9 @@ ADD CONSTRAINT `fk_characterskill_skill`
   REFERENCES `pcgstorage`.`skill` (`Id`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
+
+ALTER TABLE `pcgstorage`.`charactercard` 
+ADD COLUMN `BaseHandSize` INT NOT NULL AFTER `Name`,
+ADD COLUMN `BaseLightArmors` BIT NOT NULL AFTER `BaseHandSize`,
+ADD COLUMN `BaseHeavyArmors` BIT NOT NULL AFTER `BaseLightArmors`,
+ADD COLUMN `BaseWeapons` BIT NOT NULL AFTER `BaseHeavyArmors`;

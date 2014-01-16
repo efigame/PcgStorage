@@ -22,6 +22,10 @@ namespace DataAccess
     
         public int Id { get; set; }
         public string Name { get; set; }
+        public int BaseHandSize { get; set; }
+        public bool BaseLightArmors { get; set; }
+        public bool BaseHeavyArmors { get; set; }
+        public bool BaseWeapons { get; set; }
     
         public virtual ICollection<partycharacter> partycharacters { get; set; }
         public virtual ICollection<skill> skills { get; set; }
