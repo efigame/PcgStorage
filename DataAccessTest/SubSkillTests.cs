@@ -140,10 +140,10 @@ namespace DataAccessTest
             subSkillInDb.Persist();
 
             // Act
-            var actualSkill = SubSkill.Get(subSkillInDb.Id);
-            actualSkill.Name = expectedName;
-            actualSkill.Adjustment = expectedAdjustment;
-            actualSkill.Update();
+            var actualSubSkill = SubSkill.Get(subSkillInDb.Id);
+            actualSubSkill.Name = expectedName;
+            actualSubSkill.Adjustment = expectedAdjustment;
+            actualSubSkill.Update();
 
             var actual = SubSkill.Get(subSkillInDb.Id);
 

@@ -164,10 +164,10 @@ namespace DataAccessTest
             partyCharacterInDb.Persist();
 
             // Act
-            var actualParty = PartyCharacter.Get(partyCharacterInDb.Id);
-            actualParty.CharacterCardId = expectedCharacterCard.Id;
-            actualParty.PartyId = expectedParty.Id;
-            actualParty.Update();
+            var actualPartyCharacter = PartyCharacter.Get(partyCharacterInDb.Id);
+            actualPartyCharacter.CharacterCardId = expectedCharacterCard.Id;
+            actualPartyCharacter.PartyId = expectedParty.Id;
+            actualPartyCharacter.Update();
 
             var actual = PartyCharacter.Get(partyCharacterInDb.Id);
 
