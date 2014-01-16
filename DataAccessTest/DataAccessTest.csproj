@@ -67,6 +67,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="SkillTests.cs" />
     <Compile Include="PartyTests.cs" />
     <Compile Include="CharacterCardTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
