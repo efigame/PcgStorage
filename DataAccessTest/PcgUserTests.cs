@@ -101,7 +101,7 @@ namespace DataAccessTest
         }
 
         [TestMethod]
-        public void GivenUserInDbWhenCallingUserUpdateThenTheUserIsUpdatedInDb()
+        public void GivenUserInDbWhenCallingUpdateThenTheUserIsUpdatedInDb()
         {
             // Arrange
             var expectedEmail = "bbb@efigame.com";
@@ -129,7 +129,7 @@ namespace DataAccessTest
         }
 
         [TestMethod]
-        public void GivenUserInDbWhenCallingUserDeleteThenTheUserIsDeletedInDb()
+        public void GivenUserInDbWhenCallingDeleteThenTheUserIsDeletedInDb()
         {
             // Arrange
             var userIdDb = new PcgUser { Email = "aaa@efigame.com", Password = "aaa" };

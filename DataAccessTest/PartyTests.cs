@@ -106,7 +106,7 @@ namespace DataAccessTest
         }
 
         [TestMethod]
-        public void GivenPartyInDbWhenCallingPartyUpdateThenThePartyIsUpdatedInDb()
+        public void GivenPartyInDbWhenCallingUpdateThenThePartyIsUpdatedInDb()
         {
             // Arrange
             var expectedName = "donald duck party 2";
@@ -135,7 +135,7 @@ namespace DataAccessTest
         }
 
         [TestMethod]
-        public void GivenUserInDbWhenCallingUserDeleteThenTheUserIsDeletedInDb()
+        public void GivenPartyInDbWhenCallingDeleteThenThePartyIsDeletedInDb()
         {
             // Arrange
             var user = new PcgUser { Email = "aaa@efigame.com", Password = "aaa" };
