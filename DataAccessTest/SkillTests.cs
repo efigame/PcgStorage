@@ -120,25 +120,25 @@ namespace DataAccessTest
             var characterCard = new CharacterCard { Name = "Donald Duck" };
             characterCard.Persist();
 
-            var SkillIdDb = new Skill { Name = "Awesome Skill", Dice = 6, PossibleAddons = 2, CharacterCardId = characterCard.Id };
-            SkillIdDb.Persist();
+            var skillIdDb = new Skill { Name = "Awesome Skill", Dice = 6, PossibleAddons = 2, CharacterCardId = characterCard.Id };
+            skillIdDb.Persist();
 
             // Act
-            var actualSkill = Skill.Get(SkillIdDb.Id);
+            var actualSkill = Skill.Get(skillIdDb.Id);
             actualSkill.Name = expectedName;
             actualSkill.Dice = expectedDice;
             actualSkill.PossibleAddons = expectedPossibleAddons;
             actualSkill.Update();
 
-            var actual = Skill.Get(SkillIdDb.Id);
+            var actual = Skill.Get(skillIdDb.Id);
 
             // Assert
             Assert.IsNotNull(actual);
-            Assert.AreEqual(SkillIdDb.Id, actual.Id);
+            Assert.AreEqual(skillIdDb.Id, actual.Id);
             Assert.AreEqual(expectedName, actual.Name);
 
             // Cleanup
-            SkillIdDb.Delete();
+            skillIdDb.Delete();
             characterCard.Delete();
         }
 
