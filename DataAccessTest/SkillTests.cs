@@ -32,7 +32,7 @@ namespace DataAccessTest
         }
 
         [TestMethod]
-        public void GivenTwoPartiesInDbWithCharacterCardIdWhenCallingSkillAllByCharacterCardIdThenTheBothPartiesAreReturned()
+        public void GivenTwoSkillsInDbWhenCallingSkillAllByCharacterCardIdThenBothSkillsAreReturned()
         {
             // Arrange
             var characterCard = new CharacterCard { Name = "Donald Duck" };
@@ -59,7 +59,7 @@ namespace DataAccessTest
         }
 
         [TestMethod]
-        public void GivenSkillInDbWhenCallingSkillAllByWrongCharacterCardIdThenTheNoPartiesAreReturned()
+        public void GivenSkillInDbWhenCallingSkillAllByWrongCharacterCardIdThenNoSkillsAreReturned()
         {
             // Arrange
             var characterCard = new CharacterCard { Name = "Donald Duck" };
@@ -120,25 +120,25 @@ namespace DataAccessTest
             var characterCard = new CharacterCard { Name = "Donald Duck" };
             characterCard.Persist();
 
-            var skillIdDb = new Skill { Name = "Awesome Skill", Dice = 6, PossibleAddons = 2, CharacterCardId = characterCard.Id };
-            skillIdDb.Persist();
+            var skillInDb = new Skill { Name = "Awesome Skill", Dice = 6, PossibleAddons = 2, CharacterCardId = characterCard.Id };
+            skillInDb.Persist();
 
             // Act
-            var actualSkill = Skill.Get(skillIdDb.Id);
+            var actualSkill = Skill.Get(skillInDb.Id);
             actualSkill.Name = expectedName;
             actualSkill.Dice = expectedDice;
             actualSkill.PossibleAddons = expectedPossibleAddons;
             actualSkill.Update();
 
-            var actual = Skill.Get(skillIdDb.Id);
+            var actual = Skill.Get(skillInDb.Id);
 
             // Assert
             Assert.IsNotNull(actual);
-            Assert.AreEqual(skillIdDb.Id, actual.Id);
+            Assert.AreEqual(skillInDb.Id, actual.Id);
             Assert.AreEqual(expectedName, actual.Name);
 
             // Cleanup
-            skillIdDb.Delete();
+            skillInDb.Delete();
             characterCard.Delete();
         }
 
@@ -149,20 +149,20 @@ namespace DataAccessTest
             var characterCard = new CharacterCard { Name = "Donald Duck" };
             characterCard.Persist();
 
-            var skillIdDb = new Skill { Name = "Awesome Skill", Dice = 6, PossibleAddons = 2, CharacterCardId = characterCard.Id };
-            skillIdDb.Persist();
+            var skillInDb = new Skill { Name = "Awesome Skill", Dice = 6, PossibleAddons = 2, CharacterCardId = characterCard.Id };
+            skillInDb.Persist();
 
             // Act
-            var skill = Skill.Get(skillIdDb.Id);
+            var skill = Skill.Get(skillInDb.Id);
             skill.Delete();
 
-            var actual = Skill.Get(skillIdDb.Id);
+            var actual = Skill.Get(skillInDb.Id);
 
             // Assert
             Assert.IsNull(actual);
 
             // Cleanup
-            skillIdDb.Delete();
+            skillInDb.Delete();
             characterCard.Delete();
         }
 

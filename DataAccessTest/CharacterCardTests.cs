@@ -25,7 +25,7 @@ namespace DataAccessTest
         }
 
         [TestMethod]
-        public void GivenTwoCharacterCardsInDbWhenCallingCharacterCardAllThenTheBothCharacterCardsAreReturned()
+        public void GivenTwoCharacterCardsInDbWhenCallingCharacterCardAllThenBothCharacterCardsAreReturned()
         {
             // Arrange
             var expectedCharacterCard1 = new CharacterCard { Name = "Donald Duck" };
@@ -72,43 +72,43 @@ namespace DataAccessTest
             // Arrange
             var expectedName = "Donald Duck";
 
-            var characterCardIdDb = new CharacterCard { Name = "Daisy Duck" };
-            characterCardIdDb.Persist();
+            var characterCardInDb = new CharacterCard { Name = "Daisy Duck" };
+            characterCardInDb.Persist();
 
             // Act
-            var actualCharacterCard = CharacterCard.Get(characterCardIdDb.Id);
+            var actualCharacterCard = CharacterCard.Get(characterCardInDb.Id);
             actualCharacterCard.Name = expectedName;
             actualCharacterCard.Update();
 
-            var actual = CharacterCard.Get(characterCardIdDb.Id);
+            var actual = CharacterCard.Get(characterCardInDb.Id);
 
             // Assert
             Assert.IsNotNull(actual);
-            Assert.AreEqual(characterCardIdDb.Id, actual.Id);
+            Assert.AreEqual(characterCardInDb.Id, actual.Id);
             Assert.AreEqual(expectedName, actual.Name);
             
             // Cleanup
-            characterCardIdDb.Delete();
+            characterCardInDb.Delete();
         }
 
         [TestMethod]
         public void GivenCharacterCardInDbWhenCallingDeleteThenTheCharacterCardIsDeletedInDb()
         {
             // Arrange
-            var characterCardIdDb = new CharacterCard { Name = "Donald Duck" };
-            characterCardIdDb.Persist();
+            var characterCardInDb = new CharacterCard { Name = "Donald Duck" };
+            characterCardInDb.Persist();
 
             // Act
-            var characterCard = CharacterCard.Get(characterCardIdDb.Id);
+            var characterCard = CharacterCard.Get(characterCardInDb.Id);
             characterCard.Delete();
 
-            var actual = CharacterCard.Get(characterCardIdDb.Id);
+            var actual = CharacterCard.Get(characterCardInDb.Id);
 
             // Assert
             Assert.IsNull(actual);
 
             // Cleanup
-            characterCardIdDb.Delete();
+            characterCardInDb.Delete();
         }
 
     }

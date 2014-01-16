@@ -30,7 +30,7 @@ namespace DataAccessTest
         }
 
         [TestMethod]
-        public void GivenTwoPartiesInDbWithUserIdWhenCallingPartyAllByUserIdThenTheBothPartiesAreReturned()
+        public void GivenTwoPartiesInDbWithUserIdWhenCallingPartyAllByUserIdThenBothPartiesAreReturned()
         {
             // Arrange
             var user = new PcgUser { Email = "aaa@efigame.com", Password = "aaa" };
@@ -57,7 +57,7 @@ namespace DataAccessTest
         }
 
         [TestMethod]
-        public void GivenPartyInDbWhenCallingPartyAllByWrongUserIdThenTheNoPartiesAreReturned()
+        public void GivenPartyInDbWhenCallingPartyAllByWrongUserIdThenNoPartiesAreReturned()
         {
             // Arrange
             var user = new PcgUser { Email = "aaa@efigame.com", Password = "aaa" };
@@ -114,23 +114,23 @@ namespace DataAccessTest
             var user = new PcgUser { Email = "aaa@efigame.com", Password = "aaa" };
             user.Persist();
 
-            var partyIdDb = new Party { Name = "donald duck party", PcgUserId = user.Id };
-            partyIdDb.Persist();
+            var partyInDb = new Party { Name = "donald duck party", PcgUserId = user.Id };
+            partyInDb.Persist();
 
             // Act
-            var actualParty = Party.Get(partyIdDb.Id);
+            var actualParty = Party.Get(partyInDb.Id);
             actualParty.Name = expectedName;
             actualParty.Update();
 
-            var actual = Party.Get(partyIdDb.Id);
+            var actual = Party.Get(partyInDb.Id);
 
             // Assert
             Assert.IsNotNull(actual);
-            Assert.AreEqual(partyIdDb.Id, actual.Id);
+            Assert.AreEqual(partyInDb.Id, actual.Id);
             Assert.AreEqual(expectedName, actual.Name);
 
             // Cleanup
-            partyIdDb.Delete();
+            partyInDb.Delete();
             user.Delete();
         }
 
@@ -141,20 +141,20 @@ namespace DataAccessTest
             var user = new PcgUser { Email = "aaa@efigame.com", Password = "aaa" };
             user.Persist();
 
-            var partyIdDb = new Party { Name = "donald duck party", PcgUserId = user.Id };
-            partyIdDb.Persist();
+            var partyInDb = new Party { Name = "donald duck party", PcgUserId = user.Id };
+            partyInDb.Persist();
 
             // Act
-            var party = Party.Get(partyIdDb.Id);
+            var party = Party.Get(partyInDb.Id);
             party.Delete();
 
-            var actual = Party.Get(partyIdDb.Id);
+            var actual = Party.Get(partyInDb.Id);
 
             // Assert
             Assert.IsNull(actual);
 
             // Cleanup
-            partyIdDb.Delete();
+            partyInDb.Delete();
             user.Delete();
         }
 

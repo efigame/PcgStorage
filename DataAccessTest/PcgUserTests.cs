@@ -107,11 +107,11 @@ namespace DataAccessTest
             var expectedEmail = "bbb@efigame.com";
             var expectedPassword = "bbb";
 
-            var userIdDb = new PcgUser { Email = "aaa@efigame.com", Password = "aaa" };
-            userIdDb.Persist();
+            var userInDb = new PcgUser { Email = "aaa@efigame.com", Password = "aaa" };
+            userInDb.Persist();
 
             // Act
-            var actualUser = PcgUser.Get(userIdDb.Email, userIdDb.Password);
+            var actualUser = PcgUser.Get(userInDb.Email, userInDb.Password);
             actualUser.Email = expectedEmail;
             actualUser.Password = expectedPassword;
             actualUser.Update();
@@ -120,32 +120,32 @@ namespace DataAccessTest
 
             // Assert
             Assert.IsNotNull(actual);
-            Assert.AreEqual(userIdDb.Id, actual.Id);
+            Assert.AreEqual(userInDb.Id, actual.Id);
             Assert.AreEqual(expectedEmail, actual.Email);
             Assert.AreEqual(expectedPassword, actual.Password);
 
             // Cleanup
-            userIdDb.Delete();
+            userInDb.Delete();
         }
 
         [TestMethod]
         public void GivenUserInDbWhenCallingDeleteThenTheUserIsDeletedInDb()
         {
             // Arrange
-            var userIdDb = new PcgUser { Email = "aaa@efigame.com", Password = "aaa" };
-            userIdDb.Persist();
+            var userInDb = new PcgUser { Email = "aaa@efigame.com", Password = "aaa" };
+            userInDb.Persist();
 
             // Act
-            var user = PcgUser.Get(userIdDb.Email, userIdDb.Password);
+            var user = PcgUser.Get(userInDb.Email, userInDb.Password);
             user.Delete();
 
-            var actual = PcgUser.Get(userIdDb.Email, userIdDb.Password);
+            var actual = PcgUser.Get(userInDb.Email, userInDb.Password);
 
             // Assert
             Assert.IsNull(actual);
 
             // Cleanup
-            userIdDb.Delete();
+            userInDb.Delete();
         }
 
     }

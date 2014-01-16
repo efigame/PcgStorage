@@ -38,7 +38,7 @@ namespace DataAccessTest
         }
 
         [TestMethod]
-        public void GivenTwoPartyCharactersInDbWhenCallingPartyCharacterAllThenTheBothPartyCharactersAreReturned()
+        public void GivenTwoPartyCharactersInDbWhenCallingPartyCharacterAllByPartyIdThenBothPartyCharactersAreReturned()
         {
             // Arrange
             var user = new PcgUser { Email = "aaa@efigame.com", Password = "aaa" };
@@ -77,7 +77,7 @@ namespace DataAccessTest
         }
 
         [TestMethod]
-        public void GivenPartyCharacterInDbWhenCallingPartyCharacterAllByWrongPartyIdThenTheNoPartyCharactersAreReturned()
+        public void GivenPartyCharacterInDbWhenCallingPartyCharacterAllByWrongPartyIdThenNoPartyCharactersAreReturned()
         {
             // Arrange
             var user = new PcgUser { Email = "aaa@efigame.com", Password = "aaa" };

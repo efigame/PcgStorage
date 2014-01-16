@@ -35,7 +35,7 @@ namespace DataAccessTest
         }
 
         [TestMethod]
-        public void GivenTwoSubSkillsInDbWithCharacterCardIdWhenCallingSubSkillAllByCharacterCardIdThenTheBothPartiesAreReturned()
+        public void GivenTwoSubSkillsInDbWithSkillIdWhenCallingSubSkillAllBySkillIdThenBothSubSkillsAreReturned()
         {
             // Arrange
             var characterCard = new CharacterCard { Name = "Donald Duck" };
@@ -66,7 +66,7 @@ namespace DataAccessTest
         }
 
         [TestMethod]
-        public void GivenSubSkillInDbWhenCallingSubSkillAllByWrongCharacterCardIdThenTheNoPartiesAreReturned()
+        public void GivenSubSkillInDbWhenCallingSubSkillAllByWrongSkillIdThenNoSubSkillsAreReturned()
         {
             // Arrange
             var characterCard = new CharacterCard { Name = "Donald Duck" };
@@ -136,24 +136,24 @@ namespace DataAccessTest
             var skill = new Skill { Name = "Awesome Skill", Dice = 6, PossibleAddons = 2, CharacterCardId = characterCard.Id };
             skill.Persist();
 
-            var subSkillIdDb = new SubSkill { Name = "Hilarious SubSkill", Adjustment = 2, BaseSkillId = skill.Id };
-            subSkillIdDb.Persist();
+            var subSkillInDb = new SubSkill { Name = "Hilarious SubSkill", Adjustment = 2, BaseSkillId = skill.Id };
+            subSkillInDb.Persist();
 
             // Act
-            var actualSkill = SubSkill.Get(subSkillIdDb.Id);
+            var actualSkill = SubSkill.Get(subSkillInDb.Id);
             actualSkill.Name = expectedName;
             actualSkill.Adjustment = expectedAdjustment;
             actualSkill.Update();
 
-            var actual = SubSkill.Get(subSkillIdDb.Id);
+            var actual = SubSkill.Get(subSkillInDb.Id);
 
             // Assert
             Assert.IsNotNull(actual);
-            Assert.AreEqual(subSkillIdDb.Id, actual.Id);
+            Assert.AreEqual(subSkillInDb.Id, actual.Id);
             Assert.AreEqual(expectedName, actual.Name);
 
             // Cleanup
-            subSkillIdDb.Delete();
+            subSkillInDb.Delete();
             skill.Delete();
             characterCard.Delete();
         }
@@ -168,20 +168,20 @@ namespace DataAccessTest
             var skill = new Skill { Name = "Awesome Skill", Dice = 6, PossibleAddons = 2, CharacterCardId = characterCard.Id };
             skill.Persist();
 
-            var subSkillIdDb = new SubSkill { Name = "Hilarious SubSkill", Adjustment = 2, BaseSkillId = skill.Id };
-            subSkillIdDb.Persist();
+            var subSkillInDb = new SubSkill { Name = "Hilarious SubSkill", Adjustment = 2, BaseSkillId = skill.Id };
+            subSkillInDb.Persist();
 
             // Act
-            var subSkill = SubSkill.Get(subSkillIdDb.Id);
+            var subSkill = SubSkill.Get(subSkillInDb.Id);
             subSkill.Delete();
 
-            var actual = SubSkill.Get(subSkillIdDb.Id);
+            var actual = SubSkill.Get(subSkillInDb.Id);
 
             // Assert
             Assert.IsNull(actual);
 
             // Cleanup
-            subSkillIdDb.Delete();
+            subSkillInDb.Delete();
             skill.Delete();
             characterCard.Delete();
         }
