@@ -136,6 +136,7 @@ namespace DataAccessTest
             Assert.IsNotNull(actual);
             Assert.AreEqual(skillInDb.Id, actual.Id);
             Assert.AreEqual(expectedName, actual.Name);
+            Assert.AreEqual(expectedPossibleAddons, actual.PossibleAddons);
 
             // Cleanup
             skillInDb.Delete();
