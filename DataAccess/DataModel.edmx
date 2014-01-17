@@ -15,6 +15,12 @@
           <Property Name="BaseLightArmors" Type="bit" Nullable="false" />
           <Property Name="BaseHeavyArmors" Type="bit" Nullable="false" />
           <Property Name="BaseWeapons" Type="bit" Nullable="false" />
+          <Property Name="BaseWeaponCards" Type="int" Nullable="false" />
+          <Property Name="BaseSpellCards" Type="int" Nullable="false" />
+          <Property Name="BaseArmorCards" Type="int" Nullable="false" />
+          <Property Name="BaseItemCards" Type="int" Nullable="false" />
+          <Property Name="BaseAllyCards" Type="int" Nullable="false" />
+          <Property Name="BaseBlessingCards" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="characterskill">
           <Key>
@@ -276,6 +282,12 @@
           <Property Name="BaseHeavyArmors" Type="Boolean" Nullable="false" />
           <Property Name="BaseWeapons" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="powers" Relationship="PcgStorageModel.fk_power_charactercard_id" FromRole="charactercard" ToRole="power" />
+          <Property Name="BaseWeaponCards" Type="Int32" Nullable="false" />
+          <Property Name="BaseSpellCards" Type="Int32" Nullable="false" />
+          <Property Name="BaseArmorCards" Type="Int32" Nullable="false" />
+          <Property Name="BaseItemCards" Type="Int32" Nullable="false" />
+          <Property Name="BaseAllyCards" Type="Int32" Nullable="false" />
+          <Property Name="BaseBlessingCards" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="characterskill">
           <Key>
@@ -458,6 +470,12 @@
           <EntitySetMapping Name="charactercards">
             <EntityTypeMapping TypeName="PcgStorageModel.charactercard">
               <MappingFragment StoreEntitySet="charactercard">
+                <ScalarProperty Name="BaseBlessingCards" ColumnName="BaseBlessingCards" />
+                <ScalarProperty Name="BaseAllyCards" ColumnName="BaseAllyCards" />
+                <ScalarProperty Name="BaseItemCards" ColumnName="BaseItemCards" />
+                <ScalarProperty Name="BaseArmorCards" ColumnName="BaseArmorCards" />
+                <ScalarProperty Name="BaseSpellCards" ColumnName="BaseSpellCards" />
+                <ScalarProperty Name="BaseWeaponCards" ColumnName="BaseWeaponCards" />
                 <ScalarProperty Name="BaseWeapons" ColumnName="BaseWeapons" />
                 <ScalarProperty Name="BaseHeavyArmors" ColumnName="BaseHeavyArmors" />
                 <ScalarProperty Name="BaseLightArmors" ColumnName="BaseLightArmors" />

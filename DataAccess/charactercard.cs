@@ -27,6 +27,12 @@ namespace DataAccess
         public bool BaseLightArmors { get; set; }
         public bool BaseHeavyArmors { get; set; }
         public bool BaseWeapons { get; set; }
+        public int BaseWeaponCards { get; set; }
+        public int BaseSpellCards { get; set; }
+        public int BaseArmorCards { get; set; }
+        public int BaseItemCards { get; set; }
+        public int BaseAllyCards { get; set; }
+        public int BaseBlessingCards { get; set; }
     
         public virtual ICollection<partycharacter> partycharacters { get; set; }
         public virtual ICollection<skill> skills { get; set; }

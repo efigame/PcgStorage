@@ -122,3 +122,11 @@ CREATE TABLE `pcgstorage`.`power` (
     REFERENCES `pcgstorage`.`charactercard` (`Id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
+
+ALTER TABLE `pcgstorage`.`charactercard` 
+ADD COLUMN `BaseWeaponCards` INT NOT NULL AFTER `BaseWeapons`,
+ADD COLUMN `BaseSpellCards` INT NOT NULL AFTER `BaseWeaponCards`,
+ADD COLUMN `BaseArmorCards` INT NOT NULL AFTER `BaseSpellCards`,
+ADD COLUMN `BaseItemCards` INT NOT NULL AFTER `BaseArmorCards`,
+ADD COLUMN `BaseAllyCards` INT NOT NULL AFTER `BaseItemCards`,
+ADD COLUMN `BaseBlessingCards` INT NOT NULL AFTER `BaseAllyCards`;

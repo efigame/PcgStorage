@@ -15,6 +15,12 @@ namespace DataAccess.Dto
         public bool BaseLightArmors { get; set; }
         public bool BaseHeavyArmors { get; set; }
         public bool BaseWeapons { get; set; }
+        public int BaseWeaponCards { get; set; }
+        public int BaseSpellCards { get; set; }
+        public int BaseArmorCards { get; set; }
+        public int BaseItemCards { get; set; }
+        public int BaseAllyCards { get; set; }
+        public int BaseBlessingCards { get; set; }
 
         public static CharacterCard Get(int id)
         {
@@ -65,6 +71,12 @@ namespace DataAccess.Dto
                     card.BaseLightArmors = BaseLightArmors;
                     card.BaseHeavyArmors = BaseHeavyArmors;
                     card.BaseWeapons = BaseWeapons;
+                    card.BaseWeaponCards = BaseWeaponCards;
+                    card.BaseSpellCards = BaseSpellCards;
+                    card.BaseArmorCards = BaseArmorCards;
+                    card.BaseItemCards = BaseItemCards;
+                    card.BaseAllyCards = BaseAllyCards;
+                    card.BaseBlessingCards = BaseBlessingCards;
                     data.SaveChanges();
                 }
             }
@@ -94,6 +106,12 @@ namespace DataAccess.Dto
             BaseLightArmors = card.BaseLightArmors;
             BaseHeavyArmors = card.BaseHeavyArmors;
             BaseWeapons = card.BaseWeapons;
+            BaseWeaponCards = card.BaseWeaponCards;
+            BaseSpellCards = card.BaseSpellCards;
+            BaseArmorCards = card.BaseArmorCards;
+            BaseItemCards = card.BaseItemCards;
+            BaseAllyCards = card.BaseAllyCards;
+            BaseBlessingCards = card.BaseBlessingCards;
         }
         internal charactercard ToEntity()
         {
@@ -103,7 +121,13 @@ namespace DataAccess.Dto
                 BaseHandSize = this.BaseHandSize,
                 BaseLightArmors = this.BaseLightArmors,
                 BaseHeavyArmors = this.BaseHeavyArmors,
-                BaseWeapons = this.BaseWeapons
+                BaseWeapons = this.BaseWeapons,
+                BaseWeaponCards = this.BaseWeaponCards,
+                BaseSpellCards = this.BaseSpellCards,
+                BaseArmorCards = this.BaseArmorCards,
+                BaseItemCards = this.BaseItemCards,
+                BaseAllyCards = this.BaseAllyCards,
+                BaseBlessingCards = this.BaseBlessingCards
             };
 
             return card;
