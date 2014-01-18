@@ -40,6 +40,87 @@ namespace Pcg_Storage.Webforms.Character {
         protected global::System.Web.UI.WebControls.Repeater repeaterSkills;
         
         /// <summary>
+        /// literalHandSize control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal literalHandSize;
+        
+        /// <summary>
+        /// checklistProficiencies control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBoxList checklistProficiencies;
+        
+        /// <summary>
+        /// repeaterExtraPowers control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater repeaterExtraPowers;
+        
+        /// <summary>
+        /// literalWeaponCards control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal literalWeaponCards;
+        
+        /// <summary>
+        /// literalSpellCards control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal literalSpellCards;
+        
+        /// <summary>
+        /// literalArmorCards control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal literalArmorCards;
+        
+        /// <summary>
+        /// literalItemCards control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal literalItemCards;
+        
+        /// <summary>
+        /// literalAllyCards control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal literalAllyCards;
+        
+        /// <summary>
+        /// literalBlessingCards control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal literalBlessingCards;
+        
+        /// <summary>
         /// linkEditCharacter control.
         /// </summary>
         /// <remarks>

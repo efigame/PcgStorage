@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dto\Power.cs" />
     <Compile Include="Dto\CardType.cs" />
     <Compile Include="Dto\Party.cs" />
     <Compile Include="Dto\Character.cs" />

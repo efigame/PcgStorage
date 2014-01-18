@@ -23,6 +23,21 @@ namespace Pcg_Storage.Webforms.Character
 
                 literalCharacterName.Text = character.Name;
                 literalPartyName.Text = party.Name;
+                literalHandSize.Text = character.HandSize.ToString();
+
+                checklistProficiencies.Items[0].Selected = character.LightArmors;
+                checklistProficiencies.Items[1].Selected = character.HeavyArmors;
+                checklistProficiencies.Items[2].Selected = character.Weapons;
+
+                literalWeaponCards.Text = character.WeaponCards.ToString();
+                literalSpellCards.Text = character.SpellCards.ToString();
+                literalArmorCards.Text = character.ArmorCards.ToString();
+                literalItemCards.Text = character.ItemCards.ToString();
+                literalAllyCards.Text = character.AllyCards.ToString();
+                literalBlessingCards.Text = character.BlessingCards.ToString();
+
+                repeaterExtraPowers.DataSource = character.Powers;
+                repeaterExtraPowers.DataBind();
 
                 repeaterSkills.DataSource = character.Skills;
                 repeaterSkills.DataBind();
@@ -43,9 +58,6 @@ namespace Pcg_Storage.Webforms.Character
 
                 var literalSkillDice = (Literal)e.Item.FindControl("literalSkillDice");
                 literalSkillDice.Text = "d" + skill.Dice.ToString();
-
-                var literalSkillPossibleAddons = (Literal)e.Item.FindControl("literalSkillPossibleAddons");
-                literalSkillPossibleAddons.Text = "+" + skill.PossibleAddons.ToString();
 
                 var repeaterSubSkills = (Repeater)e.Item.FindControl("repeaterSubSkills");
                 repeaterSubSkills.DataSource = skill.SubSkills;
@@ -76,5 +88,17 @@ namespace Pcg_Storage.Webforms.Character
         {
 
         }
+
+        protected void RepeaterExtraPowers_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                var power = (PcgManager.Dto.Power)e.Item.DataItem;
+
+                var literalText = (Literal)e.Item.FindControl("literalText");
+                literalText.Text = power.Text;
+            }
+        }
+
     }
 }

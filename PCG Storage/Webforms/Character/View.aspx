@@ -10,7 +10,6 @@
                 <div>
                     <asp:Literal ID="literalSkillName" runat="server"></asp:Literal>
                     <asp:Literal ID="literalSkillDice" runat="server"></asp:Literal>
-                    <asp:Literal ID="literalSkillPossibleAddons" runat="server"></asp:Literal>
                 </div>
                 <asp:Repeater ID="repeaterSubSkills" runat="server" OnItemCommand="RepeaterSubSkills_ItemCommand" OnItemDataBound="RepeaterSubSkills_ItemDataBound">
                     <ItemTemplate>
@@ -23,6 +22,33 @@
                 <hr />
             </ItemTemplate>
         </asp:Repeater>
+    </fieldset>
+    <fieldset>
+        <legend>Powers</legend>
+        Hand Size <asp:Literal ID="literalHandSize" runat="server"></asp:Literal><br />
+        <hr />
+        Proficient with 
+        <asp:CheckBoxList ID="checklistProficiencies" runat="server" RepeatDirection="Horizontal">
+            <asp:ListItem>Light Armors</asp:ListItem>
+            <asp:ListItem>Heavy Armors</asp:ListItem>
+            <asp:ListItem>Weapons</asp:ListItem>
+        </asp:CheckBoxList>
+        <hr />
+        <asp:Repeater ID="repeaterExtraPowers" runat="server" OnItemDataBound="RepeaterExtraPowers_ItemDataBound">
+            <ItemTemplate>
+                <asp:Literal ID="literalText" runat="server"></asp:Literal><br />
+                <hr />
+            </ItemTemplate>
+        </asp:Repeater>
+    </fieldset>
+    <fieldset>
+        <legend>Cards</legend>
+        <div>Weapon <asp:Literal ID="literalWeaponCards" runat="server"></asp:Literal></div><hr />
+        <div>Spell <asp:Literal ID="literalSpellCards" runat="server"></asp:Literal></div><hr />
+        <div>Armor <asp:Literal ID="literalArmorCards" runat="server"></asp:Literal></div><hr />
+        <div>Item <asp:Literal ID="literalItemCards" runat="server"></asp:Literal></div><hr />
+        <div>Ally <asp:Literal ID="literalAllyCards" runat="server"></asp:Literal></div><hr />
+        <div>Blessing <asp:Literal ID="literalBlessingCards" runat="server"></asp:Literal></div>
     </fieldset>
     <asp:HyperLink ID="linkEditCharacter" runat="server">Edit character</asp:HyperLink>
     <asp:HyperLink ID="linkGoToPartyView" runat="server">Go to party view</asp:HyperLink>
