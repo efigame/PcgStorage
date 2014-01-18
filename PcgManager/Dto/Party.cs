@@ -15,27 +15,23 @@ namespace PcgManager.Dto
 
         public List<Character> Characters { get; set; }
 
-        public Party()
+        public static List<Party> All(int userId)
         {
-            Characters = new List<Character>();
+            var parties = new List<Party>();
+
+            var partyList = DataAccess.Dto.Party.All(userId);
+            parties.AddRange(partyList.Select(p => new Party(p, false)));
+
+            return parties;
         }
-
-        internal Party(DataAccess.Dto.Party party) : this(party, true)
+        public static Party Get(int partyId)
         {
-        }
+            var party = new Party();
 
-        internal Party(DataAccess.Dto.Party party, bool deepObjects)
-        {
-            Id = party.Id;
-            Name = party.Name;
-            UserId = party.PcgUserId;
-            Characters = new List<Character>();
+            var partyData = DataAccess.Dto.Party.Get(partyId);
+            party = new Party(partyData);
 
-            if (deepObjects)
-            {
-                var characters = DataAccess.Dto.PartyCharacter.All(Id).ToList();
-                Characters.AddRange(characters.Select(c => new Character(c)));
-            }
+            return party;
         }
 
         public void Persist()
@@ -54,7 +50,6 @@ namespace PcgManager.Dto
                 partyCard.Persist();
             }
         }
-
         public void Update()
         {
             var partyInDb = DataAccess.Dto.Party.Get(this.Id);
@@ -84,5 +79,25 @@ namespace PcgManager.Dto
             }
         }
 
+        public Party()
+        {
+            Characters = new List<Character>();
+        }
+        internal Party(DataAccess.Dto.Party party) : this(party, true)
+        {
+        }
+        internal Party(DataAccess.Dto.Party party, bool deepObjects)
+        {
+            Id = party.Id;
+            Name = party.Name;
+            UserId = party.PcgUserId;
+            Characters = new List<Character>();
+
+            if (deepObjects)
+            {
+                var characters = DataAccess.Dto.PartyCharacter.All(Id).ToList();
+                Characters.AddRange(characters.Select(c => new Character(c)));
+            }
+        }
     }
 }

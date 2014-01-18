@@ -58,8 +58,6 @@
     <Compile Include="Dto\SuccessMessage.cs" />
     <Compile Include="Dto\Card.cs" />
     <Compile Include="Dto\FailedType.cs" />
-    <Compile Include="IPcgManager.cs" />
-    <Compile Include="PcgManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -18,8 +18,7 @@ namespace Pcg_Storage.Webforms.Character
 
             if (!Page.IsPostBack)
             {
-                var manager = new PcgManager.PcgManager();
-                var party = manager.GetParty(partyId);
+                var party = PcgManager.Dto.Party.Get(partyId);
                 var character = party.Characters.SingleOrDefault(c => c.Id == characterId);
 
                 literalCharacterName.Text = character.Name;

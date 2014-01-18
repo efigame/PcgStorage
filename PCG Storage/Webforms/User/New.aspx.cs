@@ -23,11 +23,10 @@ namespace Pcg_Storage.Webforms.User
 
             if (!String.IsNullOrEmpty(email) && !String.IsNullOrEmpty(password) && !String.IsNullOrEmpty(repeatPassword) && password == repeatPassword)
             {
-                var manager = new PcgManager.PcgManager();
-                var success = manager.CreateUser(email, password);
+                var success = PcgManager.Dto.User.Create(email, password);
                 if (success.Success)
                 {
-                    var user = manager.LoginUser(email, password);
+                    var user = PcgManager.Dto.User.Login(email, password);
                     linkGoToPartyView.NavigateUrl = Url.PartyIndex(user.Id);
                     modalPanelSuccess.Style["display"] = "block";
                 }

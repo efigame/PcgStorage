@@ -18,12 +18,10 @@ namespace Pcg_Storage.Webforms.Party
                 var userId = Convert.ToInt32(Page.RouteData.Values["userid"]);
                 var partyId = Convert.ToInt32(Page.RouteData.Values["partyid"]);
 
-                var manager = new PcgManager.PcgManager();
-
-                _party = manager.GetParty(partyId);
+                _party = PcgManager.Dto.Party.Get(partyId);
                 inputDescription.Value = _party.Name;
-                
-                var characterCards = manager.GetCards(PcgManager.Dto.CardType.Character);
+
+                var characterCards = PcgManager.Dto.Card.All(PcgManager.Dto.CardType.Character);
                 repeaterCharacters.DataSource = characterCards;
                 repeaterCharacters.DataBind();
 
@@ -40,9 +38,7 @@ namespace Pcg_Storage.Webforms.Party
 
             // TODO: Test for valid input
 
-            var manager = new PcgManager.PcgManager();
-
-            var party = manager.GetParty(partyId);
+            var party = PcgManager.Dto.Party.Get(partyId);
             party.Name = name;
             party.Characters = new List<PcgManager.Dto.Character>();
 

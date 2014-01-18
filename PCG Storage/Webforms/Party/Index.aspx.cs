@@ -16,9 +16,7 @@ namespace Pcg_Storage.Webforms.Party
 
             if (!Page.IsPostBack)
             {
-                var manager = new PcgManager.PcgManager();
-
-                repeaterOverview.DataSource = manager.GetParties(userId);
+                repeaterOverview.DataSource = PcgManager.Dto.Party.All(userId);
                 repeaterOverview.DataBind();
             }
 

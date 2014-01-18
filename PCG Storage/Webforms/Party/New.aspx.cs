@@ -16,8 +16,7 @@ namespace Pcg_Storage.Webforms.Party
             {
                 var userId = Convert.ToInt32(Page.RouteData.Values["userid"]);
 
-                var manager = new PcgManager.PcgManager();
-                var characterCards = manager.GetCards(PcgManager.Dto.CardType.Character);
+                var characterCards = PcgManager.Dto.Card.All(PcgManager.Dto.CardType.Character);
                 repeaterCharacters.DataSource = characterCards;
                 repeaterCharacters.DataBind();
 

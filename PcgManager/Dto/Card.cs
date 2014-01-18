@@ -14,7 +14,24 @@ namespace PcgManager.Dto
         public string Name { get; set; }
 
         public CardType CardType { get; set; }
-        
+
+        public static IEnumerable<Card> All(CardType cardType)
+        {
+            var cards = new List<Card>();
+
+            switch (cardType)
+            {
+                case CardType.Character:
+                    var characterCards = DataAccess.Dto.CharacterCard.All();
+                    cards.AddRange(characterCards.Select(c => new Card(c)));
+                    break;
+                case CardType.Monster:
+                    break;
+            }
+
+            return cards;
+        }
+
         internal Card()
         {
         }
@@ -23,7 +40,7 @@ namespace PcgManager.Dto
         {
             Id = card.Id;
             Name = card.Name;
-            CardType = Dto.CardType.Character;
+            CardType = CardType.Character;
         }
     }
 }

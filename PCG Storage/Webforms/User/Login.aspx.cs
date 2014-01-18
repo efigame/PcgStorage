@@ -24,8 +24,7 @@ namespace Pcg_Storage.Webforms.User
             var email = inputEmail.Value;
             var password = inputPassword.Value;
 
-            var manager = new PcgManager.PcgManager();
-            var user = manager.LoginUser(email, password);
+            var user = PcgManager.Dto.User.Login(email, password);
 
             if (user != null)
                 Response.Redirect(Url.PartyIndex(user.Id));

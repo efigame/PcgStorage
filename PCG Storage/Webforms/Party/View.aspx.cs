@@ -17,8 +17,7 @@ namespace Pcg_Storage.Webforms.Party
 
             if (!Page.IsPostBack)
             {
-                var manager = new PcgManager.PcgManager();
-                var party = manager.GetParty(partyId);
+                var party = PcgManager.Dto.Party.Get(partyId);
 
                 literalPartyName.Text = party.Name;
 
