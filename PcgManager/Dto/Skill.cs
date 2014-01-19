@@ -12,17 +12,18 @@ namespace PcgManager.Dto
         public string Name { get; set; }
         public int Dice { get; set; }
         public int PossibleAddons { get; set; }
+        public int SelectedAddons { get; set; }
         public List<SubSkill> SubSkills { get; set; }
 
         public Skill()
         {
         }
 
-        internal Skill(DataAccess.Dto.Skill skill) : this(skill, true)
+        internal Skill(DataAccess.Dto.Skill skill, int partyCharacterId) : this(skill, partyCharacterId, true)
         {
         }
         
-        internal Skill(DataAccess.Dto.Skill skill, bool deepObjects)
+        internal Skill(DataAccess.Dto.Skill skill, int partyCharacterId, bool deepObjects)
         {
             Id = skill.Id;
             Name = skill.Name;
@@ -34,6 +35,12 @@ namespace PcgManager.Dto
             {
                 var subSkills = DataAccess.Dto.SubSkill.All(Id);
                 SubSkills.AddRange(subSkills.Select(s => new SubSkill(s)));
+
+                var characterSkill = DataAccess.Dto.CharacterSkill.All(partyCharacterId).SingleOrDefault(c => c.SkillId == Id);
+                if (characterSkill != null)
+                    SelectedAddons = characterSkill.SelectedAdjustment;
+                else
+                    SelectedAddons = 0;
             }
         }
     }

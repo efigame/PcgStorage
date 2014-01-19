@@ -29,8 +29,6 @@ namespace PcgManager.Dto
 
         // TODO: Add character skills
 
-
-
         public void Persist()
         {
             var partyCharacter = new DataAccess.Dto.PartyCharacter();
@@ -82,7 +80,7 @@ namespace PcgManager.Dto
                 Powers.AddRange(powers.Select(p => new Power(p)));
 
                 var skills = DataAccess.Dto.Skill.All(CharacterCardId);
-                Skills.AddRange(skills.Select(s => new Skill(s)));
+                Skills.AddRange(skills.Select(s => new Skill(s, Id)));
             }
         }
     }

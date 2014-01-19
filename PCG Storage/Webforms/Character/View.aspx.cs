@@ -59,6 +59,19 @@ namespace Pcg_Storage.Webforms.Character
                 var literalSkillDice = (Literal)e.Item.FindControl("literalSkillDice");
                 literalSkillDice.Text = "d" + skill.Dice.ToString();
 
+                var possibleSkills = new List<KeyValuePair<int, bool>>();
+                for(var i = 1; i <= skill.PossibleAddons; i++)
+                {
+                    if (skill.SelectedAddons >= i)
+                        possibleSkills.Add(new KeyValuePair<int, bool>(i, true));
+                    else
+                        possibleSkills.Add(new KeyValuePair<int, bool>(i, false));
+                }
+
+                var repeaterPossibleSkill = (Repeater)e.Item.FindControl("repeaterPossibleSkill");
+                repeaterPossibleSkill.DataSource = possibleSkills;
+                repeaterPossibleSkill.DataBind();
+
                 var repeaterSubSkills = (Repeater)e.Item.FindControl("repeaterSubSkills");
                 repeaterSubSkills.DataSource = skill.SubSkills;
                 repeaterSubSkills.DataBind();
@@ -97,6 +110,18 @@ namespace Pcg_Storage.Webforms.Character
 
                 var literalText = (Literal)e.Item.FindControl("literalText");
                 literalText.Text = power.Text;
+            }
+        }
+
+        protected void RepeaterPossibleSkill_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                var item = (KeyValuePair<int, bool>)e.Item.DataItem;
+
+                var checkboxSkillSelected = (CheckBox)e.Item.FindControl("checkboxSkillSelected");
+                checkboxSkillSelected.Text = "+" + item.Key.ToString();
+                checkboxSkillSelected.Checked = item.Value;
             }
         }
 

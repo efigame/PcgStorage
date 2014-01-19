@@ -10,6 +10,11 @@
                 <div>
                     <asp:Literal ID="literalSkillName" runat="server"></asp:Literal>
                     <asp:Literal ID="literalSkillDice" runat="server"></asp:Literal>
+                    <asp:Repeater ID="repeaterPossibleSkill" runat="server" OnItemDataBound="RepeaterPossibleSkill_ItemDataBound">
+                        <ItemTemplate>
+                            <asp:CheckBox ID="checkboxSkillSelected" runat="server" TextAlign="Right" />
+                        </ItemTemplate>
+                    </asp:Repeater>
                 </div>
                 <asp:Repeater ID="repeaterSubSkills" runat="server" OnItemCommand="RepeaterSubSkills_ItemCommand" OnItemDataBound="RepeaterSubSkills_ItemDataBound">
                     <ItemTemplate>
