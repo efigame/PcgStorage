@@ -10,9 +10,10 @@
                 <div>
                     <asp:Literal ID="literalSkillName" runat="server"></asp:Literal>
                     <asp:Literal ID="literalSkillDice" runat="server"></asp:Literal>
+                    <asp:HiddenField ID="hiddenSkillId" runat="server" />
                     <asp:Repeater ID="repeaterPossibleSkill" runat="server" OnItemDataBound="RepeaterPossibleSkill_ItemDataBound">
                         <ItemTemplate>
-                            <asp:CheckBox ID="checkboxSkillSelected" runat="server" TextAlign="Right" />
+                            <asp:CheckBox ID="checkboxSkillSelected" runat="server" OnCheckedChanged="CheckboxSkillSelected_CheckedChanged" TextAlign="Right" AutoPostBack="true" />
                         </ItemTemplate>
                     </asp:Repeater>
                 </div>

@@ -15,6 +15,26 @@ namespace PcgManager.Dto
         public int SelectedAddons { get; set; }
         public List<SubSkill> SubSkills { get; set; }
 
+        public static void Set(int partyCharacterId, int skillId, bool selectedValue)
+        {
+            var characterSkill = DataAccess.Dto.CharacterSkill.All(partyCharacterId).SingleOrDefault(c => c.SkillId == skillId);
+            if (characterSkill != null)
+            {
+                characterSkill.SelectedAdjustment = selectedValue ? characterSkill.SelectedAdjustment + 1 : characterSkill.SelectedAdjustment - 1;
+                characterSkill.Update();
+            }
+            else
+            {
+                characterSkill = new DataAccess.Dto.CharacterSkill
+                {
+                    PartyCharacterId = partyCharacterId,
+                    SelectedAdjustment = 1,
+                    SkillId = skillId
+                };
+                characterSkill.Persist();
+            }
+        }
+
         public Skill()
         {
         }

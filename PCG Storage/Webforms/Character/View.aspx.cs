@@ -59,6 +59,9 @@ namespace Pcg_Storage.Webforms.Character
                 var literalSkillDice = (Literal)e.Item.FindControl("literalSkillDice");
                 literalSkillDice.Text = "d" + skill.Dice.ToString();
 
+                var hiddenSkillId = (HiddenField)e.Item.FindControl("hiddenSkillId");
+                hiddenSkillId.Value = skill.Id.ToString();
+
                 var possibleSkills = new List<KeyValuePair<int, bool>>();
                 for(var i = 1; i <= skill.PossibleAddons; i++)
                 {
@@ -123,6 +126,21 @@ namespace Pcg_Storage.Webforms.Character
                 checkboxSkillSelected.Text = "+" + item.Key.ToString();
                 checkboxSkillSelected.Checked = item.Value;
             }
+        }
+
+        protected void CheckboxSkillSelected_CheckedChanged(object sender, EventArgs e)
+        {
+            // TODO: if checkbox number 4 is checked then the rest of the checkboxes should also be checked.
+            // and if checkbox number 1 is checked then the rest should not be checked.
+
+            var checkbox = (CheckBox)sender;
+
+            var hiddenSkillId = (HiddenField)checkbox.Parent.Parent.Parent.FindControl("hiddenSkillId");
+            var skillId = Convert.ToInt32(hiddenSkillId.Value);
+
+            var characterId = Convert.ToInt32(Page.RouteData.Values["characterid"]);
+
+            PcgManager.Dto.Skill.Set(characterId, skillId, checkbox.Checked);
         }
 
     }

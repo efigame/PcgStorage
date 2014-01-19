@@ -29,6 +29,15 @@ namespace PcgManager.Dto
 
         // TODO: Add character skills
 
+        public static Character Get(int partyCharacterId)
+        {
+            var character = new Character();
+
+            var partyCharacterData = DataAccess.Dto.PartyCharacter.Get(partyCharacterId);
+            character = new Character(partyCharacterData);
+
+            return character;
+        }
         public void Persist()
         {
             var partyCharacter = new DataAccess.Dto.PartyCharacter();
@@ -39,7 +48,6 @@ namespace PcgManager.Dto
 
             Id = partyCharacter.Id;
         }
-
         public void Delete()
         {
             var partyCharacter = DataAccess.Dto.PartyCharacter.Get(Id);
