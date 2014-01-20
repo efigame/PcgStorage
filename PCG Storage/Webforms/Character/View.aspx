@@ -13,6 +13,7 @@
                     <asp:HiddenField ID="hiddenSkillId" runat="server" />
                     <asp:Repeater ID="repeaterPossibleSkill" runat="server" OnItemDataBound="RepeaterPossibleSkill_ItemDataBound">
                         <ItemTemplate>
+                            <asp:HiddenField ID="hiddenPossibleSkillValue" runat="server" />
                             <asp:CheckBox ID="checkboxSkillSelected" runat="server" OnCheckedChanged="CheckboxSkillSelected_CheckedChanged" TextAlign="Right" AutoPostBack="true" />
                         </ItemTemplate>
                     </asp:Repeater>

@@ -125,22 +125,46 @@ namespace Pcg_Storage.Webforms.Character
                 var checkboxSkillSelected = (CheckBox)e.Item.FindControl("checkboxSkillSelected");
                 checkboxSkillSelected.Text = "+" + item.Key.ToString();
                 checkboxSkillSelected.Checked = item.Value;
+
+                var hiddenPossibleSkillValue = (HiddenField)e.Item.FindControl("hiddenPossibleSkillValue");
+                hiddenPossibleSkillValue.Value = item.Key.ToString();
             }
         }
 
         protected void CheckboxSkillSelected_CheckedChanged(object sender, EventArgs e)
         {
-            // TODO: if checkbox number 4 is checked then the rest of the checkboxes should also be checked.
-            // and if checkbox number 1 is checked then the rest should not be checked.
-
             var checkbox = (CheckBox)sender;
+            var hiddenPossibleSkill = (HiddenField)checkbox.Parent.FindControl("hiddenPossibleSkillValue");
+            var selectedSkillValue = Convert.ToInt32(hiddenPossibleSkill.Value);
+
+            var characterId = Convert.ToInt32(Page.RouteData.Values["characterid"]);
 
             var hiddenSkillId = (HiddenField)checkbox.Parent.Parent.Parent.FindControl("hiddenSkillId");
             var skillId = Convert.ToInt32(hiddenSkillId.Value);
 
-            var characterId = Convert.ToInt32(Page.RouteData.Values["characterid"]);
+            var repeater = (Repeater)checkbox.Parent.Parent;
+            var repeaterItems = (RepeaterItemCollection)repeater.Items;
 
-            PcgManager.Dto.Skill.Set(characterId, skillId, checkbox.Checked);
+            for(int i = 0; i < repeater.Items.Count; i++)
+            {
+                if (i < selectedSkillValue - 1)
+                {
+                    var innerCheckbox = (CheckBox)repeaterItems[i].FindControl("checkboxSkillSelected");
+                    innerCheckbox.Checked = true;
+                }
+                else if (i == selectedSkillValue - 1)
+                {
+                    if (checkbox.Checked)
+                        PcgManager.Dto.Skill.Set(characterId, skillId, selectedSkillValue);
+                    else
+                        PcgManager.Dto.Skill.Set(characterId, skillId, selectedSkillValue - 1);
+                }
+                else
+                {
+                    var innerCheckBox = (CheckBox)repeaterItems[i].FindControl("checkboxSkillSelected");
+                    innerCheckBox.Checked = false;
+                }
+            }
         }
 
     }
