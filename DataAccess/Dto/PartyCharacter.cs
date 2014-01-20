@@ -12,6 +12,15 @@ namespace DataAccess.Dto
         public int Id { get; set; }
         public int  PartyId { get; set; }
         public int CharacterCardId { get; set; }
+        public bool? LightArmors { get; set; }
+        public bool? HeavyArmors { get; set; }
+        public bool? Weapons { get; set; }
+        public int? WeaponCards { get; set; }
+        public int? SpellCards { get; set; }
+        public int? ArmorCards { get; set; }
+        public int? ItemCards { get; set; }
+        public int? AllyCards { get; set; }
+        public int? BlessingCards { get; set; }
 
         public static PartyCharacter Get(int id)
         {
@@ -58,6 +67,15 @@ namespace DataAccess.Dto
                 {
                     partyCharacter.CharacterCardId = CharacterCardId;
                     partyCharacter.PartyId = PartyId;
+                    partyCharacter.LightArmors = LightArmors;
+                    partyCharacter.HeavyArmors = HeavyArmors;
+                    partyCharacter.Weapons = Weapons;
+                    partyCharacter.WeaponCards = WeaponCards;
+                    partyCharacter.SpellCards = SpellCards;
+                    partyCharacter.ArmorCards = ArmorCards;
+                    partyCharacter.ItemCards = ItemCards;
+                    partyCharacter.AllyCards = AllyCards;
+                    partyCharacter.BlessingCards = BlessingCards;
                     data.SaveChanges();
                 }
             }
@@ -84,13 +102,31 @@ namespace DataAccess.Dto
             Id = character.Id;
             PartyId = character.PartyId;
             CharacterCardId = character.CharacterCardId;
+            LightArmors = character.LightArmors;
+            HeavyArmors = character.HeavyArmors;
+            Weapons = character.Weapons;
+            WeaponCards = character.WeaponCards;
+            SpellCards = character.SpellCards;
+            ArmorCards = character.ArmorCards;
+            ItemCards = character.ItemCards;
+            AllyCards = character.AllyCards;
+            BlessingCards = character.BlessingCards;
         }
         internal partycharacter ToEntity()
         {
             var partyCharacter = new partycharacter
             {
                 PartyId = this.PartyId,
-                CharacterCardId = this.CharacterCardId
+                CharacterCardId = this.CharacterCardId,
+                LightArmors = this.LightArmors,
+                HeavyArmors = this.HeavyArmors,
+                Weapons = this.Weapons,
+                WeaponCards = this.WeaponCards,
+                SpellCards = this.SpellCards,
+                ArmorCards = this.ArmorCards,
+                ItemCards = this.ItemCards,
+                AllyCards = this.AllyCards,
+                BlessingCards = this.BlessingCards
             };
 
             return partyCharacter;

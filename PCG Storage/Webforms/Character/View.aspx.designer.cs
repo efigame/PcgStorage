@@ -49,13 +49,31 @@ namespace Pcg_Storage.Webforms.Character {
         protected global::System.Web.UI.WebControls.Literal literalHandSize;
         
         /// <summary>
-        /// checklistProficiencies control.
+        /// checkboxLightArmors control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList checklistProficiencies;
+        protected global::System.Web.UI.WebControls.CheckBox checkboxLightArmors;
+        
+        /// <summary>
+        /// checkboxHeavyArmors control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox checkboxHeavyArmors;
+        
+        /// <summary>
+        /// checkboxWeapons control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox checkboxWeapons;
         
         /// <summary>
         /// repeaterExtraPowers control.

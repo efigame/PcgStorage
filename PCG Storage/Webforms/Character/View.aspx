@@ -35,11 +35,9 @@
         Hand Size <asp:Literal ID="literalHandSize" runat="server"></asp:Literal><br />
         <hr />
         Proficient with 
-        <asp:CheckBoxList ID="checklistProficiencies" runat="server" RepeatDirection="Horizontal">
-            <asp:ListItem>Light Armors</asp:ListItem>
-            <asp:ListItem>Heavy Armors</asp:ListItem>
-            <asp:ListItem>Weapons</asp:ListItem>
-        </asp:CheckBoxList>
+        <asp:CheckBox ID="checkboxLightArmors" runat="server" Text="Light Armors" OnCheckedChanged="CheckboxLightArmors_CheckedChanged" AutoPostBack="true" />
+        <asp:CheckBox ID="checkboxHeavyArmors" runat="server" Text="Heavy Armors" OnCheckedChanged="CheckboxHeavyArmors_CheckedChanged" AutoPostBack="true" />
+        <asp:CheckBox ID="checkboxWeapons" runat="server" Text="Weapons" OnCheckedChanged="CheckboxWeapons_CheckedChanged" AutoPostBack="true" />
         <hr />
         <asp:Repeater ID="repeaterExtraPowers" runat="server" OnItemDataBound="RepeaterExtraPowers_ItemDataBound">
             <ItemTemplate>

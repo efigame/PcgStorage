@@ -27,8 +27,6 @@ namespace PcgManager.Dto
         public List<Skill> Skills { get; set; }
         public List<Power> Powers { get; set; }
 
-        // TODO: Add character skills
-
         public static Character Get(int partyCharacterId)
         {
             var character = new Character();
@@ -37,6 +35,23 @@ namespace PcgManager.Dto
             character = new Character(partyCharacterData);
 
             return character;
+        }
+        public void Update()
+        {
+            var partyCharacterData = DataAccess.Dto.PartyCharacter.Get(Id);
+            partyCharacterData.AllyCards = AllyCards;
+            partyCharacterData.ArmorCards = ArmorCards;
+            partyCharacterData.BlessingCards = BlessingCards;
+            partyCharacterData.ItemCards = ItemCards;
+            partyCharacterData.SpellCards = SpellCards;
+            partyCharacterData.WeaponCards = WeaponCards;
+            partyCharacterData.CharacterCardId = CharacterCardId;
+            //partyCharacterData.HandSize = HandSize;
+            //partyCharacterData.Name = Name;
+            partyCharacterData.HeavyArmors = HeavyArmors;
+            partyCharacterData.LightArmors = LightArmors;
+            partyCharacterData.Weapons = Weapons;
+            partyCharacterData.Update();
         }
         public void Persist()
         {
@@ -66,6 +81,11 @@ namespace PcgManager.Dto
             Id = partyCharacter.Id;
             PartyId = partyCharacter.PartyId;
             CharacterCardId = partyCharacter.CharacterCardId;
+
+            var lightArmor = partyCharacter.LightArmors;
+            var heavyArmor = partyCharacter.HeavyArmors;
+            var weapons = partyCharacter.Weapons;
+
             Skills = new List<Skill>();
             Powers = new List<Power>();
 
@@ -74,9 +94,9 @@ namespace PcgManager.Dto
                 var characterCard = DataAccess.Dto.CharacterCard.Get(partyCharacter.CharacterCardId);
                 Name = characterCard.Name;
                 HandSize = characterCard.BaseHandSize;
-                LightArmors = characterCard.BaseLightArmors;
-                HeavyArmors = characterCard.BaseHeavyArmors;
-                Weapons = characterCard.BaseWeapons;
+                LightArmors = (!lightArmor.HasValue || !lightArmor.Value) ? characterCard.BaseLightArmors : lightArmor.Value;
+                HeavyArmors = (!heavyArmor.HasValue || !heavyArmor.Value) ? characterCard.BaseHeavyArmors : heavyArmor.Value;
+                Weapons = (!weapons.HasValue || !weapons.Value) ? characterCard.BaseWeapons : weapons.Value;
                 WeaponCards = characterCard.BaseWeaponCards;
                 SpellCards = characterCard.BaseSpellCards;
                 ArmorCards = characterCard.BaseArmorCards;

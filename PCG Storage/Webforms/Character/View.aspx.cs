@@ -25,9 +25,9 @@ namespace Pcg_Storage.Webforms.Character
                 literalPartyName.Text = party.Name;
                 literalHandSize.Text = character.HandSize.ToString();
 
-                checklistProficiencies.Items[0].Selected = character.LightArmors;
-                checklistProficiencies.Items[1].Selected = character.HeavyArmors;
-                checklistProficiencies.Items[2].Selected = character.Weapons;
+                checkboxLightArmors.Checked = character.LightArmors;
+                checkboxHeavyArmors.Checked = character.HeavyArmors;
+                checkboxWeapons.Checked = character.Weapons;
 
                 literalWeaponCards.Text = character.WeaponCards.ToString();
                 literalSpellCards.Text = character.SpellCards.ToString();
@@ -167,5 +167,34 @@ namespace Pcg_Storage.Webforms.Character
             }
         }
 
+        protected void CheckboxLightArmors_CheckedChanged(object sender, EventArgs e)
+        {
+            var characterId = Convert.ToInt32(Page.RouteData.Values["characterid"]);
+
+            var character = PcgManager.Dto.Character.Get(characterId);
+            character.LightArmors = checkboxLightArmors.Checked;
+
+            character.Update();
+        }
+
+        protected void CheckboxHeavyArmors_CheckedChanged(object sender, EventArgs e)
+        {
+            var characterId = Convert.ToInt32(Page.RouteData.Values["characterid"]);
+
+            var character = PcgManager.Dto.Character.Get(characterId);
+            character.HeavyArmors = checkboxHeavyArmors.Checked;
+
+            character.Update();
+        }
+
+        protected void CheckboxWeapons_CheckedChanged(object sender, EventArgs e)
+        {
+            var characterId = Convert.ToInt32(Page.RouteData.Values["characterid"]);
+
+            var character = PcgManager.Dto.Character.Get(characterId);
+            character.Weapons = checkboxWeapons.Checked;
+
+            character.Update();
+        }
     }
 }

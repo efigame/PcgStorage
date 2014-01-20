@@ -46,6 +46,15 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PartyId" Type="int" Nullable="false" />
           <Property Name="CharacterCardId" Type="int" Nullable="false" />
+          <Property Name="LightArmors" Type="bit" />
+          <Property Name="HeavyArmors" Type="bit" />
+          <Property Name="Weapons" Type="bit" />
+          <Property Name="WeaponCards" Type="int" />
+          <Property Name="SpellCards" Type="int" />
+          <Property Name="ArmorCards" Type="int" />
+          <Property Name="ItemCards" Type="int" />
+          <Property Name="AllyCards" Type="int" />
+          <Property Name="BlessingCards" Type="int" />
         </EntityType>
         <EntityType Name="pcguser">
           <Key>
@@ -320,6 +329,15 @@
           <NavigationProperty Name="charactercard" Relationship="PcgStorageModel.fk_partycharacter_charactercard" FromRole="partycharacter" ToRole="charactercard" />
           <NavigationProperty Name="characterskills" Relationship="PcgStorageModel.fk_characterskill_partycharacter" FromRole="partycharacter" ToRole="characterskill" />
           <NavigationProperty Name="party" Relationship="PcgStorageModel.fk_partycharacter_party" FromRole="partycharacter" ToRole="party" />
+          <Property Name="LightArmors" Type="Boolean" />
+          <Property Name="HeavyArmors" Type="Boolean" />
+          <Property Name="Weapons" Type="Boolean" />
+          <Property Name="WeaponCards" Type="Int32" />
+          <Property Name="SpellCards" Type="Int32" />
+          <Property Name="ArmorCards" Type="Int32" />
+          <Property Name="ItemCards" Type="Int32" />
+          <Property Name="AllyCards" Type="Int32" />
+          <Property Name="BlessingCards" Type="Int32" />
         </EntityType>
         <EntityType Name="pcguser">
           <Key>
@@ -507,6 +525,15 @@
           <EntitySetMapping Name="partycharacters">
             <EntityTypeMapping TypeName="PcgStorageModel.partycharacter">
               <MappingFragment StoreEntitySet="partycharacter">
+                <ScalarProperty Name="BlessingCards" ColumnName="BlessingCards" />
+                <ScalarProperty Name="AllyCards" ColumnName="AllyCards" />
+                <ScalarProperty Name="ItemCards" ColumnName="ItemCards" />
+                <ScalarProperty Name="ArmorCards" ColumnName="ArmorCards" />
+                <ScalarProperty Name="SpellCards" ColumnName="SpellCards" />
+                <ScalarProperty Name="WeaponCards" ColumnName="WeaponCards" />
+                <ScalarProperty Name="Weapons" ColumnName="Weapons" />
+                <ScalarProperty Name="HeavyArmors" ColumnName="HeavyArmors" />
+                <ScalarProperty Name="LightArmors" ColumnName="LightArmors" />
                 <ScalarProperty Name="CharacterCardId" ColumnName="CharacterCardId" />
                 <ScalarProperty Name="PartyId" ColumnName="PartyId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

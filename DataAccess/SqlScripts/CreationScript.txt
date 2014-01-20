@@ -130,3 +130,15 @@ ADD COLUMN `BaseArmorCards` INT NOT NULL AFTER `BaseSpellCards`,
 ADD COLUMN `BaseItemCards` INT NOT NULL AFTER `BaseArmorCards`,
 ADD COLUMN `BaseAllyCards` INT NOT NULL AFTER `BaseItemCards`,
 ADD COLUMN `BaseBlessingCards` INT NOT NULL AFTER `BaseAllyCards`;
+
+
+ALTER TABLE `pcgstorage`.`partycharacter` 
+ADD COLUMN `LightArmors` BIT NULL AFTER `CharacterCardId`,
+ADD COLUMN `HeavyArmors` BIT NULL AFTER `LightArmors`,
+ADD COLUMN `Weapons` BIT NULL AFTER `HeavyArmors`,
+ADD COLUMN `WeaponCards` INT NULL AFTER `Weapons`,
+ADD COLUMN `SpellCards` INT NULL AFTER `WeaponCards`,
+ADD COLUMN `ArmorCards` INT NULL AFTER `SpellCards`,
+ADD COLUMN `ItemCards` INT NULL AFTER `ArmorCards`,
+ADD COLUMN `AllyCards` INT NULL AFTER `ItemCards`,
+ADD COLUMN `BlessingCards` INT NULL AFTER `AllyCards`;
