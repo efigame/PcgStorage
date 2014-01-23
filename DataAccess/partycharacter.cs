@@ -22,9 +22,9 @@ namespace DataAccess
         public int Id { get; set; }
         public int PartyId { get; set; }
         public int CharacterCardId { get; set; }
-        public Nullable<bool> LightArmors { get; set; }
-        public Nullable<bool> HeavyArmors { get; set; }
-        public Nullable<bool> Weapons { get; set; }
+        public Nullable<int> LightArmors { get; set; }
+        public Nullable<int> HeavyArmors { get; set; }
+        public Nullable<int> Weapons { get; set; }
         public Nullable<int> WeaponCards { get; set; }
         public Nullable<int> SpellCards { get; set; }
         public Nullable<int> ArmorCards { get; set; }
@@ -32,8 +32,8 @@ namespace DataAccess
         public Nullable<int> AllyCards { get; set; }
         public Nullable<int> BlessingCards { get; set; }
     
-        public virtual charactercard charactercard { get; set; }
         public virtual ICollection<characterskill> characterskills { get; set; }
         public virtual party party { get; set; }
+        public virtual charactercard charactercard { get; set; }
     }
 }

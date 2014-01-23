@@ -12,9 +12,9 @@ namespace DataAccess.Dto
         public int Id { get; set; }
         public int  PartyId { get; set; }
         public int CharacterCardId { get; set; }
-        public bool? LightArmors { get; set; }
-        public bool? HeavyArmors { get; set; }
-        public bool? Weapons { get; set; }
+        public int? LightArmors { get; set; }
+        public int? HeavyArmors { get; set; }
+        public int? Weapons { get; set; }
         public int? WeaponCards { get; set; }
         public int? SpellCards { get; set; }
         public int? ArmorCards { get; set; }

@@ -35,9 +35,8 @@ namespace Pcg_Storage.Webforms.Party
                 linkPartyName.Text = party.Name;
                 linkPartyName.NavigateUrl = Url.Party(userId, party.Id);
 
-                var linkButton = (LinkButton)e.Item.FindControl("linkEditParty");
-                linkButton.CommandName = "edit";
-                linkButton.CommandArgument = party.Id.ToString();
+                var linkEditParty = (HyperLink)e.Item.FindControl("linkEditParty");
+                linkEditParty.NavigateUrl = Url.PartyEdit(userId, party.Id);
             }
         }
 

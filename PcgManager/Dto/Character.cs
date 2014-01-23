@@ -14,9 +14,9 @@ namespace PcgManager.Dto
         public int CharacterCardId { get; set; }
         public string Name { get; set; }
         public int HandSize { get; set; }
-        public bool LightArmors { get; set; }
-        public bool HeavyArmors { get; set; }
-        public bool Weapons { get; set; }
+        public int LightArmors { get; set; }
+        public int HeavyArmors { get; set; }
+        public int Weapons { get; set; }
         public int WeaponCards { get; set; }
         public int SpellCards { get; set; }
         public int ArmorCards { get; set; }
@@ -94,9 +94,9 @@ namespace PcgManager.Dto
                 var characterCard = DataAccess.Dto.CharacterCard.Get(partyCharacter.CharacterCardId);
                 Name = characterCard.Name;
                 HandSize = characterCard.BaseHandSize;
-                LightArmors = (!lightArmor.HasValue || !lightArmor.Value) ? characterCard.BaseLightArmors : lightArmor.Value;
-                HeavyArmors = (!heavyArmor.HasValue || !heavyArmor.Value) ? characterCard.BaseHeavyArmors : heavyArmor.Value;
-                Weapons = (!weapons.HasValue || !weapons.Value) ? characterCard.BaseWeapons : weapons.Value;
+                LightArmors = (!lightArmor.HasValue || !(lightArmor.Value == 2)) ? characterCard.BaseLightArmors : lightArmor.Value;
+                HeavyArmors = (!heavyArmor.HasValue || !(heavyArmor.Value == 2)) ? characterCard.BaseHeavyArmors : heavyArmor.Value;
+                Weapons = (!weapons.HasValue || !(weapons.Value == 2)) ? characterCard.BaseWeapons : weapons.Value;
                 WeaponCards = characterCard.BaseWeaponCards;
                 SpellCards = characterCard.BaseSpellCards;
                 ArmorCards = characterCard.BaseArmorCards;

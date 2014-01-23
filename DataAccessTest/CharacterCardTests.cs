@@ -12,7 +12,7 @@ namespace DataAccessTest
         public void GivenCharacterCardInDbWhenCallingCharacterCardGetThenTheCorrectCharacterCardIsReturned()
         {
             // Arrange
-            var expectedCharacterCard = new CharacterCard { Name = "Donald Duck", BaseHandSize = 5, BaseLightArmors = true, BaseHeavyArmors = true, BaseWeapons = false, 
+            var expectedCharacterCard = new CharacterCard { Name = "Donald Duck", BaseHandSize = 5, BaseLightArmors = 2, BaseHeavyArmors = 2, BaseWeapons = 1, 
                 BaseWeaponCards = 3, BaseSpellCards = 4, BaseArmorCards = 5, BaseItemCards = 6, BaseAllyCards = 7, BaseBlessingCards = 8 };
             expectedCharacterCard.Persist();
 
@@ -40,9 +40,9 @@ namespace DataAccessTest
         public void GivenTwoCharacterCardsInDbWhenCallingCharacterCardAllThenBothCharacterCardsAreReturned()
         {
             // Arrange
-            var expectedCharacterCard1 = new CharacterCard { Name = "Donald Duck", BaseHandSize = 5, BaseLightArmors = true, BaseHeavyArmors = true, BaseWeapons = false, 
+            var expectedCharacterCard1 = new CharacterCard { Name = "Donald Duck", BaseHandSize = 5, BaseLightArmors = 2, BaseHeavyArmors = 2, BaseWeapons = 1, 
                 BaseWeaponCards = 3, BaseSpellCards = 4, BaseArmorCards = 5, BaseItemCards = 6, BaseAllyCards = 7, BaseBlessingCards = 8 };
-            var expectedCharacterCard2 = new CharacterCard { Name = "Daisy Duck", BaseHandSize = 3, BaseLightArmors = false, BaseHeavyArmors = false, BaseWeapons = true, 
+            var expectedCharacterCard2 = new CharacterCard { Name = "Daisy Duck", BaseHandSize = 3, BaseLightArmors = 1, BaseHeavyArmors = 1, BaseWeapons = 2, 
                 BaseWeaponCards = 1, BaseSpellCards = 2, BaseArmorCards = 3, BaseItemCards = 4, BaseAllyCards = 5, BaseBlessingCards = 6 };
 
             expectedCharacterCard1.Persist();
@@ -65,7 +65,7 @@ namespace DataAccessTest
         public void GivenNewCharacterCardWhenCallingPersistThenTheCharacterCardIsCreatedInDb()
         {
             // Arrange
-            var newCharacterCard = new CharacterCard { Name = "Donald Duck", BaseHandSize = 5, BaseLightArmors = true, BaseHeavyArmors = true, BaseWeapons = false, 
+            var newCharacterCard = new CharacterCard { Name = "Donald Duck", BaseHandSize = 5, BaseLightArmors = 2, BaseHeavyArmors = 2, BaseWeapons = 1, 
                 BaseWeaponCards = 3, BaseSpellCards = 4, BaseArmorCards = 5, BaseItemCards = 6, BaseAllyCards = 7, BaseBlessingCards = 8 };
 
             // Act
@@ -97,9 +97,9 @@ namespace DataAccessTest
             // Arrange
             var expectedName = "Donald Duck";
             var expectedBaseHandSize = 5;
-            var expectedBaseLightArmors = true;
-            var expectedBaseHeavyArmors = true;
-            var expectedBaseWeapons = false;
+            var expectedBaseLightArmors = 2;
+            var expectedBaseHeavyArmors = 2;
+            var expectedBaseWeapons = 1;
             var expectedBaseWeaponCards = 1;
             var expectedBaseSpellCards = 2;
             var expectedBaseArmorCards = 3;
@@ -107,7 +107,7 @@ namespace DataAccessTest
             var expectedBaseAllyCards = 5;
             var expectedBaseBlessingCards = 6;
 
-            var characterCardInDb = new CharacterCard { Name = "Daisy Duck", BaseHandSize = 3, BaseLightArmors = false, BaseHeavyArmors = false, BaseWeapons = true, 
+            var characterCardInDb = new CharacterCard { Name = "Daisy Duck", BaseHandSize = 3, BaseLightArmors = 1, BaseHeavyArmors = 1, BaseWeapons = 2, 
                 BaseWeaponCards = 3, BaseSpellCards = 4, BaseArmorCards = 5, BaseItemCards = 6, BaseAllyCards = 7, BaseBlessingCards = 8 };
             characterCardInDb.Persist();
 
@@ -151,7 +151,7 @@ namespace DataAccessTest
         public void GivenCharacterCardInDbWhenCallingDeleteThenTheCharacterCardIsDeletedInDb()
         {
             // Arrange
-            var characterCardInDb = new CharacterCard { Name = "Donald Duck", BaseHandSize = 5, BaseLightArmors = true, BaseHeavyArmors = true, BaseWeapons = false, 
+            var characterCardInDb = new CharacterCard { Name = "Donald Duck", BaseHandSize = 5, BaseLightArmors = 2, BaseHeavyArmors = 2, BaseWeapons = 1, 
                 BaseWeaponCards = 3, BaseSpellCards = 4, BaseArmorCards = 5, BaseItemCards = 6, BaseAllyCards = 7, BaseBlessingCards = 8 };
             characterCardInDb.Persist();
 

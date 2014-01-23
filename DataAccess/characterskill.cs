@@ -19,7 +19,7 @@ namespace DataAccess
         public int SkillId { get; set; }
         public int SelectedAdjustment { get; set; }
     
-        public virtual partycharacter partycharacter { get; set; }
         public virtual skill skill { get; set; }
+        public virtual partycharacter partycharacter { get; set; }
     }
 }

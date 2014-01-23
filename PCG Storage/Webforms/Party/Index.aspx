@@ -7,7 +7,7 @@
         <legend>Index</legend>
         <asp:Repeater ID="repeaterOverview" runat="server" OnItemCommand="RepeaterOverview_ItemCommand" OnItemDataBound="RepeaterOverview_ItemDataBound">
             <ItemTemplate>
-                <asp:HyperLink ID="linkPartyName" runat="server">HyperLink</asp:HyperLink> - <asp:LinkButton ID="linkEditParty" runat="server">Edit</asp:LinkButton><br />
+                <asp:HyperLink ID="linkPartyName" runat="server">HyperLink</asp:HyperLink> - <asp:HyperLink ID="linkEditParty" runat="server">Edit</asp:HyperLink><br />
             </ItemTemplate>
         </asp:Repeater>
     </fieldset>

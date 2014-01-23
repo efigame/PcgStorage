@@ -26,8 +26,8 @@ namespace DataAccess
         public int CharacterCardId { get; set; }
         public int PossibleAddons { get; set; }
     
-        public virtual charactercard charactercard { get; set; }
         public virtual ICollection<characterskill> characterskills { get; set; }
         public virtual ICollection<subskill> subskills { get; set; }
+        public virtual charactercard charactercard { get; set; }
     }
 }

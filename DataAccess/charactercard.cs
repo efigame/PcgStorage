@@ -17,16 +17,16 @@ namespace DataAccess
         public charactercard()
         {
             this.partycharacters = new HashSet<partycharacter>();
-            this.skills = new HashSet<skill>();
             this.powers = new HashSet<power>();
+            this.skills = new HashSet<skill>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
         public int BaseHandSize { get; set; }
-        public bool BaseLightArmors { get; set; }
-        public bool BaseHeavyArmors { get; set; }
-        public bool BaseWeapons { get; set; }
+        public int BaseLightArmors { get; set; }
+        public int BaseHeavyArmors { get; set; }
+        public int BaseWeapons { get; set; }
         public int BaseWeaponCards { get; set; }
         public int BaseSpellCards { get; set; }
         public int BaseArmorCards { get; set; }
@@ -35,7 +35,7 @@ namespace DataAccess
         public int BaseBlessingCards { get; set; }
     
         public virtual ICollection<partycharacter> partycharacters { get; set; }
-        public virtual ICollection<skill> skills { get; set; }
         public virtual ICollection<power> powers { get; set; }
+        public virtual ICollection<skill> skills { get; set; }
     }
 }
