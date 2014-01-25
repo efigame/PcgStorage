@@ -39,14 +39,5 @@ namespace Pcg_Storage.Webforms.Party
                 linkEditParty.NavigateUrl = Url.PartyEdit(userId, party.Id);
             }
         }
-
-        protected void RepeaterOverview_ItemCommand(object source, RepeaterCommandEventArgs e)
-        {
-            if (e.CommandName == "edit")
-            {
-                var userId = Convert.ToInt32(Page.RouteData.Values["userid"]);
-                Response.Redirect(Url.PartyEdit(userId, (int)e.CommandArgument));
-            }
-        }
     }
 }
