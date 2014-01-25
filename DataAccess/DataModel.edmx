@@ -23,6 +23,15 @@
           <Property Name="BaseBlessingCards" Type="int" Nullable="false" />
           <Property Name="PossibleHandSize" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="characterpower">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PartyCharacterId" Type="int" Nullable="false" />
+          <Property Name="PowerId" Type="int" Nullable="false" />
+          <Property Name="SelectedPowers" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="characterskill">
           <Key>
             <PropertyRef Name="Id" />
@@ -96,6 +105,30 @@
           <Property Name="BaseSkillId" Type="int" Nullable="false" />
           <Property Name="Adjustment" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="fk_characterpower_partycharacter_id">
+          <End Role="partycharacter" Type="Self.partycharacter" Multiplicity="1" />
+          <End Role="characterpower" Type="Self.characterpower" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="partycharacter">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="characterpower">
+              <PropertyRef Name="PartyCharacterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_characterpower_power_id">
+          <End Role="power" Type="Self.power" Multiplicity="1" />
+          <End Role="characterpower" Type="Self.characterpower" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="power">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="characterpower">
+              <PropertyRef Name="PowerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_characterskill_partycharacter">
           <End Role="partycharacter" Type="Self.partycharacter" Multiplicity="1" />
           <End Role="characterskill" Type="Self.characterskill" Multiplicity="*" />
@@ -194,6 +227,7 @@
         </Association>
         <EntityContainer Name="PcgStorageModelStoreContainer">
           <EntitySet Name="charactercard" EntityType="Self.charactercard" Schema="pcgstorage" store:Type="Tables" />
+          <EntitySet Name="characterpower" EntityType="Self.characterpower" Schema="pcgstorage" store:Type="Tables" />
           <EntitySet Name="characterskill" EntityType="Self.characterskill" Schema="pcgstorage" store:Type="Tables" />
           <EntitySet Name="party" EntityType="Self.party" Schema="pcgstorage" store:Type="Tables" />
           <EntitySet Name="partycharacter" EntityType="Self.partycharacter" Schema="pcgstorage" store:Type="Tables" />
@@ -201,6 +235,14 @@
           <EntitySet Name="power" EntityType="Self.power" Schema="pcgstorage" store:Type="Tables" />
           <EntitySet Name="skill" EntityType="Self.skill" Schema="pcgstorage" store:Type="Tables" />
           <EntitySet Name="subskill" EntityType="Self.subskill" Schema="pcgstorage" store:Type="Tables" />
+          <AssociationSet Name="fk_characterpower_partycharacter_id" Association="Self.fk_characterpower_partycharacter_id">
+            <End Role="partycharacter" EntitySet="partycharacter" />
+            <End Role="characterpower" EntitySet="characterpower" />
+          </AssociationSet>
+          <AssociationSet Name="fk_characterpower_power_id" Association="Self.fk_characterpower_power_id">
+            <End Role="power" EntitySet="power" />
+            <End Role="characterpower" EntitySet="characterpower" />
+          </AssociationSet>
           <AssociationSet Name="fk_characterskill_partycharacter" Association="Self.fk_characterskill_partycharacter">
             <End Role="partycharacter" EntitySet="partycharacter" />
             <End Role="characterskill" EntitySet="characterskill" />
@@ -278,6 +320,15 @@
           <AssociationSet Name="fk_skill_charactercard" Association="PcgStorageModel.fk_skill_charactercard">
             <End Role="charactercard" EntitySet="charactercards" />
             <End Role="skill" EntitySet="skills" />
+          </AssociationSet>
+          <EntitySet Name="characterpowers" EntityType="PcgStorageModel.characterpower" />
+          <AssociationSet Name="fk_characterpower_partycharacter_id" Association="PcgStorageModel.fk_characterpower_partycharacter_id">
+            <End Role="partycharacter" EntitySet="partycharacters" />
+            <End Role="characterpower" EntitySet="characterpowers" />
+          </AssociationSet>
+          <AssociationSet Name="fk_characterpower_power_id" Association="PcgStorageModel.fk_characterpower_power_id">
+            <End Role="power" EntitySet="powers" />
+            <End Role="characterpower" EntitySet="characterpowers" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="characterskill">
@@ -380,6 +431,7 @@
           <Property Name="Adjustment" Type="Int32" />
           <Property Name="CharacterCardId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="charactercard" Relationship="PcgStorageModel.fk_power_charactercard_id" FromRole="power" ToRole="charactercard" />
+          <NavigationProperty Name="characterpowers" Relationship="PcgStorageModel.fk_characterpower_power_id" FromRole="power" ToRole="characterpower" />
         </EntityType>
         <EntityType Name="partycharacter">
           <Key>
@@ -401,6 +453,7 @@
           <NavigationProperty Name="party" Relationship="PcgStorageModel.fk_partycharacter_party" FromRole="partycharacter" ToRole="party" />
           <NavigationProperty Name="charactercard" Relationship="PcgStorageModel.fk_partycharacter_charactercard" FromRole="partycharacter" ToRole="charactercard" />
           <Property Name="HandSize" Type="Int32" />
+          <NavigationProperty Name="characterpowers" Relationship="PcgStorageModel.fk_characterpower_partycharacter_id" FromRole="partycharacter" ToRole="characterpower" />
         </EntityType>
         <Association Name="fk_characterskill_partycharacter">
           <End Type="PcgStorageModel.partycharacter" Role="partycharacter" Multiplicity="1" />
@@ -480,6 +533,41 @@
             </Principal>
             <Dependent Role="skill">
               <PropertyRef Name="CharacterCardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="characterpower">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PartyCharacterId" Type="Int32" Nullable="false" />
+          <Property Name="PowerId" Type="Int32" Nullable="false" />
+          <Property Name="SelectedPowers" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="partycharacter" Relationship="PcgStorageModel.fk_characterpower_partycharacter_id" FromRole="characterpower" ToRole="partycharacter" />
+          <NavigationProperty Name="power" Relationship="PcgStorageModel.fk_characterpower_power_id" FromRole="characterpower" ToRole="power" />
+        </EntityType>
+        <Association Name="fk_characterpower_partycharacter_id">
+          <End Type="PcgStorageModel.partycharacter" Role="partycharacter" Multiplicity="1" />
+          <End Type="PcgStorageModel.characterpower" Role="characterpower" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="partycharacter">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="characterpower">
+              <PropertyRef Name="PartyCharacterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_characterpower_power_id">
+          <End Type="PcgStorageModel.power" Role="power" Multiplicity="1" />
+          <End Type="PcgStorageModel.characterpower" Role="characterpower" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="power">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="characterpower">
+              <PropertyRef Name="PowerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -584,6 +672,16 @@
                 <ScalarProperty Name="BaseLightArmors" ColumnName="BaseLightArmors" />
                 <ScalarProperty Name="BaseHandSize" ColumnName="BaseHandSize" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="characterpowers">
+            <EntityTypeMapping TypeName="PcgStorageModel.characterpower">
+              <MappingFragment StoreEntitySet="characterpower">
+                <ScalarProperty Name="SelectedPowers" ColumnName="SelectedPowers" />
+                <ScalarProperty Name="PowerId" ColumnName="PowerId" />
+                <ScalarProperty Name="PartyCharacterId" ColumnName="PartyCharacterId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

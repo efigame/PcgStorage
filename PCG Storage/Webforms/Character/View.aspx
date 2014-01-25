@@ -5,7 +5,7 @@
     <h1><asp:Literal ID="literalCharacterName" runat="server"></asp:Literal> (<asp:Literal ID="literalPartyName" runat="server"></asp:Literal>)</h1>
     <fieldset>
         <legend>Skills</legend>
-        <asp:Repeater ID="repeaterSkills" runat="server" OnItemCommand="RepeaterSkills_ItemCommand" OnItemDataBound="RepeaterSkills_ItemDataBound">
+        <asp:Repeater ID="repeaterSkills" runat="server" OnItemDataBound="RepeaterSkills_ItemDataBound">
             <ItemTemplate>
                 <div>
                     <asp:Literal ID="literalSkillName" runat="server"></asp:Literal>
@@ -18,7 +18,7 @@
                         </ItemTemplate>
                     </asp:Repeater>
                 </div>
-                <asp:Repeater ID="repeaterSubSkills" runat="server" OnItemCommand="RepeaterSubSkills_ItemCommand" OnItemDataBound="RepeaterSubSkills_ItemDataBound">
+                <asp:Repeater ID="repeaterSubSkills" runat="server" OnItemDataBound="RepeaterSubSkills_ItemDataBound">
                     <ItemTemplate>
                         <div style="margin-left: 10px;">
                             <asp:Literal ID="literalSubSkillName" runat="server"></asp:Literal>
@@ -48,7 +48,10 @@
         <hr />
         <asp:Repeater ID="repeaterExtraPowers" runat="server" OnItemDataBound="RepeaterExtraPowers_ItemDataBound">
             <ItemTemplate>
-                <asp:Literal ID="literalText" runat="server"></asp:Literal><br />
+                <asp:Literal ID="literalExtraPowerText" runat="server"></asp:Literal>
+                <asp:HiddenField ID="hiddenExtraPowerId" runat="server" />
+                <asp:CheckBoxList ID="checkboxListExtraPower" OnSelectedIndexChanged="CheckboxListExtraPower_SelectedIndexChanged" AutoPostBack="true" runat="server"></asp:CheckBoxList>
+                <br />
                 <hr />
             </ItemTemplate>
         </asp:Repeater>

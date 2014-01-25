@@ -62,6 +62,9 @@
     <Compile Include="charactercard.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="characterpower.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="characterskill.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -81,6 +84,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Dto\CharacterPower.cs" />
     <Compile Include="Dto\CharacterSkill.cs" />
     <Compile Include="Dto\Power.cs" />
     <Compile Include="Dto\SubSkill.cs" />

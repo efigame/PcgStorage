@@ -109,12 +109,6 @@ namespace Pcg_Storage.Webforms.Character
                 repeaterSubSkills.DataBind();
             }
         }
-
-        protected void RepeaterSkills_ItemCommand(object source, RepeaterCommandEventArgs e)
-        {
-
-        }
-
         protected void RepeaterSubSkills_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
@@ -128,23 +122,39 @@ namespace Pcg_Storage.Webforms.Character
                 literalSubSkillAdjustment.Text = "+" + skill.Adjustment.ToString();
             }
         }
-
-        protected void RepeaterSubSkills_ItemCommand(object source, RepeaterCommandEventArgs e)
-        {
-
-        }
-
         protected void RepeaterExtraPowers_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
             {
                 var power = (PcgManager.Dto.Power)e.Item.DataItem;
 
-                var literalText = (Literal)e.Item.FindControl("literalText");
-                literalText.Text = power.Text;
+                string[] powerlist = power.Text.Split(new string[] { "{format:check}" }, StringSplitOptions.None);
+
+                var literalExtraPowerText = (Literal)e.Item.FindControl("literalExtraPowerText");
+                literalExtraPowerText.Text = powerlist[0];
+
+                var hiddenExtraPowerId = (HiddenField)e.Item.FindControl("hiddenExtraPowerId");
+                hiddenExtraPowerId.Value = power.Id.ToString();
+
+                var checkboxlist = (CheckBoxList)e.Item.FindControl("checkboxListExtraPower");
+                checkboxlist.RepeatDirection = RepeatDirection.Horizontal;
+                checkboxlist.RepeatLayout = RepeatLayout.Flow;
+
+                for (var i = 1; i < powerlist.Count(); i++)
+                {
+                    var itemIsChecked = false;
+                    if ((i & power.SelectedPowers) ==  i)
+                    {
+                        itemIsChecked = true;
+                    }
+
+                    var item = new ListItem(powerlist[i], i.ToString(), true);
+                    item.Selected = itemIsChecked;
+
+                    checkboxlist.Items.Add(item);
+                }
             }
         }
-
         protected void RepeaterPossibleSkill_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
@@ -159,7 +169,6 @@ namespace Pcg_Storage.Webforms.Character
                 hiddenPossibleSkillValue.Value = item.Key.ToString();
             }
         }
-
         protected void RepeaterHandSize_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
@@ -208,7 +217,6 @@ namespace Pcg_Storage.Webforms.Character
                 character.Update();
             }
         }
-
         protected void CheckboxSkillSelected_CheckedChanged(object sender, EventArgs e)
         {
             var checkbox = (CheckBox)sender;
@@ -238,7 +246,6 @@ namespace Pcg_Storage.Webforms.Character
             else
                 PcgManager.Dto.Skill.Set(characterId, skillId, selectedSkillValue - 1);
         }
-
         protected void CheckboxLightArmors_CheckedChanged(object sender, EventArgs e)
         {
             var characterId = Convert.ToInt32(Page.RouteData.Values["characterid"]);
@@ -254,7 +261,6 @@ namespace Pcg_Storage.Webforms.Character
 
             character.Update();
         }
-
         protected void CheckboxHeavyArmors_CheckedChanged(object sender, EventArgs e)
         {
             var characterId = Convert.ToInt32(Page.RouteData.Values["characterid"]);
@@ -270,7 +276,6 @@ namespace Pcg_Storage.Webforms.Character
 
             character.Update();
         }
-
         protected void CheckboxWeapons_CheckedChanged(object sender, EventArgs e)
         {
             var characterId = Convert.ToInt32(Page.RouteData.Values["characterid"]);
@@ -285,6 +290,29 @@ namespace Pcg_Storage.Webforms.Character
                 character.Weapons = 2;
 
             character.Update();
+        }
+
+        protected void CheckboxListExtraPower_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var checkboxlist = (CheckBoxList)sender;
+            var repeaterItem = checkboxlist.Parent;
+            var hiddenExtraPowerId = (HiddenField)repeaterItem.FindControl("hiddenExtraPowerId");
+            var powerId = Convert.ToInt32(hiddenExtraPowerId.Value);
+
+            int selectedValue = 0;
+            int bitStep = 1;
+            for(var i = 0; i < checkboxlist.Items.Count; i++)
+            {
+                if (checkboxlist.Items[i].Selected)
+                    selectedValue += bitStep;
+
+                bitStep += bitStep;
+            }
+
+            var characterId = Convert.ToInt32(Page.RouteData.Values["characterid"]);
+            var character = PcgManager.Dto.Character.Get(characterId);
+
+            PcgManager.Dto.Power.Set(characterId, powerId, selectedValue);
         }
     }
 }

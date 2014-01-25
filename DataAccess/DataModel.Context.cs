@@ -33,5 +33,6 @@ namespace DataAccess
         public virtual DbSet<power> powers { get; set; }
         public virtual DbSet<partycharacter> partycharacters { get; set; }
         public virtual DbSet<charactercard> charactercards { get; set; }
+        public virtual DbSet<characterpower> characterpowers { get; set; }
     }
 }

@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Css\Modal.css" />
+    <Content Include="Css\Styles.css" />
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
     <Content Include="Default.Master" />

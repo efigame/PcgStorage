@@ -12,21 +12,14 @@ namespace DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class power
+    public partial class characterpower
     {
-        public power()
-        {
-            this.characterpowers = new HashSet<characterpower>();
-        }
-    
         public int Id { get; set; }
-        public string Text { get; set; }
-        public int Number { get; set; }
-        public Nullable<int> Dice { get; set; }
-        public Nullable<int> Adjustment { get; set; }
-        public int CharacterCardId { get; set; }
+        public int PartyCharacterId { get; set; }
+        public int PowerId { get; set; }
+        public int SelectedPowers { get; set; }
     
-        public virtual charactercard charactercard { get; set; }
-        public virtual ICollection<characterpower> characterpowers { get; set; }
+        public virtual partycharacter partycharacter { get; set; }
+        public virtual power power { get; set; }
     }
 }

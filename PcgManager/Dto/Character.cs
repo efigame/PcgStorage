@@ -109,7 +109,7 @@ namespace PcgManager.Dto
                 PossibleHandSize = characterCard.PossibleHandSize;
 
                 var powers = DataAccess.Dto.Power.All(CharacterCardId);
-                Powers.AddRange(powers.Select(p => new Power(p)));
+                Powers.AddRange(powers.Select(p => new Power(p, partyCharacter.Id)));
 
                 var skills = DataAccess.Dto.Skill.All(CharacterCardId);
                 Skills.AddRange(skills.Select(s => new Skill(s, Id)));
