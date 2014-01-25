@@ -32,7 +32,14 @@
     </fieldset>
     <fieldset>
         <legend>Powers</legend>
-        Hand Size <asp:Literal ID="literalHandSize" runat="server"></asp:Literal><br />
+        Hand Size <asp:Literal ID="literalHandSize" runat="server"></asp:Literal>
+        <asp:Repeater ID="repeaterHandSize" runat="server" OnItemDataBound="RepeaterHandSize_ItemDataBound">
+            <ItemTemplate>
+                <asp:HiddenField ID="hiddenPossibleHandSizeValue" runat="server" />
+                <asp:CheckBox ID="checkboxHandSizeSelected" runat="server" OnCheckedChanged="CheckboxHandSizeSelected_CheckedChanged" TextAlign="Right" AutoPostBack="true" />
+            </ItemTemplate>
+        </asp:Repeater>
+        <br />
         <hr />
         Proficient with 
         <asp:CheckBox ID="checkboxLightArmors" runat="server" Text="Light Armors" OnCheckedChanged="CheckboxLightArmors_CheckedChanged" AutoPostBack="true" />

@@ -28,7 +28,7 @@ namespace PcgManager.Dto
                 characterSkill = new DataAccess.Dto.CharacterSkill
                 {
                     PartyCharacterId = partyCharacterId,
-                    SelectedAdjustment = 1,
+                    SelectedAdjustment = selectedValue,
                     SkillId = skillId
                 };
                 characterSkill.Persist();

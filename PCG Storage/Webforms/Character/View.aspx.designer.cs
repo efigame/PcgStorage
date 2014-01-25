@@ -49,6 +49,15 @@ namespace Pcg_Storage.Webforms.Character {
         protected global::System.Web.UI.WebControls.Literal literalHandSize;
         
         /// <summary>
+        /// repeaterHandSize control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater repeaterHandSize;
+        
+        /// <summary>
         /// checkboxLightArmors control.
         /// </summary>
         /// <remarks>

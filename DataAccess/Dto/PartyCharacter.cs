@@ -21,6 +21,7 @@ namespace DataAccess.Dto
         public int? ItemCards { get; set; }
         public int? AllyCards { get; set; }
         public int? BlessingCards { get; set; }
+        public int? HandSize { get; set; }
 
         public static PartyCharacter Get(int id)
         {
@@ -76,6 +77,7 @@ namespace DataAccess.Dto
                     partyCharacter.ItemCards = ItemCards;
                     partyCharacter.AllyCards = AllyCards;
                     partyCharacter.BlessingCards = BlessingCards;
+                    partyCharacter.HandSize = HandSize;
                     data.SaveChanges();
                 }
             }
@@ -111,6 +113,7 @@ namespace DataAccess.Dto
             ItemCards = character.ItemCards;
             AllyCards = character.AllyCards;
             BlessingCards = character.BlessingCards;
+            HandSize = character.HandSize;
         }
         internal partycharacter ToEntity()
         {
@@ -126,7 +129,8 @@ namespace DataAccess.Dto
                 ArmorCards = this.ArmorCards,
                 ItemCards = this.ItemCards,
                 AllyCards = this.AllyCards,
-                BlessingCards = this.BlessingCards
+                BlessingCards = this.BlessingCards,
+                HandSize = this.HandSize
             };
 
             return partyCharacter;

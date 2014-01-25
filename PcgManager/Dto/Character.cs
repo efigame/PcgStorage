@@ -23,6 +23,8 @@ namespace PcgManager.Dto
         public int ItemCards { get; set; }
         public int AllyCards { get; set; }
         public int BlessingCards { get; set; }
+        public int PossibleHandSize { get; set; }
+        public int? SelectedHandSize { get; set; }
 
         public List<Skill> Skills { get; set; }
         public List<Power> Powers { get; set; }
@@ -46,7 +48,7 @@ namespace PcgManager.Dto
             partyCharacterData.SpellCards = SpellCards;
             partyCharacterData.WeaponCards = WeaponCards;
             partyCharacterData.CharacterCardId = CharacterCardId;
-            //partyCharacterData.HandSize = HandSize;
+            partyCharacterData.HandSize = SelectedHandSize;
             //partyCharacterData.Name = Name;
             partyCharacterData.HeavyArmors = HeavyArmors;
             partyCharacterData.LightArmors = LightArmors;
@@ -81,6 +83,7 @@ namespace PcgManager.Dto
             Id = partyCharacter.Id;
             PartyId = partyCharacter.PartyId;
             CharacterCardId = partyCharacter.CharacterCardId;
+            SelectedHandSize = partyCharacter.HandSize;
 
             var lightArmor = partyCharacter.LightArmors;
             var heavyArmor = partyCharacter.HeavyArmors;
@@ -103,6 +106,7 @@ namespace PcgManager.Dto
                 ItemCards = characterCard.BaseItemCards;
                 AllyCards = characterCard.BaseAllyCards;
                 BlessingCards = characterCard.BaseBlessingCards;
+                PossibleHandSize = characterCard.PossibleHandSize;
 
                 var powers = DataAccess.Dto.Power.All(CharacterCardId);
                 Powers.AddRange(powers.Select(p => new Power(p)));

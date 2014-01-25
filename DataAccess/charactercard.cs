@@ -33,6 +33,7 @@ namespace DataAccess
         public int BaseItemCards { get; set; }
         public int BaseAllyCards { get; set; }
         public int BaseBlessingCards { get; set; }
+        public int PossibleHandSize { get; set; }
     
         public virtual ICollection<partycharacter> partycharacters { get; set; }
         public virtual ICollection<power> powers { get; set; }

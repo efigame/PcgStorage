@@ -21,6 +21,7 @@
           <Property Name="BaseItemCards" Type="int" Nullable="false" />
           <Property Name="BaseAllyCards" Type="int" Nullable="false" />
           <Property Name="BaseBlessingCards" Type="int" Nullable="false" />
+          <Property Name="PossibleHandSize" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="characterskill">
           <Key>
@@ -55,6 +56,7 @@
           <Property Name="ItemCards" Type="int" />
           <Property Name="AllyCards" Type="int" />
           <Property Name="BlessingCards" Type="int" />
+          <Property Name="HandSize" Type="int" />
         </EntityType>
         <EntityType Name="pcguser">
           <Key>
@@ -398,6 +400,7 @@
           <NavigationProperty Name="characterskills" Relationship="PcgStorageModel.fk_characterskill_partycharacter" FromRole="partycharacter" ToRole="characterskill" />
           <NavigationProperty Name="party" Relationship="PcgStorageModel.fk_partycharacter_party" FromRole="partycharacter" ToRole="party" />
           <NavigationProperty Name="charactercard" Relationship="PcgStorageModel.fk_partycharacter_charactercard" FromRole="partycharacter" ToRole="charactercard" />
+          <Property Name="HandSize" Type="Int32" />
         </EntityType>
         <Association Name="fk_characterskill_partycharacter">
           <End Type="PcgStorageModel.partycharacter" Role="partycharacter" Multiplicity="1" />
@@ -442,6 +445,7 @@
           <NavigationProperty Name="partycharacters" Relationship="PcgStorageModel.fk_partycharacter_charactercard" FromRole="charactercard" ToRole="partycharacter" />
           <NavigationProperty Name="powers" Relationship="PcgStorageModel.fk_power_charactercard_id" FromRole="charactercard" ToRole="power" />
           <NavigationProperty Name="skills" Relationship="PcgStorageModel.fk_skill_charactercard" FromRole="charactercard" ToRole="skill" />
+          <Property Name="PossibleHandSize" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="fk_partycharacter_charactercard">
           <End Type="PcgStorageModel.charactercard" Role="charactercard" Multiplicity="1" />
@@ -549,6 +553,7 @@
           <EntitySetMapping Name="partycharacters">
             <EntityTypeMapping TypeName="PcgStorageModel.partycharacter">
               <MappingFragment StoreEntitySet="partycharacter">
+                <ScalarProperty Name="HandSize" ColumnName="HandSize" />
                 <ScalarProperty Name="BlessingCards" ColumnName="BlessingCards" />
                 <ScalarProperty Name="AllyCards" ColumnName="AllyCards" />
                 <ScalarProperty Name="ItemCards" ColumnName="ItemCards" />
@@ -567,6 +572,7 @@
           <EntitySetMapping Name="charactercards">
             <EntityTypeMapping TypeName="PcgStorageModel.charactercard">
               <MappingFragment StoreEntitySet="charactercard">
+                <ScalarProperty Name="PossibleHandSize" ColumnName="PossibleHandSize" />
                 <ScalarProperty Name="BaseBlessingCards" ColumnName="BaseBlessingCards" />
                 <ScalarProperty Name="BaseAllyCards" ColumnName="BaseAllyCards" />
                 <ScalarProperty Name="BaseItemCards" ColumnName="BaseItemCards" />

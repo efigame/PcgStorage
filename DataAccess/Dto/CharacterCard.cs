@@ -21,6 +21,7 @@ namespace DataAccess.Dto
         public int BaseItemCards { get; set; }
         public int BaseAllyCards { get; set; }
         public int BaseBlessingCards { get; set; }
+        public int PossibleHandSize { get; set; }
 
         public static CharacterCard Get(int id)
         {
@@ -77,6 +78,7 @@ namespace DataAccess.Dto
                     card.BaseItemCards = BaseItemCards;
                     card.BaseAllyCards = BaseAllyCards;
                     card.BaseBlessingCards = BaseBlessingCards;
+                    card.PossibleHandSize = PossibleHandSize;
                     data.SaveChanges();
                 }
             }
@@ -112,6 +114,7 @@ namespace DataAccess.Dto
             BaseItemCards = card.BaseItemCards;
             BaseAllyCards = card.BaseAllyCards;
             BaseBlessingCards = card.BaseBlessingCards;
+            PossibleHandSize = card.PossibleHandSize;
         }
         internal charactercard ToEntity()
         {
@@ -127,7 +130,8 @@ namespace DataAccess.Dto
                 BaseArmorCards = this.BaseArmorCards,
                 BaseItemCards = this.BaseItemCards,
                 BaseAllyCards = this.BaseAllyCards,
-                BaseBlessingCards = this.BaseBlessingCards
+                BaseBlessingCards = this.BaseBlessingCards,
+                PossibleHandSize = this.PossibleHandSize
             };
 
             return card;

@@ -58,6 +58,18 @@ namespace Pcg_Storage.Webforms.Character
 
                 repeaterSkills.DataSource = character.Skills;
                 repeaterSkills.DataBind();
+
+                var possibleHandSize = new List<KeyValuePair<int, bool>>();
+                for (var i = character.HandSize + 1; i <= character.PossibleHandSize; i++)
+                {
+                    if (character.SelectedHandSize.HasValue && character.SelectedHandSize.Value >= i)
+                        possibleHandSize.Add(new KeyValuePair<int, bool>(i, true));
+                    else
+                        possibleHandSize.Add(new KeyValuePair<int, bool>(i, false));
+                }
+                repeaterHandSize.DataSource = possibleHandSize;
+                repeaterHandSize.DataBind();
+
             }
 
             linkEditCharacter.NavigateUrl = Url.PartyCharacterEdit(userId, partyId, characterId);
@@ -148,6 +160,55 @@ namespace Pcg_Storage.Webforms.Character
             }
         }
 
+        protected void RepeaterHandSize_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                var item = (KeyValuePair<int, bool>)e.Item.DataItem;
+
+                var checkboxHandSizeSelected = (CheckBox)e.Item.FindControl("checkboxHandSizeSelected");
+                checkboxHandSizeSelected.Text = "+" + item.Key.ToString();
+                checkboxHandSizeSelected.Checked = item.Value;
+
+                var hiddenPossibleHandSizeValue = (HiddenField)e.Item.FindControl("hiddenPossibleHandSizeValue");
+                hiddenPossibleHandSizeValue.Value = item.Key.ToString();
+            }
+        }
+
+        protected void CheckboxHandSizeSelected_CheckedChanged(object sender, EventArgs e)
+        {
+            var checkbox = (CheckBox)sender;
+            var hiddenPossibleHandSize = (HiddenField)checkbox.Parent.FindControl("hiddenPossibleHandSizeValue");
+            var selectedHandSizeValue = Convert.ToInt32(hiddenPossibleHandSize.Value);
+
+            var characterId = Convert.ToInt32(Page.RouteData.Values["characterid"]);
+            var character = PcgManager.Dto.Character.Get(characterId);
+
+            var repeater = (Repeater)checkbox.Parent.Parent;
+            var repeaterItems = (RepeaterItemCollection)repeater.Items;
+
+            var counter = character.HandSize + 1;
+            foreach (RepeaterItem item in repeater.Items)
+            {
+                var innerCheckbox = (CheckBox)item.FindControl("checkboxHandSizeSelected");
+                if (counter < selectedHandSizeValue) innerCheckbox.Checked = true;
+                if (counter > selectedHandSizeValue) innerCheckbox.Checked = false;
+
+                counter++;
+            }
+            
+            if (checkbox.Checked)
+            {
+                character.SelectedHandSize = selectedHandSizeValue;
+                character.Update();
+            }
+            else
+            {
+                character.SelectedHandSize = selectedHandSizeValue - 1;
+                character.Update();
+            }
+        }
+
         protected void CheckboxSkillSelected_CheckedChanged(object sender, EventArgs e)
         {
             var checkbox = (CheckBox)sender;
@@ -162,26 +223,20 @@ namespace Pcg_Storage.Webforms.Character
             var repeater = (Repeater)checkbox.Parent.Parent;
             var repeaterItems = (RepeaterItemCollection)repeater.Items;
 
-            for(int i = 0; i < repeater.Items.Count; i++)
+            var counter = 1;
+            foreach (RepeaterItem item in repeater.Items)
             {
-                if (i < selectedSkillValue - 1)
-                {
-                    var innerCheckbox = (CheckBox)repeaterItems[i].FindControl("checkboxSkillSelected");
-                    innerCheckbox.Checked = true;
-                }
-                else if (i == selectedSkillValue - 1)
-                {
-                    if (checkbox.Checked)
-                        PcgManager.Dto.Skill.Set(characterId, skillId, selectedSkillValue);
-                    else
-                        PcgManager.Dto.Skill.Set(characterId, skillId, selectedSkillValue - 1);
-                }
-                else
-                {
-                    var innerCheckBox = (CheckBox)repeaterItems[i].FindControl("checkboxSkillSelected");
-                    innerCheckBox.Checked = false;
-                }
+                var innerCheckbox = (CheckBox)item.FindControl("checkboxSkillSelected");
+                if (counter < selectedSkillValue) innerCheckbox.Checked = true;
+                if (counter > selectedSkillValue) innerCheckbox.Checked = false;
+
+                counter++;
             }
+
+            if (checkbox.Checked)
+                PcgManager.Dto.Skill.Set(characterId, skillId, selectedSkillValue);
+            else
+                PcgManager.Dto.Skill.Set(characterId, skillId, selectedSkillValue - 1);
         }
 
         protected void CheckboxLightArmors_CheckedChanged(object sender, EventArgs e)
