@@ -22,6 +22,12 @@ namespace DataAccess.Dto
         public int BaseAllyCards { get; set; }
         public int BaseBlessingCards { get; set; }
         public int PossibleHandSize { get; set; }
+        public int PossibleWeaponCards { get; set; }
+        public int PossibleSpellCards { get; set; }
+        public int PossibleArmorCards { get; set; }
+        public int PossibleItemCards { get; set; }
+        public int PossibleAllyCards { get; set; }
+        public int PossibleBlessingCards { get; set; }
 
         public static CharacterCard Get(int id)
         {
@@ -79,6 +85,12 @@ namespace DataAccess.Dto
                     card.BaseAllyCards = BaseAllyCards;
                     card.BaseBlessingCards = BaseBlessingCards;
                     card.PossibleHandSize = PossibleHandSize;
+                    card.PossibleWeaponCards = PossibleWeaponCards;
+                    card.PossibleSpellCards = PossibleSpellCards;
+                    card.PossibleArmorCards = PossibleArmorCards;
+                    card.PossibleItemCards = PossibleItemCards;
+                    card.PossibleAllyCards = PossibleAllyCards;
+                    card.PossibleBlessingCards = PossibleBlessingCards;
                     data.SaveChanges();
                 }
             }
@@ -115,6 +127,12 @@ namespace DataAccess.Dto
             BaseAllyCards = card.BaseAllyCards;
             BaseBlessingCards = card.BaseBlessingCards;
             PossibleHandSize = card.PossibleHandSize;
+            PossibleWeaponCards = card.PossibleWeaponCards;
+            PossibleSpellCards = card.PossibleSpellCards;
+            PossibleArmorCards = card.PossibleArmorCards;
+            PossibleItemCards = card.PossibleItemCards;
+            PossibleAllyCards = card.PossibleAllyCards;
+            PossibleBlessingCards = card.PossibleBlessingCards;
         }
         internal charactercard ToEntity()
         {
@@ -131,7 +149,13 @@ namespace DataAccess.Dto
                 BaseItemCards = this.BaseItemCards,
                 BaseAllyCards = this.BaseAllyCards,
                 BaseBlessingCards = this.BaseBlessingCards,
-                PossibleHandSize = this.PossibleHandSize
+                PossibleWeaponCards = this.PossibleWeaponCards,
+                PossibleHandSize = this.PossibleHandSize,
+                PossibleSpellCards = this.PossibleSpellCards,
+                PossibleArmorCards = this.PossibleArmorCards,
+                PossibleItemCards = this.PossibleItemCards,
+                PossibleAllyCards = this.PossibleAllyCards,
+                PossibleBlessingCards = this.PossibleBlessingCards
             };
 
             return card;

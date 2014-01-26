@@ -34,6 +34,12 @@ namespace DataAccess
         public int BaseAllyCards { get; set; }
         public int BaseBlessingCards { get; set; }
         public int PossibleHandSize { get; set; }
+        public int PossibleWeaponCards { get; set; }
+        public int PossibleSpellCards { get; set; }
+        public int PossibleArmorCards { get; set; }
+        public int PossibleItemCards { get; set; }
+        public int PossibleAllyCards { get; set; }
+        public int PossibleBlessingCards { get; set; }
     
         public virtual ICollection<partycharacter> partycharacters { get; set; }
         public virtual ICollection<power> powers { get; set; }

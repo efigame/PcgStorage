@@ -22,6 +22,12 @@
           <Property Name="BaseAllyCards" Type="int" Nullable="false" />
           <Property Name="BaseBlessingCards" Type="int" Nullable="false" />
           <Property Name="PossibleHandSize" Type="int" Nullable="false" />
+          <Property Name="PossibleWeaponCards" Type="int" Nullable="false" />
+          <Property Name="PossibleSpellCards" Type="int" Nullable="false" />
+          <Property Name="PossibleArmorCards" Type="int" Nullable="false" />
+          <Property Name="PossibleItemCards" Type="int" Nullable="false" />
+          <Property Name="PossibleAllyCards" Type="int" Nullable="false" />
+          <Property Name="PossibleBlessingCards" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="characterpower">
           <Key>
@@ -499,6 +505,12 @@
           <NavigationProperty Name="powers" Relationship="PcgStorageModel.fk_power_charactercard_id" FromRole="charactercard" ToRole="power" />
           <NavigationProperty Name="skills" Relationship="PcgStorageModel.fk_skill_charactercard" FromRole="charactercard" ToRole="skill" />
           <Property Name="PossibleHandSize" Type="Int32" Nullable="false" />
+          <Property Name="PossibleWeaponCards" Type="Int32" Nullable="false" />
+          <Property Name="PossibleSpellCards" Type="Int32" Nullable="false" />
+          <Property Name="PossibleArmorCards" Type="Int32" Nullable="false" />
+          <Property Name="PossibleItemCards" Type="Int32" Nullable="false" />
+          <Property Name="PossibleAllyCards" Type="Int32" Nullable="false" />
+          <Property Name="PossibleBlessingCards" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="fk_partycharacter_charactercard">
           <End Type="PcgStorageModel.charactercard" Role="charactercard" Multiplicity="1" />
@@ -660,6 +672,12 @@
           <EntitySetMapping Name="charactercards">
             <EntityTypeMapping TypeName="PcgStorageModel.charactercard">
               <MappingFragment StoreEntitySet="charactercard">
+                <ScalarProperty Name="PossibleBlessingCards" ColumnName="PossibleBlessingCards" />
+                <ScalarProperty Name="PossibleAllyCards" ColumnName="PossibleAllyCards" />
+                <ScalarProperty Name="PossibleItemCards" ColumnName="PossibleItemCards" />
+                <ScalarProperty Name="PossibleArmorCards" ColumnName="PossibleArmorCards" />
+                <ScalarProperty Name="PossibleSpellCards" ColumnName="PossibleSpellCards" />
+                <ScalarProperty Name="PossibleWeaponCards" ColumnName="PossibleWeaponCards" />
                 <ScalarProperty Name="PossibleHandSize" ColumnName="PossibleHandSize" />
                 <ScalarProperty Name="BaseBlessingCards" ColumnName="BaseBlessingCards" />
                 <ScalarProperty Name="BaseAllyCards" ColumnName="BaseAllyCards" />

@@ -112,6 +112,15 @@ namespace Pcg_Storage.Webforms.Character {
         protected global::System.Web.UI.WebControls.Literal literalWeaponCards;
         
         /// <summary>
+        /// repeaterPossibleWeaponCards control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater repeaterPossibleWeaponCards;
+        
+        /// <summary>
         /// literalSpellCards control.
         /// </summary>
         /// <remarks>
@@ -119,6 +128,15 @@ namespace Pcg_Storage.Webforms.Character {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal literalSpellCards;
+        
+        /// <summary>
+        /// repeaterPossibleSpellCards control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater repeaterPossibleSpellCards;
         
         /// <summary>
         /// literalArmorCards control.
@@ -130,6 +148,15 @@ namespace Pcg_Storage.Webforms.Character {
         protected global::System.Web.UI.WebControls.Literal literalArmorCards;
         
         /// <summary>
+        /// repeaterPossibleArmorCards control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater repeaterPossibleArmorCards;
+        
+        /// <summary>
         /// literalItemCards control.
         /// </summary>
         /// <remarks>
@@ -137,6 +164,15 @@ namespace Pcg_Storage.Webforms.Character {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal literalItemCards;
+        
+        /// <summary>
+        /// repeaterPossibleItemCards control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater repeaterPossibleItemCards;
         
         /// <summary>
         /// literalAllyCards control.
@@ -148,6 +184,15 @@ namespace Pcg_Storage.Webforms.Character {
         protected global::System.Web.UI.WebControls.Literal literalAllyCards;
         
         /// <summary>
+        /// repeaterPossibleAllyCards control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater repeaterPossibleAllyCards;
+        
+        /// <summary>
         /// literalBlessingCards control.
         /// </summary>
         /// <remarks>
@@ -155,6 +200,15 @@ namespace Pcg_Storage.Webforms.Character {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal literalBlessingCards;
+        
+        /// <summary>
+        /// repeaterPossibleBlessingCards control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater repeaterPossibleBlessingCards;
         
         /// <summary>
         /// linkEditCharacter control.

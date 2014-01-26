@@ -13,16 +13,28 @@ namespace PcgManager.Dto
         public int PartyId { get; set; }
         public int CharacterCardId { get; set; }
         public string Name { get; set; }
-        public int HandSize { get; set; }
         public int LightArmors { get; set; }
         public int HeavyArmors { get; set; }
         public int Weapons { get; set; }
         public int WeaponCards { get; set; }
+        public int PossibleWeaponCards { get; set; }
+        public int? SelectedWeaponCards { get; set; }
         public int SpellCards { get; set; }
+        public int PossibleSpellCards { get; set; }
+        public int? SelectedSpellCards { get; set; }
         public int ArmorCards { get; set; }
+        public int PossibleArmorCards { get; set; }
+        public int? SelectedArmorCards { get; set; }
         public int ItemCards { get; set; }
+        public int PossibleItemCards { get; set; }
+        public int? SelectedItemCards { get; set; }
         public int AllyCards { get; set; }
+        public int PossibleAllyCards { get; set; }
+        public int? SelectedAllyCards { get; set; }
         public int BlessingCards { get; set; }
+        public int PossibleBlessingCards { get; set; }
+        public int? SelectedBlessingCards { get; set; }
+        public int HandSize { get; set; }
         public int PossibleHandSize { get; set; }
         public int? SelectedHandSize { get; set; }
 
@@ -41,15 +53,14 @@ namespace PcgManager.Dto
         public void Update()
         {
             var partyCharacterData = DataAccess.Dto.PartyCharacter.Get(Id);
-            partyCharacterData.AllyCards = AllyCards;
-            partyCharacterData.ArmorCards = ArmorCards;
-            partyCharacterData.BlessingCards = BlessingCards;
-            partyCharacterData.ItemCards = ItemCards;
-            partyCharacterData.SpellCards = SpellCards;
-            partyCharacterData.WeaponCards = WeaponCards;
+            partyCharacterData.AllyCards = SelectedAllyCards;
+            partyCharacterData.ArmorCards = SelectedArmorCards;
+            partyCharacterData.BlessingCards = SelectedBlessingCards;
+            partyCharacterData.ItemCards = SelectedItemCards;
+            partyCharacterData.SpellCards = SelectedSpellCards;
+            partyCharacterData.WeaponCards = SelectedWeaponCards;
             partyCharacterData.CharacterCardId = CharacterCardId;
             partyCharacterData.HandSize = SelectedHandSize;
-            //partyCharacterData.Name = Name;
             partyCharacterData.HeavyArmors = HeavyArmors;
             partyCharacterData.LightArmors = LightArmors;
             partyCharacterData.Weapons = Weapons;
@@ -84,6 +95,12 @@ namespace PcgManager.Dto
             PartyId = partyCharacter.PartyId;
             CharacterCardId = partyCharacter.CharacterCardId;
             SelectedHandSize = partyCharacter.HandSize;
+            SelectedWeaponCards = partyCharacter.WeaponCards;
+            SelectedSpellCards = partyCharacter.SpellCards;
+            SelectedArmorCards = partyCharacter.ArmorCards;
+            SelectedItemCards = partyCharacter.ItemCards;
+            SelectedAllyCards = partyCharacter.AllyCards;
+            SelectedBlessingCards = partyCharacter.BlessingCards;
 
             var lightArmor = partyCharacter.LightArmors;
             var heavyArmor = partyCharacter.HeavyArmors;
@@ -107,6 +124,12 @@ namespace PcgManager.Dto
                 AllyCards = characterCard.BaseAllyCards;
                 BlessingCards = characterCard.BaseBlessingCards;
                 PossibleHandSize = characterCard.PossibleHandSize;
+                PossibleWeaponCards = characterCard.PossibleWeaponCards;
+                PossibleSpellCards = characterCard.PossibleSpellCards;
+                PossibleArmorCards = characterCard.PossibleArmorCards;
+                PossibleItemCards = characterCard.PossibleItemCards;
+                PossibleAllyCards = characterCard.PossibleAllyCards;
+                PossibleBlessingCards = characterCard.PossibleBlessingCards;
 
                 var powers = DataAccess.Dto.Power.All(CharacterCardId);
                 Powers.AddRange(powers.Select(p => new Power(p, partyCharacter.Id)));

@@ -62,21 +62,52 @@ namespace Pcg_Storage.Webforms.Character
                 repeaterSkills.DataSource = character.Skills;
                 repeaterSkills.DataBind();
 
-                var possibleHandSize = new List<KeyValuePair<int, bool>>();
-                for (var i = character.HandSize + 1; i <= character.PossibleHandSize; i++)
-                {
-                    if (character.SelectedHandSize.HasValue && character.SelectedHandSize.Value >= i)
-                        possibleHandSize.Add(new KeyValuePair<int, bool>(i, true));
-                    else
-                        possibleHandSize.Add(new KeyValuePair<int, bool>(i, false));
-                }
+                var possibleHandSize = GetPossibleValues(character.HandSize, character.PossibleHandSize, character.SelectedHandSize);
                 repeaterHandSize.DataSource = possibleHandSize;
                 repeaterHandSize.DataBind();
 
+                var possibleWeaponCards = GetPossibleValues(character.WeaponCards, character.PossibleWeaponCards, character.SelectedWeaponCards);
+                repeaterPossibleWeaponCards.DataSource = possibleWeaponCards;
+                repeaterPossibleWeaponCards.DataBind();
+
+                var possibleSpellCards = GetPossibleValues(character.SpellCards, character.PossibleSpellCards, character.SelectedSpellCards);
+                repeaterPossibleSpellCards.DataSource = possibleSpellCards;
+                repeaterPossibleSpellCards.DataBind();
+
+                var possibleArmorCards = GetPossibleValues(character.ArmorCards, character.PossibleArmorCards, character.SelectedArmorCards);
+                repeaterPossibleArmorCards.DataSource = possibleArmorCards;
+                repeaterPossibleArmorCards.DataBind();
+
+                var possibleItemCards = GetPossibleValues(character.ItemCards, character.PossibleItemCards, character.SelectedItemCards);
+                repeaterPossibleItemCards.DataSource = possibleItemCards;
+                repeaterPossibleItemCards.DataBind();
+
+                var possibleAllyCards = GetPossibleValues(character.AllyCards, character.PossibleAllyCards, character.SelectedAllyCards);
+                repeaterPossibleAllyCards.DataSource = possibleAllyCards;
+                repeaterPossibleAllyCards.DataBind();
+
+                var possibleBlessingCards = GetPossibleValues(character.BlessingCards, character.PossibleBlessingCards, character.SelectedBlessingCards);
+                repeaterPossibleBlessingCards.DataSource = possibleBlessingCards;
+                repeaterPossibleBlessingCards.DataBind();
             }
 
             linkEditCharacter.NavigateUrl = Url.PartyCharacterEdit(userId, partyId, characterId);
             linkGoToPartyView.NavigateUrl = Url.Party(userId, partyId);
+        }
+
+        private List<KeyValuePair<int, bool>> GetPossibleValues(int baseValue, int possibleValue, int? selectedValue)
+        {
+            var possibleValues = new List<KeyValuePair<int, bool>>();
+
+            for (var i = baseValue + 1; i <= possibleValue; i++)
+            {
+                if (selectedValue.HasValue && selectedValue.Value >= i)
+                    possibleValues.Add(new KeyValuePair<int, bool>(i, true));
+                else
+                    possibleValues.Add(new KeyValuePair<int, bool>(i, false));
+            }
+
+            return possibleValues;
         }
 
         protected void RepeaterSkills_ItemDataBound(object sender, RepeaterItemEventArgs e)
@@ -186,6 +217,20 @@ namespace Pcg_Storage.Webforms.Character
                 hiddenPossibleHandSizeValue.Value = item.Key.ToString();
             }
         }
+        protected void RepeaterPossibleCards_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                var item = (KeyValuePair<int, bool>)e.Item.DataItem;
+
+                var checkboxSelected = (CheckBox)e.Item.FindControl("checkboxSelected");
+                checkboxSelected.Text = "+" + item.Key.ToString();
+                checkboxSelected.Checked = item.Value;
+
+                var hiddenValue = (HiddenField)e.Item.FindControl("hiddenValue");
+                hiddenValue.Value = item.Key.ToString();
+            }
+        }
 
         protected void CheckboxHandSizeSelected_CheckedChanged(object sender, EventArgs e)
         {
@@ -293,6 +338,79 @@ namespace Pcg_Storage.Webforms.Character
                 character.Weapons = 2;
 
             character.Update();
+        }
+        protected void CheckboxWeaponCardSelected_CheckedChanged(object sender, EventArgs e)
+        {
+            var characterId = Convert.ToInt32(Page.RouteData.Values["characterid"]);
+            var character = PcgManager.Dto.Character.Get(characterId);
+
+            character.SelectedWeaponCards = GetSelectedValue(sender, e, character);
+            character.Update();
+        }
+        protected void CheckboxSpellCardSelected_CheckedChanged(object sender, EventArgs e)
+        {
+            var characterId = Convert.ToInt32(Page.RouteData.Values["characterid"]);
+            var character = PcgManager.Dto.Character.Get(characterId);
+
+            character.SelectedSpellCards = GetSelectedValue(sender, e, character);
+            character.Update();
+        }
+        protected void CheckboxArmorCardSelected_CheckedChanged(object sender, EventArgs e)
+        {
+            var characterId = Convert.ToInt32(Page.RouteData.Values["characterid"]);
+            var character = PcgManager.Dto.Character.Get(characterId);
+
+            character.SelectedArmorCards = GetSelectedValue(sender, e, character);
+            character.Update();
+        }
+        protected void CheckboxItemCardSelected_CheckedChanged(object sender, EventArgs e)
+        {
+            var characterId = Convert.ToInt32(Page.RouteData.Values["characterid"]);
+            var character = PcgManager.Dto.Character.Get(characterId);
+
+            character.SelectedItemCards = GetSelectedValue(sender, e, character);
+            character.Update();
+        }
+        protected void CheckboxAllyCardSelected_CheckedChanged(object sender, EventArgs e)
+        {
+            var characterId = Convert.ToInt32(Page.RouteData.Values["characterid"]);
+            var character = PcgManager.Dto.Character.Get(characterId);
+
+            character.SelectedAllyCards = GetSelectedValue(sender, e, character);
+            character.Update();
+        }
+        protected void CheckboxBlessingCardSelected_CheckedChanged(object sender, EventArgs e)
+        {
+            var characterId = Convert.ToInt32(Page.RouteData.Values["characterid"]);
+            var character = PcgManager.Dto.Character.Get(characterId);
+
+            character.SelectedBlessingCards = GetSelectedValue(sender, e, character);
+            character.Update();
+        }
+
+        private int GetSelectedValue(object sender, EventArgs e, PcgManager.Dto.Character character)
+        {
+            var checkbox = (CheckBox)sender;
+            var hiddenValue = (HiddenField)checkbox.Parent.FindControl("hiddenValue");
+            var selectedValue = Convert.ToInt32(hiddenValue.Value);
+
+            var repeater = (Repeater)checkbox.Parent.Parent;
+            var repeaterItems = (RepeaterItemCollection)repeater.Items;
+
+            var counter = character.WeaponCards + 1;
+            foreach (RepeaterItem item in repeater.Items)
+            {
+                var innerCheckbox = (CheckBox)item.FindControl("checkboxSelected");
+                if (counter < selectedValue) innerCheckbox.Checked = true;
+                if (counter > selectedValue) innerCheckbox.Checked = false;
+
+                counter++;
+            }
+
+            if (checkbox.Checked)
+                return selectedValue;
+            else
+                return selectedValue - 1;
         }
 
         protected void CheckboxListExtraPower_SelectedIndexChanged(object sender, EventArgs e)

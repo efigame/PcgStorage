@@ -60,12 +60,55 @@
     </fieldset>
     <fieldset>
         <legend>Cards</legend>
-        <div>Weapon <asp:Literal ID="literalWeaponCards" runat="server"></asp:Literal></div><hr />
-        <div>Spell <asp:Literal ID="literalSpellCards" runat="server"></asp:Literal></div><hr />
-        <div>Armor <asp:Literal ID="literalArmorCards" runat="server"></asp:Literal></div><hr />
-        <div>Item <asp:Literal ID="literalItemCards" runat="server"></asp:Literal></div><hr />
-        <div>Ally <asp:Literal ID="literalAllyCards" runat="server"></asp:Literal></div><hr />
-        <div>Blessing <asp:Literal ID="literalBlessingCards" runat="server"></asp:Literal></div>
+        <div>
+            Weapon <asp:Literal ID="literalWeaponCards" runat="server"></asp:Literal>
+            <asp:Repeater ID="repeaterPossibleWeaponCards" runat="server" OnItemDataBound="RepeaterPossibleCards_ItemDataBound">
+                <ItemTemplate>
+                    <asp:HiddenField ID="hiddenValue" runat="server" />
+                    <asp:CheckBox ID="checkboxSelected" runat="server" OnCheckedChanged="CheckboxWeaponCardSelected_CheckedChanged" TextAlign="Right" AutoPostBack="true" />
+                </ItemTemplate>
+            </asp:Repeater>
+        </div><hr />
+        <div>Spell <asp:Literal ID="literalSpellCards" runat="server"></asp:Literal>
+            <asp:Repeater ID="repeaterPossibleSpellCards" runat="server" OnItemDataBound="RepeaterPossibleCards_ItemDataBound">
+                <ItemTemplate>
+                    <asp:HiddenField ID="hiddenValue" runat="server" />
+                    <asp:CheckBox ID="checkboxSelected" runat="server" OnCheckedChanged="CheckboxSpellCardSelected_CheckedChanged" TextAlign="Right" AutoPostBack="true" />
+                </ItemTemplate>
+            </asp:Repeater>
+        </div><hr />
+        <div>Armor <asp:Literal ID="literalArmorCards" runat="server"></asp:Literal>
+            <asp:Repeater ID="repeaterPossibleArmorCards" runat="server" OnItemDataBound="RepeaterPossibleCards_ItemDataBound">
+                <ItemTemplate>
+                    <asp:HiddenField ID="hiddenValue" runat="server" />
+                    <asp:CheckBox ID="checkboxSelected" runat="server" OnCheckedChanged="CheckboxArmorCardSelected_CheckedChanged" TextAlign="Right" AutoPostBack="true" />
+                </ItemTemplate>
+            </asp:Repeater>
+        </div><hr />
+        <div>Item <asp:Literal ID="literalItemCards" runat="server"></asp:Literal>
+            <asp:Repeater ID="repeaterPossibleItemCards" runat="server" OnItemDataBound="RepeaterPossibleCards_ItemDataBound">
+                <ItemTemplate>
+                    <asp:HiddenField ID="hiddenValue" runat="server" />
+                    <asp:CheckBox ID="checkboxSelected" runat="server" OnCheckedChanged="CheckboxItemCardSelected_CheckedChanged" TextAlign="Right" AutoPostBack="true" />
+                </ItemTemplate>
+            </asp:Repeater>
+        </div><hr />
+        <div>Ally <asp:Literal ID="literalAllyCards" runat="server"></asp:Literal>
+            <asp:Repeater ID="repeaterPossibleAllyCards" runat="server" OnItemDataBound="RepeaterPossibleCards_ItemDataBound">
+                <ItemTemplate>
+                    <asp:HiddenField ID="hiddenValue" runat="server" />
+                    <asp:CheckBox ID="checkboxSelected" runat="server" OnCheckedChanged="CheckboxAllyCardSelected_CheckedChanged" TextAlign="Right" AutoPostBack="true" />
+                </ItemTemplate>
+            </asp:Repeater>
+        </div><hr />
+        <div>Blessing <asp:Literal ID="literalBlessingCards" runat="server"></asp:Literal>
+            <asp:Repeater ID="repeaterPossibleBlessingCards" runat="server" OnItemDataBound="RepeaterPossibleCards_ItemDataBound">
+                <ItemTemplate>
+                    <asp:HiddenField ID="hiddenValue" runat="server" />
+                    <asp:CheckBox ID="checkboxSelected" runat="server" OnCheckedChanged="CheckboxBlessingCardSelected_CheckedChanged" TextAlign="Right" AutoPostBack="true" />
+                </ItemTemplate>
+            </asp:Repeater>
+        </div>
     </fieldset>
     <asp:HyperLink ID="linkEditCharacter" runat="server">Edit character</asp:HyperLink>
     <asp:HyperLink ID="linkGoToPartyView" runat="server">Go to party view</asp:HyperLink>
