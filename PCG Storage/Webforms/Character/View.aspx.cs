@@ -46,6 +46,9 @@ namespace Pcg_Storage.Webforms.Character
                 else
                     checkboxWeapons.Visible = false;
 
+                if (!checkboxLightArmors.Visible && !checkboxHeavyArmors.Visible && !checkboxWeapons.Visible)
+                    panelProficiencies.Visible = false;
+
                 literalWeaponCards.Text = character.WeaponCards.ToString();
                 literalSpellCards.Text = character.SpellCards.ToString();
                 literalArmorCards.Text = character.ArmorCards.ToString();

@@ -41,11 +41,13 @@
         </asp:Repeater>
         <br />
         <hr />
-        Proficient with 
-        <asp:CheckBox ID="checkboxLightArmors" runat="server" Text="Light Armors" OnCheckedChanged="CheckboxLightArmors_CheckedChanged" AutoPostBack="true" />
-        <asp:CheckBox ID="checkboxHeavyArmors" runat="server" Text="Heavy Armors" OnCheckedChanged="CheckboxHeavyArmors_CheckedChanged" AutoPostBack="true" />
-        <asp:CheckBox ID="checkboxWeapons" runat="server" Text="Weapons" OnCheckedChanged="CheckboxWeapons_CheckedChanged" AutoPostBack="true" />
-        <hr />
+        <asp:Panel ID="panelProficiencies" runat="server">
+            Proficient with 
+            <asp:CheckBox ID="checkboxLightArmors" runat="server" Text="Light Armors" OnCheckedChanged="CheckboxLightArmors_CheckedChanged" AutoPostBack="true" />
+            <asp:CheckBox ID="checkboxHeavyArmors" runat="server" Text="Heavy Armors" OnCheckedChanged="CheckboxHeavyArmors_CheckedChanged" AutoPostBack="true" />
+            <asp:CheckBox ID="checkboxWeapons" runat="server" Text="Weapons" OnCheckedChanged="CheckboxWeapons_CheckedChanged" AutoPostBack="true" />
+            <hr />
+        </asp:Panel>
         <asp:Repeater ID="repeaterExtraPowers" runat="server" OnItemDataBound="RepeaterExtraPowers_ItemDataBound">
             <ItemTemplate>
                 <asp:Literal ID="literalExtraPowerText" runat="server"></asp:Literal>
