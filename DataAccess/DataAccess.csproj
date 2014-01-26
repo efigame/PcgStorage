@@ -118,6 +118,7 @@
     <Content Include="SqlScripts\CreationScript.txt" />
     <Content Include="SqlScripts\Dump20140119.sql" />
     <Content Include="SqlScripts\Dump20140123.sql" />
+    <Content Include="SqlScripts\Dump20140126.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
