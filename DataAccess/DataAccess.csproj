@@ -59,7 +59,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="adventure.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="card.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cardtype.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="charactercard.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="characterdeck.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="characterpower.cs">
@@ -84,9 +96,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="deck.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Dto\CharacterPower.cs" />
     <Compile Include="Dto\CharacterSkill.cs" />
     <Compile Include="Dto\Power.cs" />
+    <Compile Include="Dto\Adventure.cs" />
     <Compile Include="Dto\SubSkill.cs" />
     <Compile Include="Dto\Skill.cs" />
     <Compile Include="Dto\CharacterCard.cs" />

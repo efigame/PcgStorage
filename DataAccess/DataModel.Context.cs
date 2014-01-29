@@ -34,5 +34,10 @@ namespace DataAccess
         public virtual DbSet<partycharacter> partycharacters { get; set; }
         public virtual DbSet<charactercard> charactercards { get; set; }
         public virtual DbSet<characterpower> characterpowers { get; set; }
+        public virtual DbSet<adventure> adventures { get; set; }
+        public virtual DbSet<card> cards { get; set; }
+        public virtual DbSet<cardtype> cardtypes { get; set; }
+        public virtual DbSet<characterdeck> characterdecks { get; set; }
+        public virtual DbSet<deck> decks { get; set; }
     }
 }

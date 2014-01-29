@@ -18,6 +18,7 @@ namespace DataAccess
         {
             this.characterskills = new HashSet<characterskill>();
             this.characterpowers = new HashSet<characterpower>();
+            this.characterdecks = new HashSet<characterdeck>();
         }
     
         public int Id { get; set; }
@@ -38,5 +39,6 @@ namespace DataAccess
         public virtual party party { get; set; }
         public virtual charactercard charactercard { get; set; }
         public virtual ICollection<characterpower> characterpowers { get; set; }
+        public virtual ICollection<characterdeck> characterdecks { get; set; }
     }
 }

@@ -5,6 +5,29 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="PcgStorageModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="adventure">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="card">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="DeckId" Type="int" Nullable="false" />
+          <Property Name="CardTypeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cardtype">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
         <EntityType Name="charactercard">
           <Key>
             <PropertyRef Name="Id" />
@@ -30,6 +53,15 @@
           <Property Name="PossibleBlessingCards" Type="int" Nullable="false" />
           <Property Name="FavoredCardType" Type="varchar" MaxLength="45" Nullable="false" />
         </EntityType>
+        <EntityType Name="characterdeck">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PartyCharacterId" Type="int" Nullable="false" />
+          <Property Name="CardId" Type="int" Nullable="false" />
+          <Property Name="Count" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="characterpower">
           <Key>
             <PropertyRef Name="Id" />
@@ -47,6 +79,14 @@
           <Property Name="PartyCharacterId" Type="int" Nullable="false" />
           <Property Name="SkillId" Type="int" Nullable="false" />
           <Property Name="SelectedAdjustment" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="deck">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="AdventureId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="party">
           <Key>
@@ -112,6 +152,54 @@
           <Property Name="BaseSkillId" Type="int" Nullable="false" />
           <Property Name="Adjustment" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="fk_card_cardtype_id">
+          <End Role="cardtype" Type="Self.cardtype" Multiplicity="1" />
+          <End Role="card" Type="Self.card" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cardtype">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="card">
+              <PropertyRef Name="CardTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_card_deck_id">
+          <End Role="deck" Type="Self.deck" Multiplicity="1" />
+          <End Role="card" Type="Self.card" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="deck">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="card">
+              <PropertyRef Name="DeckId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_characterdeck_card">
+          <End Role="card" Type="Self.card" Multiplicity="1" />
+          <End Role="characterdeck" Type="Self.characterdeck" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="card">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="characterdeck">
+              <PropertyRef Name="CardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_characterdeck_partycharacter_id">
+          <End Role="partycharacter" Type="Self.partycharacter" Multiplicity="1" />
+          <End Role="characterdeck" Type="Self.characterdeck" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="partycharacter">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="characterdeck">
+              <PropertyRef Name="PartyCharacterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_characterpower_partycharacter_id">
           <End Role="partycharacter" Type="Self.partycharacter" Multiplicity="1" />
           <End Role="characterpower" Type="Self.characterpower" Multiplicity="*" />
@@ -157,6 +245,18 @@
             </Principal>
             <Dependent Role="characterskill">
               <PropertyRef Name="SkillId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_deck_adventure_id">
+          <End Role="adventure" Type="Self.adventure" Multiplicity="1" />
+          <End Role="deck" Type="Self.deck" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="adventure">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="deck">
+              <PropertyRef Name="AdventureId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -233,15 +333,36 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="PcgStorageModelStoreContainer">
+          <EntitySet Name="adventure" EntityType="Self.adventure" Schema="pcgstorage" store:Type="Tables" />
+          <EntitySet Name="card" EntityType="Self.card" Schema="pcgstorage" store:Type="Tables" />
+          <EntitySet Name="cardtype" EntityType="Self.cardtype" Schema="pcgstorage" store:Type="Tables" />
           <EntitySet Name="charactercard" EntityType="Self.charactercard" Schema="pcgstorage" store:Type="Tables" />
+          <EntitySet Name="characterdeck" EntityType="Self.characterdeck" Schema="pcgstorage" store:Type="Tables" />
           <EntitySet Name="characterpower" EntityType="Self.characterpower" Schema="pcgstorage" store:Type="Tables" />
           <EntitySet Name="characterskill" EntityType="Self.characterskill" Schema="pcgstorage" store:Type="Tables" />
+          <EntitySet Name="deck" EntityType="Self.deck" Schema="pcgstorage" store:Type="Tables" />
           <EntitySet Name="party" EntityType="Self.party" Schema="pcgstorage" store:Type="Tables" />
           <EntitySet Name="partycharacter" EntityType="Self.partycharacter" Schema="pcgstorage" store:Type="Tables" />
           <EntitySet Name="pcguser" EntityType="Self.pcguser" Schema="pcgstorage" store:Type="Tables" />
           <EntitySet Name="power" EntityType="Self.power" Schema="pcgstorage" store:Type="Tables" />
           <EntitySet Name="skill" EntityType="Self.skill" Schema="pcgstorage" store:Type="Tables" />
           <EntitySet Name="subskill" EntityType="Self.subskill" Schema="pcgstorage" store:Type="Tables" />
+          <AssociationSet Name="fk_card_cardtype_id" Association="Self.fk_card_cardtype_id">
+            <End Role="cardtype" EntitySet="cardtype" />
+            <End Role="card" EntitySet="card" />
+          </AssociationSet>
+          <AssociationSet Name="fk_card_deck_id" Association="Self.fk_card_deck_id">
+            <End Role="deck" EntitySet="deck" />
+            <End Role="card" EntitySet="card" />
+          </AssociationSet>
+          <AssociationSet Name="fk_characterdeck_card" Association="Self.fk_characterdeck_card">
+            <End Role="card" EntitySet="card" />
+            <End Role="characterdeck" EntitySet="characterdeck" />
+          </AssociationSet>
+          <AssociationSet Name="fk_characterdeck_partycharacter_id" Association="Self.fk_characterdeck_partycharacter_id">
+            <End Role="partycharacter" EntitySet="partycharacter" />
+            <End Role="characterdeck" EntitySet="characterdeck" />
+          </AssociationSet>
           <AssociationSet Name="fk_characterpower_partycharacter_id" Association="Self.fk_characterpower_partycharacter_id">
             <End Role="partycharacter" EntitySet="partycharacter" />
             <End Role="characterpower" EntitySet="characterpower" />
@@ -257,6 +378,10 @@
           <AssociationSet Name="fk_characterskill_skill" Association="Self.fk_characterskill_skill">
             <End Role="skill" EntitySet="skill" />
             <End Role="characterskill" EntitySet="characterskill" />
+          </AssociationSet>
+          <AssociationSet Name="fk_deck_adventure_id" Association="Self.fk_deck_adventure_id">
+            <End Role="adventure" EntitySet="adventure" />
+            <End Role="deck" EntitySet="deck" />
           </AssociationSet>
           <AssociationSet Name="fk_party_pcguser" Association="Self.fk_party_pcguser">
             <End Role="pcguser" EntitySet="pcguser" />
@@ -336,6 +461,31 @@
           <AssociationSet Name="fk_characterpower_power_id" Association="PcgStorageModel.fk_characterpower_power_id">
             <End Role="power" EntitySet="powers" />
             <End Role="characterpower" EntitySet="characterpowers" />
+          </AssociationSet>
+          <EntitySet Name="adventures" EntityType="PcgStorageModel.adventure" />
+          <EntitySet Name="cards" EntityType="PcgStorageModel.card" />
+          <EntitySet Name="cardtypes" EntityType="PcgStorageModel.cardtype" />
+          <EntitySet Name="characterdecks" EntityType="PcgStorageModel.characterdeck" />
+          <EntitySet Name="decks" EntityType="PcgStorageModel.deck" />
+          <AssociationSet Name="fk_deck_adventure_id" Association="PcgStorageModel.fk_deck_adventure_id">
+            <End Role="adventure" EntitySet="adventures" />
+            <End Role="deck" EntitySet="decks" />
+          </AssociationSet>
+          <AssociationSet Name="fk_card_cardtype_id" Association="PcgStorageModel.fk_card_cardtype_id">
+            <End Role="cardtype" EntitySet="cardtypes" />
+            <End Role="card" EntitySet="cards" />
+          </AssociationSet>
+          <AssociationSet Name="fk_card_deck_id" Association="PcgStorageModel.fk_card_deck_id">
+            <End Role="deck" EntitySet="decks" />
+            <End Role="card" EntitySet="cards" />
+          </AssociationSet>
+          <AssociationSet Name="fk_characterdeck_card" Association="PcgStorageModel.fk_characterdeck_card">
+            <End Role="card" EntitySet="cards" />
+            <End Role="characterdeck" EntitySet="characterdecks" />
+          </AssociationSet>
+          <AssociationSet Name="fk_characterdeck_partycharacter_id" Association="PcgStorageModel.fk_characterdeck_partycharacter_id">
+            <End Role="partycharacter" EntitySet="partycharacters" />
+            <End Role="characterdeck" EntitySet="characterdecks" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="characterskill">
@@ -461,6 +611,7 @@
           <NavigationProperty Name="charactercard" Relationship="PcgStorageModel.fk_partycharacter_charactercard" FromRole="partycharacter" ToRole="charactercard" />
           <Property Name="HandSize" Type="Int32" />
           <NavigationProperty Name="characterpowers" Relationship="PcgStorageModel.fk_characterpower_partycharacter_id" FromRole="partycharacter" ToRole="characterpower" />
+          <NavigationProperty Name="characterdecks" Relationship="PcgStorageModel.fk_characterdeck_partycharacter_id" FromRole="partycharacter" ToRole="characterdeck" />
         </EntityType>
         <Association Name="fk_characterskill_partycharacter">
           <End Type="PcgStorageModel.partycharacter" Role="partycharacter" Multiplicity="1" />
@@ -585,6 +736,115 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="adventure">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="decks" Relationship="PcgStorageModel.fk_deck_adventure_id" FromRole="adventure" ToRole="deck" />
+        </EntityType>
+        <EntityType Name="card">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DeckId" Type="Int32" Nullable="false" />
+          <Property Name="CardTypeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="cardtype" Relationship="PcgStorageModel.fk_card_cardtype_id" FromRole="card" ToRole="cardtype" />
+          <NavigationProperty Name="deck" Relationship="PcgStorageModel.fk_card_deck_id" FromRole="card" ToRole="deck" />
+          <NavigationProperty Name="characterdecks" Relationship="PcgStorageModel.fk_characterdeck_card" FromRole="card" ToRole="characterdeck" />
+        </EntityType>
+        <EntityType Name="cardtype">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="cards" Relationship="PcgStorageModel.fk_card_cardtype_id" FromRole="cardtype" ToRole="card" />
+        </EntityType>
+        <EntityType Name="characterdeck">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PartyCharacterId" Type="Int32" Nullable="false" />
+          <Property Name="CardId" Type="Int32" Nullable="false" />
+          <Property Name="Count" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="card" Relationship="PcgStorageModel.fk_characterdeck_card" FromRole="characterdeck" ToRole="card" />
+          <NavigationProperty Name="partycharacter" Relationship="PcgStorageModel.fk_characterdeck_partycharacter_id" FromRole="characterdeck" ToRole="partycharacter" />
+        </EntityType>
+        <EntityType Name="deck">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="AdventureId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="adventure" Relationship="PcgStorageModel.fk_deck_adventure_id" FromRole="deck" ToRole="adventure" />
+          <NavigationProperty Name="cards" Relationship="PcgStorageModel.fk_card_deck_id" FromRole="deck" ToRole="card" />
+        </EntityType>
+        <Association Name="fk_deck_adventure_id">
+          <End Type="PcgStorageModel.adventure" Role="adventure" Multiplicity="1" />
+          <End Type="PcgStorageModel.deck" Role="deck" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="adventure">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="deck">
+              <PropertyRef Name="AdventureId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_card_cardtype_id">
+          <End Type="PcgStorageModel.cardtype" Role="cardtype" Multiplicity="1" />
+          <End Type="PcgStorageModel.card" Role="card" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cardtype">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="card">
+              <PropertyRef Name="CardTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_card_deck_id">
+          <End Type="PcgStorageModel.deck" Role="deck" Multiplicity="1" />
+          <End Type="PcgStorageModel.card" Role="card" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="deck">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="card">
+              <PropertyRef Name="DeckId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_characterdeck_card">
+          <End Type="PcgStorageModel.card" Role="card" Multiplicity="1" />
+          <End Type="PcgStorageModel.characterdeck" Role="characterdeck" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="card">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="characterdeck">
+              <PropertyRef Name="CardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_characterdeck_partycharacter_id">
+          <End Type="PcgStorageModel.partycharacter" Role="partycharacter" Multiplicity="1" />
+          <End Type="PcgStorageModel.characterdeck" Role="characterdeck" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="partycharacter">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="characterdeck">
+              <PropertyRef Name="PartyCharacterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -703,6 +963,51 @@
                 <ScalarProperty Name="SelectedPowers" ColumnName="SelectedPowers" />
                 <ScalarProperty Name="PowerId" ColumnName="PowerId" />
                 <ScalarProperty Name="PartyCharacterId" ColumnName="PartyCharacterId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="adventures">
+            <EntityTypeMapping TypeName="PcgStorageModel.adventure">
+              <MappingFragment StoreEntitySet="adventure">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cards">
+            <EntityTypeMapping TypeName="PcgStorageModel.card">
+              <MappingFragment StoreEntitySet="card">
+                <ScalarProperty Name="CardTypeId" ColumnName="CardTypeId" />
+                <ScalarProperty Name="DeckId" ColumnName="DeckId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cardtypes">
+            <EntityTypeMapping TypeName="PcgStorageModel.cardtype">
+              <MappingFragment StoreEntitySet="cardtype">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="characterdecks">
+            <EntityTypeMapping TypeName="PcgStorageModel.characterdeck">
+              <MappingFragment StoreEntitySet="characterdeck">
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="CardId" ColumnName="CardId" />
+                <ScalarProperty Name="PartyCharacterId" ColumnName="PartyCharacterId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="decks">
+            <EntityTypeMapping TypeName="PcgStorageModel.deck">
+              <MappingFragment StoreEntitySet="deck">
+                <ScalarProperty Name="AdventureId" ColumnName="AdventureId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

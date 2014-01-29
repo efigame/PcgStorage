@@ -24,6 +24,16 @@
         <EntityTypeShape EntityType="PcgStorageModel.characterpower" Width="1.5" PointX="2.75" PointY="2.875" />
         <AssociationConnector Association="PcgStorageModel.fk_characterpower_partycharacter_id" />
         <AssociationConnector Association="PcgStorageModel.fk_characterpower_power_id" />
+        <EntityTypeShape EntityType="PcgStorageModel.adventure" Width="1.5" PointX="17.375" PointY="4.875" />
+        <EntityTypeShape EntityType="PcgStorageModel.card" Width="1.5" PointX="12.375" PointY="3.375" />
+        <EntityTypeShape EntityType="PcgStorageModel.cardtype" Width="1.5" PointX="14.75" PointY="2.5" />
+        <EntityTypeShape EntityType="PcgStorageModel.characterdeck" Width="1.5" PointX="9.875" PointY="3.25" />
+        <EntityTypeShape EntityType="PcgStorageModel.deck" Width="1.5" PointX="14.75" PointY="4.625" />
+        <AssociationConnector Association="PcgStorageModel.fk_deck_adventure_id" />
+        <AssociationConnector Association="PcgStorageModel.fk_card_cardtype_id" />
+        <AssociationConnector Association="PcgStorageModel.fk_card_deck_id" />
+        <AssociationConnector Association="PcgStorageModel.fk_characterdeck_card" />
+        <AssociationConnector Association="PcgStorageModel.fk_characterdeck_partycharacter_id" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
