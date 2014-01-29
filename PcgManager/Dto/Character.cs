@@ -37,6 +37,7 @@ namespace PcgManager.Dto
         public int HandSize { get; set; }
         public int PossibleHandSize { get; set; }
         public int? SelectedHandSize { get; set; }
+        public string FavoredCardType { get; set; }
 
         public List<Skill> Skills { get; set; }
         public List<Power> Powers { get; set; }
@@ -130,6 +131,7 @@ namespace PcgManager.Dto
                 PossibleItemCards = characterCard.PossibleItemCards;
                 PossibleAllyCards = characterCard.PossibleAllyCards;
                 PossibleBlessingCards = characterCard.PossibleBlessingCards;
+                FavoredCardType = characterCard.FavoredCardType;
 
                 var powers = DataAccess.Dto.Power.All(CharacterCardId);
                 Powers.AddRange(powers.Select(p => new Power(p, partyCharacter.Id)));

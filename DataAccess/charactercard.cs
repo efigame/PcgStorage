@@ -40,6 +40,7 @@ namespace DataAccess
         public int PossibleItemCards { get; set; }
         public int PossibleAllyCards { get; set; }
         public int PossibleBlessingCards { get; set; }
+        public string FavoredCardType { get; set; }
     
         public virtual ICollection<partycharacter> partycharacters { get; set; }
         public virtual ICollection<power> powers { get; set; }

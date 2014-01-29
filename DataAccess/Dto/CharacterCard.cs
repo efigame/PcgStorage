@@ -28,6 +28,7 @@ namespace DataAccess.Dto
         public int PossibleItemCards { get; set; }
         public int PossibleAllyCards { get; set; }
         public int PossibleBlessingCards { get; set; }
+        public string FavoredCardType { get; set; }
 
         public static CharacterCard Get(int id)
         {
@@ -91,6 +92,7 @@ namespace DataAccess.Dto
                     card.PossibleItemCards = PossibleItemCards;
                     card.PossibleAllyCards = PossibleAllyCards;
                     card.PossibleBlessingCards = PossibleBlessingCards;
+                    card.FavoredCardType = FavoredCardType;
                     data.SaveChanges();
                 }
             }
@@ -133,6 +135,7 @@ namespace DataAccess.Dto
             PossibleItemCards = card.PossibleItemCards;
             PossibleAllyCards = card.PossibleAllyCards;
             PossibleBlessingCards = card.PossibleBlessingCards;
+            FavoredCardType = card.FavoredCardType;
         }
         internal charactercard ToEntity()
         {
@@ -155,7 +158,8 @@ namespace DataAccess.Dto
                 PossibleArmorCards = this.PossibleArmorCards,
                 PossibleItemCards = this.PossibleItemCards,
                 PossibleAllyCards = this.PossibleAllyCards,
-                PossibleBlessingCards = this.PossibleBlessingCards
+                PossibleBlessingCards = this.PossibleBlessingCards,
+                FavoredCardType = this.FavoredCardType
             };
 
             return card;

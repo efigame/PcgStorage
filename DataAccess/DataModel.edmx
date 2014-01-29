@@ -28,6 +28,7 @@
           <Property Name="PossibleItemCards" Type="int" Nullable="false" />
           <Property Name="PossibleAllyCards" Type="int" Nullable="false" />
           <Property Name="PossibleBlessingCards" Type="int" Nullable="false" />
+          <Property Name="FavoredCardType" Type="varchar" MaxLength="45" Nullable="false" />
         </EntityType>
         <EntityType Name="characterpower">
           <Key>
@@ -511,6 +512,7 @@
           <Property Name="PossibleItemCards" Type="Int32" Nullable="false" />
           <Property Name="PossibleAllyCards" Type="Int32" Nullable="false" />
           <Property Name="PossibleBlessingCards" Type="Int32" Nullable="false" />
+          <Property Name="FavoredCardType" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="fk_partycharacter_charactercard">
           <End Type="PcgStorageModel.charactercard" Role="charactercard" Multiplicity="1" />
@@ -672,6 +674,7 @@
           <EntitySetMapping Name="charactercards">
             <EntityTypeMapping TypeName="PcgStorageModel.charactercard">
               <MappingFragment StoreEntitySet="charactercard">
+                <ScalarProperty Name="FavoredCardType" ColumnName="FavoredCardType" />
                 <ScalarProperty Name="PossibleBlessingCards" ColumnName="PossibleBlessingCards" />
                 <ScalarProperty Name="PossibleAllyCards" ColumnName="PossibleAllyCards" />
                 <ScalarProperty Name="PossibleItemCards" ColumnName="PossibleItemCards" />
