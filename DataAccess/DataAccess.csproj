@@ -100,6 +100,7 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Dto\CardType.cs" />
+    <Compile Include="Dto\Card.cs" />
     <Compile Include="Dto\Deck.cs" />
     <Compile Include="Dto\CharacterPower.cs" />
     <Compile Include="Dto\CharacterSkill.cs" />
