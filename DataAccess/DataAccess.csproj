@@ -99,6 +99,7 @@
     <Compile Include="deck.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Dto\CharacterDeck.cs" />
     <Compile Include="Dto\CardType.cs" />
     <Compile Include="Dto\Card.cs" />
     <Compile Include="Dto\Deck.cs" />
